@@ -1,6 +1,4 @@
-﻿using log4net;
-using LongManager.Core.DataBase;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,19 +16,13 @@ using System.Windows.Shapes;
 namespace LongManager
 {
     /// <summary>
-    /// MainWindow.xaml 的交互逻辑
+    /// LogRecord.xaml 的交互逻辑
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class LogRecord : Page
     {
-        private ILog log = LogManager.GetLogger(typeof(MainWindow));
-        private Dictionary<string, Uri> allPages = new Dictionary<string, Uri>();
-        public MainWindow()
+        public LogRecord()
         {
             InitializeComponent();
-
-            //加载所有的Page
-            allPages.Add("LogPage", new Uri("Pages/LogPage.xaml", UriKind.Relative));
-            log.Info("开始运行");
         }
     }
 }

@@ -1,22 +1,23 @@
-﻿<Window x:Class="LongManager.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:LongManager"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-        TextElement.FontWeight="Regular"
-        TextElement.FontSize="13"
-        TextOptions.TextFormattingMode="Ideal" 
-        TextOptions.TextRenderingMode="Auto"        
+﻿<Window x:Class="LongManager.MainWindow" 
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:local="clr-namespace:LongManager" mc:Ignorable="d" 
+        Title="祥龙物流管理系统" Height="450" Width="800"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}" TextElement.FontWeight="Regular" 
+        TextElement.FontSize="13" TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}">
-    <Grid>
-        <materialDesign:Card Padding="32" Margin="16">
-            <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}">My First Material Design App</TextBlock>
-        </materialDesign:Card>
-    </Grid>
+    <DockPanel  HorizontalAlignment="Left" Height="auto" LastChildFill="False" Margin="0,0,0,0" VerticalAlignment="Top" Width="auto">
+        <TreeView x:Name="MenuTree" MinWidth="220"  >
+            <TreeViewItem Header="系统功能" IsExpanded="True">
+                <TreeViewItem Header="物流设置"/>
+            </TreeViewItem>
+            <TreeViewItem Header="系统设置" IsExpanded="True">
+                <TreeViewItem Header="日志记录" />
+            </TreeViewItem>
+        </TreeView>
+        <Frame x:Name="frame" Content="Frame" Height="180" VerticalAlignment="Top" Width="320" />
+    </DockPanel>
 </Window>
