@@ -1,5 +1,5 @@
-# ImageSearch
-**.NetCore框架基于百度智能API开发的图像识别应用ImageSearch**
+# LongManager
+**祥龙物流管理系统**
 
 ## License
 **MIT**
