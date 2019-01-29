@@ -15,5 +15,6 @@ namespace LongManager.Core.DataBase
         }
 
         public DbSet<FrameConfig> FrameConfigs { get; set; }
+        public DbSet<FrameUser> FrameUsers { get; set; }
     }
 }

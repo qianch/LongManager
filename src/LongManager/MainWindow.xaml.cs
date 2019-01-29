@@ -29,7 +29,12 @@ namespace LongManager
             InitializeComponent();
 
             //加载所有的Page
-            allPages.Add("LogPage", new Uri("Pages/LogPage.xaml", UriKind.Relative));
+            allPages.Add("FrameUserPage", new Uri("Pages/FrameUserPage.xaml", UriKind.Relative));
+        }
+
+        private void FrameUserBtn_Click(object sender, RoutedEventArgs e)
+        {
+            PageFrame.NavigationService.Navigate(allPages["FrameUserPage"]);
         }
     }
 }

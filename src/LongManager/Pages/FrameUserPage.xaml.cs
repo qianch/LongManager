@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LongManager.Core.DataBase;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,11 +19,17 @@ namespace LongManager.Pages
     /// <summary>
     /// FrameUserPage.xaml 的交互逻辑
     /// </summary>
-    public partial class FrameUserPage : UserControl
+    public partial class FrameUserPage : Page
     {
+        private LongDbContext _longDBContext = new LongDbContext();
         public FrameUserPage()
         {
             InitializeComponent();
+        }
+
+        private void User_Loaded(object sender, RoutedEventArgs e)
+        {
+            UserDataGrid.ItemsSource = _longDBContext.FrameUsers.ToList();
         }
     }
 }

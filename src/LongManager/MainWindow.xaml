@@ -16,12 +16,12 @@
         </DockPanel>
         <DockPanel DockPanel.Dock="Bottom" Width="auto" Height="50" Background="#FF673AA0"></DockPanel>
         <StackPanel DockPanel.Dock="Left" Width="200" Height="auto" Background="#FF9459C5">
-            <Button Margin="10" Width="auto" Height="30" Content="导航一"></Button>
+            <Button x:Name="FrameUserBtn" Margin="10" Width="auto" Height="30" Content="用户管理" Click="FrameUserBtn_Click" ></Button>
             <Button Margin="10" Width="auto" Height="30" Content="导航一"></Button>
             <Button Margin="10" Width="auto" Height="30" Content="导航一"></Button>
         </StackPanel>
         <DockPanel DockPanel.Dock="Right" Width="auto" Height="auto">
-            <Frame Content="Page"></Frame>
+            <Frame x:Name="PageFrame"></Frame>
         </DockPanel>
     </DockPanel>
 </Window>
