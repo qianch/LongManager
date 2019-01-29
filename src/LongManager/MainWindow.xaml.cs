@@ -1,5 +1,7 @@
 ﻿using log4net;
+using LongManager.Core;
 using LongManager.Core.DataBase;
+using LongManager.Pages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,18 +25,19 @@ namespace LongManager
     public partial class MainWindow : Window
     {
         private ILog log = LogManager.GetLogger(typeof(MainWindow));
-        private Dictionary<string, Uri> allPages = new Dictionary<string, Uri>();
         public MainWindow()
         {
             InitializeComponent();
 
             //加载所有的Page
-            allPages.Add("FrameUserPage", new Uri("Pages/FrameUserPage.xaml", UriKind.Relative));
+            GlobalCache.Instance.AllPages.Add("UserList", new UserList());
+            GlobalCache.Instance.AllPages.Add("UserEdit", new UserEdit());
+            GlobalCache.Instance.Frame = PageFrame;
         }
 
         private void FrameUserBtn_Click(object sender, RoutedEventArgs e)
         {
-            PageFrame.NavigationService.Navigate(allPages["FrameUserPage"]);
+            GlobalCache.Instance.Frame.NavigationService.Navigate(GlobalCache.Instance.AllPages["UserList"]);
         }
     }
 }

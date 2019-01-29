@@ -17,6 +17,6 @@ namespace LongManager.Core.DataBase
         public string DisplayName { get; set; }
         public string Mobile { get; set; }
         public string Address { get; set; }
-        public string BirthDay { get; set; }
+        public string Birthday { get; set; }
     }
 }
