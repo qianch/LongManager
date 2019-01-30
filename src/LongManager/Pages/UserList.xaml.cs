@@ -20,9 +20,8 @@ namespace LongManager.Pages
     /// <summary>
     /// FrameUserPage.xaml 的交互逻辑
     /// </summary>
-    public partial class UserList : Page
+    public partial class UserList : BasePage
     {
-        private LongDbContext _longDBContext = new LongDbContext();
         public UserList()
         {
             InitializeComponent();
@@ -38,16 +37,9 @@ namespace LongManager.Pages
             var editButton = sender as Button;
             var pageFrame = GlobalCache.Instance.Frame;
             var userEdit = GlobalCache.Instance.AllPages["UserEdit"] as UserEdit;
-            userEdit.Key = editButton.Tag as string;
+            userEdit.ExtraData = editButton.Tag;
 
-            var window = new NavigationWindow
-            {
-                ShowsNavigationUI = false,
-                Width = 800,
-                Height = 450,
-                ShowInTaskbar = false,
-                ResizeMode = ResizeMode.NoResize
-            };
+            var window = GlobalCache.Instance.NavigationWindow;
             window.NavigationService.Navigate(userEdit);
             window.ShowDialog();
         }

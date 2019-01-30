@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LongManager.Core.DataBase;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,13 +19,18 @@ namespace LongManager.Pages
     /// <summary>
     /// UserEdit.xaml 的交互逻辑
     /// </summary>
-    public partial class UserEdit : Page
+    public partial class UserEdit : BasePage
     {
         public UserEdit()
         {
             InitializeComponent();
         }
 
-        public string Key { get; set; }
+        private void UserEdit_Loaded(object sender, RoutedEventArgs e)
+        {
+            var key = ExtraData as string;
+            FrameUser frameUser = _longDBContext.FrameUsers.Where(x => x.RowGuid == key).FirstOrDefault();
+            DataContext = frameUser;
+        }
     }
 }

@@ -1,14 +1,24 @@
-﻿<Page x:Class="LongManager.Pages.UserEdit"
+﻿<local:BasePage x:Class="LongManager.Pages.UserEdit"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:LongManager.Pages"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="UserEdit">
-
-    <Grid>
-        
+      Title="UserEdit" Loaded="UserEdit_Loaded">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0">
+            <TextBox
+                x:Name="NameTextBox" materialDesign:HintAssist.Hint="Name">
+                <TextBox.Text>
+                    <Binding Path="UserName"></Binding>
+                </TextBox.Text>
+            </TextBox>
+        </StackPanel>
     </Grid>
-</Page>
+</local:BasePage>
