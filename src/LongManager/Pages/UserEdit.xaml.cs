@@ -1,4 +1,5 @@
-﻿using LongManager.Core.DataBase;
+﻿using LongManager.Core;
+using LongManager.Core.DataBase;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,6 +32,12 @@ namespace LongManager.Pages
             var key = ExtraData as string;
             FrameUser frameUser = _longDBContext.FrameUsers.Where(x => x.RowGuid == key).FirstOrDefault();
             DataContext = frameUser;
+        }
+
+        private void SaveBtn_Click(object sender, RoutedEventArgs e)
+        {
+            _longDBContext.FrameUsers.Update(DataContext as FrameUser);
+            _longDBContext.SaveChanges();
         }
     }
 }

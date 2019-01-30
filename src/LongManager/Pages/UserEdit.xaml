@@ -11,14 +11,32 @@
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0">
-            <TextBox
-                x:Name="NameTextBox" materialDesign:HintAssist.Hint="Name">
-                <TextBox.Text>
-                    <Binding Path="UserName"></Binding>
-                </TextBox.Text>
-            </TextBox>
+            <WrapPanel Margin="10">
+                <TextBlock Text="用户名称：" Width="100"></TextBlock>
+                <TextBlock Text="{Binding UserName}" Width="100"></TextBlock>
+            </WrapPanel>
+            <WrapPanel Margin="10">
+                <TextBlock Text="手机号码：" Width="100"></TextBlock>
+                <TextBox x:Name="MobileTextBox" materialDesign:HintAssist.Hint="手机号码">
+                    <TextBox.Text>
+                        <Binding Path="Mobile"></Binding>
+                    </TextBox.Text>
+                </TextBox>
+            </WrapPanel>
+            <WrapPanel Margin="10">
+                <TextBlock Text="常用地址：" Width="100"></TextBlock>
+                <TextBox x:Name="AddressTextBox" materialDesign:HintAssist.Hint="常用地址">
+                    <TextBox.Text>
+                        <Binding Path="Address"></Binding>
+                    </TextBox.Text>
+                </TextBox>
+            </WrapPanel>
+        </StackPanel>
+        <StackPanel Grid.Row="1">
+            <Button x:Name="SaveBtn" Content="保存" Click="SaveBtn_Click"></Button>
         </StackPanel>
     </Grid>
 </local:BasePage>

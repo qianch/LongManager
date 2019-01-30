@@ -3,18 +3,18 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:local="clr-namespace:LongManager" mc:Ignorable="d" 
-        Title="物流管理系统" Height="450" Width="800"
-        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Title="管理系统" Height="450" Width="800"
+        TextElement.Foreground="White"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal" 
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{StaticResource MaterialDesignFont}"
-        Icon="favicon.ico">
+        Icon="Images/favicon.ico">
     <DockPanel  LastChildFill="True" Margin="0">
-        <DockPanel DockPanel.Dock="Top" Width="auto" Height="50" Background="#FF673AB7">
-            <TextBlock Style="{StaticResource MaterialDesignDisplay1TextBlock}">物流管理系统</TextBlock>
+        <DockPanel DockPanel.Dock="Top" Width="auto" Height="80" Background="#FF673AB7">
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource MaterialDesignDisplay1TextBlock}">管理系统</TextBlock>
         </DockPanel>
         <DockPanel DockPanel.Dock="Bottom" Width="auto" Height="50" Background="#FF673AA0"></DockPanel>
         <StackPanel DockPanel.Dock="Left" Width="200" Height="auto" Background="#FF9459C5">
@@ -23,7 +23,7 @@
             <Button Margin="10" Width="auto" Height="30" Content="导航一"></Button>
         </StackPanel>
         <DockPanel DockPanel.Dock="Right" Width="auto" Height="auto">
-            <Frame x:Name="PageFrame"></Frame>
+            <Frame x:Name="PageFrame" NavigationUIVisibility="Hidden"></Frame>
         </DockPanel>
     </DockPanel>
 </Window>

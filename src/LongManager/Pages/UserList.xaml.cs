@@ -39,9 +39,32 @@ namespace LongManager.Pages
             var userEdit = GlobalCache.Instance.AllPages["UserEdit"] as UserEdit;
             userEdit.ExtraData = editButton.Tag;
 
-            var window = GlobalCache.Instance.NavigationWindow;
+            var window = new NavigationWindow
+            {
+                ShowsNavigationUI = false,
+                Width = 800,
+                Height = 450,
+                ShowInTaskbar = false,
+                ResizeMode = ResizeMode.NoResize,
+                WindowStartupLocation = WindowStartupLocation.CenterScreen,
+            };
+            window.Icon = new BitmapImage(new Uri("Images/favicon.ico", UriKind.Relative));
             window.NavigationService.Navigate(userEdit);
             window.ShowDialog();
+        }
+
+        private void SearchBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(TxtUserName.Text))
+            {
+                UserDataGrid.ItemsSource = _longDBContext.FrameUsers
+                    .Where(x => x.UserName.Contains(TxtUserName.Text))
+                    .ToList();
+            }
+            else
+            {
+                UserDataGrid.ItemsSource = _longDBContext.FrameUsers.ToList();
+            }
         }
     }
 }

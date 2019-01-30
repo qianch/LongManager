@@ -16,13 +16,14 @@
             <RowDefinition Height="50"></RowDefinition>
         </Grid.RowDefinitions>
         <WrapPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left">
-            <Button Content="搜索"></Button>
+            <TextBox x:Name="TxtUserName" materialDesign:HintAssist.Hint="用户名称" Width="200" Margin="10"></TextBox>
+            <Button x:Name="SearchBtn" Content="搜索" Click="SearchBtn_Click"></Button>
         </WrapPanel>
-        <DataGrid x:Name="UserDataGrid" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" AutoGenerateColumns="False"
+        <DataGrid x:Name="UserDataGrid" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Top"  AutoGenerateColumns="False"
                    CanUserAddRows="False" CanUserDeleteRows="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding UserName}" Header="登录名"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding DisplayName}" Header="用户显示名称"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding DisplayName}" Header="用户名称"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding Birthday}" Header="出生日期"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding Mobile}" Header="手机号码"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding Address}" Header="常用地址"></DataGridTextColumn>
@@ -30,7 +31,7 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Button x:Name="EditBtn" Tag="{Binding RowGuid}" Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
-                                    ToolTip="MaterialDesignFloatingActionMiniLightButton" Click="EditBtn_Click">
+                                    ToolTip="修改" Click="EditBtn_Click" >
                                 <materialDesign:PackIcon Kind="Edit" Height="24" Width="24"/>
                             </Button>
                         </DataTemplate>
