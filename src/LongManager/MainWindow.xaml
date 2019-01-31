@@ -1,8 +1,10 @@
-﻿<Window x:Class="LongManager.MainWindow" 
+﻿<pages:BaseWindow
+        x:Class="LongManager.MainWindow" 
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:local="clr-namespace:LongManager" mc:Ignorable="d" 
+        xmlns:pages="clr-namespace:LongManager.Pages"
         Title="管理系统" Height="450" Width="800"
         TextElement.Foreground="White"
         TextElement.FontWeight="Regular"
@@ -13,17 +15,23 @@
         FontFamily="{StaticResource MaterialDesignFont}"
         Icon="Images/favicon.ico">
     <DockPanel  LastChildFill="True" Margin="0">
-        <DockPanel DockPanel.Dock="Top" Width="auto" Height="80" Background="#FF673AB7">
+        <DockPanel DockPanel.Dock="Top" Width="auto" Height="50" Background="#FF673AB7">
             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource MaterialDesignDisplay1TextBlock}">管理系统</TextBlock>
         </DockPanel>
-        <DockPanel DockPanel.Dock="Bottom" Width="auto" Height="50" Background="#FF673AA0"></DockPanel>
+        <DockPanel DockPanel.Dock="Bottom" Width="auto" Height="40" Background="LightGray">
+            <WrapPanel VerticalAlignment="Center">
+                <TextBlock Foreground="Black" Text="系统时间："></TextBlock>
+                <TextBlock Foreground="Black" x:Name="TxtDate"/>
+            </WrapPanel>
+        </DockPanel>
         <StackPanel DockPanel.Dock="Left" Width="200" Height="auto" Background="#FF9459C5">
             <Button x:Name="FrameUserBtn" Margin="10" Width="auto" Height="30" Content="用户管理" Click="FrameUserBtn_Click" ></Button>
-            <Button Margin="10" Width="auto" Height="30" Content="导航一"></Button>
-            <Button Margin="10" Width="auto" Height="30" Content="导航一"></Button>
+            <Button x:Name="CarBtn" Margin="10" Width="auto" Height="30" Content="车辆管理" Click="CarBtn_Click"></Button>
+            <Button x:Name="LogBtn" Margin="10" Width="auto" Height="30" Content="日志管理" Click="LogBtn_Click"></Button>
+            <Button x:Name="SystemBtn" Margin="10" Width="auto" Height="30" Content="系统设置" Click="SystemBtn_Click"></Button>
         </StackPanel>
         <DockPanel DockPanel.Dock="Right" Width="auto" Height="auto">
             <Frame x:Name="PageFrame" NavigationUIVisibility="Hidden"></Frame>
         </DockPanel>
     </DockPanel>
-</Window>
+</pages:BaseWindow>
