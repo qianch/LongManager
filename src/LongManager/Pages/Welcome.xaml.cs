@@ -24,5 +24,10 @@ namespace LongManager.Pages
         {
             InitializeComponent();
         }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            Browser.Address = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Htmls", "map.html");
+        }
     }
 }
