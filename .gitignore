@@ -1,4 +1,4 @@
-.gitignore  
+﻿.gitignore  
 *.rar 
 *.pdb
 packages/
