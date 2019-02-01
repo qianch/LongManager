@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html style="height: 100%">
+<head>
+    <meta charset="utf-8">
+</head>
+<body style="height: 100%; margin: 0">
+    <div>
+        <button onclick="refresh()">刷新</button>
+        <button onclick="jsObject.showMsg('ABC')">borwser调用wpf中注册的方法</button>
+    </div>
+    <script type="text/javascript" src="../Content/js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="../Content/js/layer/layer.js"></script>
+    <script type="text/javascript">
+        function refresh() {
+            layer.alert("刷新成功", { icon: 0 });
+            window.location.reload();
+        }
+
+        function browserAlert(msg) {
+            layer.alert("调用无返回值" + msg, { icon: 1 });
+        }
+
+        function browserAlertReturn(msg) {
+            layer.alert("调用有返回值" + msg, { icon: 2 });
+            return "I get";
+        }
+    </script>
+</body>
+</html>

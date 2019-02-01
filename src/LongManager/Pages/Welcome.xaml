@@ -13,11 +13,12 @@
             <RowDefinition Height="50" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0" Margin="24 0 0 0" VerticalAlignment="Center">
-            <TextBlock Style="{StaticResource MaterialDesignDisplay1TextBlock}" TextWrapping="Wrap">欢迎使用</TextBlock>
-        </StackPanel>
+        <WrapPanel Grid.Row="0" Margin="24 0 0 0" VerticalAlignment="Center">
+            <Button x:Name="CallBrowser" Margin="10" Content="wpf调用browser中的方法无返回值"  Click="CallBrowser_Click"></Button>
+            <Button x:Name="CallBrowserGet" Margin="10" Content="wpf调用browser中的方法有返回值" Click="CallBrowserGet_Click"></Button>
+        </WrapPanel>
         <DockPanel Grid.Row="1">
-            <wpf:ChromiumWebBrowser Grid.Column="1" x:Name="Browser"></wpf:ChromiumWebBrowser>
+            <wpf:ChromiumWebBrowser x:Name="Browser"></wpf:ChromiumWebBrowser>
         </DockPanel>
     </Grid>
 </local:BasePage>

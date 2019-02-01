@@ -120,6 +120,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ModelBinding\MethodInterceptorLogger.cs" />
     <Compile Include="Pages\BasePage.cs" />
     <Compile Include="Pages\BaseWindow.cs" />
     <Compile Include="Pages\CarList.xaml.cs">
@@ -348,13 +349,40 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Htmls\map.html">
+    <Content Include="Htmls\Content\js\jquery-3.3.1.min.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Htmls\Content\js\layer\theme\default\icon-ext.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Htmls\Content\js\layer\theme\default\icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Htmls\Content\js\layer\layer.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Htmls\Content\js\layer\theme\default\layer.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Htmls\Content\js\layer\theme\default\loading-0.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Htmls\Content\js\layer\theme\default\loading-1.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Htmls\Content\js\layer\theme\default\loading-2.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Htmls\pages\map.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\favicon.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Htmls\Content\css\" />
+    <Folder Include="Htmls\Content\img\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
