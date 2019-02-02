@@ -62,7 +62,7 @@ namespace LongManager.Pages
         public string name = "";
         public void showMsg(string msg)
         {
-            MessageBox.Show(msg);
+            MessageBox.Show(msg, "提示", MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 }

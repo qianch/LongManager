@@ -32,6 +32,9 @@ namespace LongManager
         {
             InitializeComponent();
 
+            //最大化
+            WindowState = WindowState.Maximized;
+
             //加载所有的Page
             GlobalCache.Instance.AllPages.Add("Welcome", new Welcome());
             GlobalCache.Instance.AllPages.Add("UserList", new UserList());
@@ -53,6 +56,23 @@ namespace LongManager
             _showTimer.Start();
         }
 
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            //加载登录页面
+            var login = new Login
+            {
+                ResizeMode = ResizeMode.NoResize,
+                WindowStartupLocation = WindowStartupLocation.CenterScreen,
+                ShowInTaskbar = false
+            };
+
+            login.ShowDialog();
+            if (login.DialogResult == false)
+            {
+                Application.Current.Shutdown();
+            }
+        }
+
         //button 关联 custom command
         private void CustomCommandBinding(object sender, ExecutedRoutedEventArgs e)
         {
@@ -63,7 +83,7 @@ namespace LongManager
         public void GetTimer(object sender, EventArgs e)
         {
             var date = DateTime.Now;
-            TxtDate.Text = date.ToString("dddd", new System.Globalization.CultureInfo("zh-cn")) + date.ToString("yyyy年MM月dd日 HH:mm:ss");
+            TxtDate.Text = date.ToString("yyyy年MM月dd日 HH:mm:ss  ") + date.ToString("dddd", new System.Globalization.CultureInfo("zh-cn"));
         }
     }
 }

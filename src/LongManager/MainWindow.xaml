@@ -14,14 +14,15 @@
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{StaticResource MaterialDesignFont}"
-        Icon="Images/favicon.ico">
+        Icon="Images/favicon.ico"
+        Loaded="MainWindow_Loaded">
     <DockPanel  LastChildFill="True" Margin="0">
         <DockPanel DockPanel.Dock="Top" Width="auto" Height="50" Background="#FF673AB7">
             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource MaterialDesignDisplay1TextBlock}">管理系统</TextBlock>
         </DockPanel>
         <DockPanel DockPanel.Dock="Bottom" Width="auto" Height="40" Background="LightGray">
             <WrapPanel VerticalAlignment="Center">
-                <TextBlock Foreground="Black" Text="系统时间："></TextBlock>
+                <TextBlock Foreground="Black" Margin="20 0 0 0" Text="系统时间："></TextBlock>
                 <TextBlock Foreground="Black" x:Name="TxtDate"/>
             </WrapPanel>
         </DockPanel>

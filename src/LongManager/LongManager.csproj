@@ -99,6 +99,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\Login.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\LogList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -126,6 +130,9 @@
     <Compile Include="Pages\BaseWindow.cs" />
     <Compile Include="Pages\CarList.xaml.cs">
       <DependentUpon>CarList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Login.xaml.cs">
+      <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\LogList.xaml.cs">
       <DependentUpon>LogList.xaml</DependentUpon>
