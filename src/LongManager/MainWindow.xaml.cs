@@ -1,4 +1,5 @@
 ﻿using log4net;
+using LongManager.Controls;
 using LongManager.Core;
 using LongManager.Core.DataBase;
 using LongManager.Pages;
@@ -40,6 +41,9 @@ namespace LongManager
             GlobalCache.Instance.AllPages.Add("SystemConfig", new SystemConfig());
             GlobalCache.Instance.Frame = PageFrame;
 
+            //绑定自定义命令
+            CommandBindings.Add(new CommandBinding(LongManagerCommands.CustomCommand, CustomCommandBinding));
+
             //默认加载欢迎页面
             PageFrame.NavigationService.Navigate(GlobalCache.Instance.AllPages["Welcome"]);
 
@@ -49,24 +53,11 @@ namespace LongManager
             _showTimer.Start();
         }
 
-        private void FrameUserBtn_Click(object sender, RoutedEventArgs e)
+        //button 关联 custom command
+        private void CustomCommandBinding(object sender, ExecutedRoutedEventArgs e)
         {
-            GlobalCache.Instance.Frame.NavigationService.Navigate(GlobalCache.Instance.AllPages["UserList"]);
-        }
-
-        private void CarBtn_Click(object sender, RoutedEventArgs e)
-        {
-            GlobalCache.Instance.Frame.NavigationService.Navigate(GlobalCache.Instance.AllPages["CarList"]);
-        }
-
-        private void LogBtn_Click(object sender, RoutedEventArgs e)
-        {
-            GlobalCache.Instance.Frame.NavigationService.Navigate(GlobalCache.Instance.AllPages["LogList"]);
-        }
-
-        private void SystemBtn_Click(object sender, RoutedEventArgs e)
-        {
-            GlobalCache.Instance.Frame.NavigationService.Navigate(GlobalCache.Instance.AllPages["SystemConfig"]);
+            var param = e.Parameter.ToString();
+            GlobalCache.Instance.Frame.NavigationService.Navigate(GlobalCache.Instance.AllPages[param]);
         }
 
         public void GetTimer(object sender, EventArgs e)

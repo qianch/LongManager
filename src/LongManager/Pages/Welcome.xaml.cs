@@ -32,14 +32,14 @@ namespace LongManager.Pages
             var bindingOptions = new BindingOptions()
             {
                 Binder = BindingOptions.DefaultBinder.Binder,
-                // MethodInterceptor = new MethodInterceptorLogger()
+                MethodInterceptor = new MethodInterceptorLogger()
             };
             Browser.RegisterAsyncJsObject("jsObject", new CallbackObjectForJs(), bindingOptions);
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            Browser.Address = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Htmls/pages/map.html");
+            Browser.Address = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Htmls/pages/welcome.html");
         }
 
         private void CallBrowser_Click(object sender, RoutedEventArgs e)
