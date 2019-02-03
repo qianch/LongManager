@@ -17,12 +17,12 @@
         <WrapPanel Grid.Row="0" Margin="50 10 0 0">
             <TextBlock Text="账号："></TextBlock>
             <materialDesign:PackIcon Kind="Account" />
-            <TextBox x:Name="TxtUserName" Width="200" Text="{Binding UserName}"></TextBox>
+            <TextBox x:Name="TxtUserName" Margin="20 0 0 0" Width="200" Text="{Binding UserName}"></TextBox>
         </WrapPanel>
         <WrapPanel Grid.Row="1" Margin="50 10 0 0">
             <TextBlock Text="密码 ："></TextBlock>
-            <materialDesign:PackIcon Kind="PasswordReset" />
-            <PasswordBox x:Name="TxtPassword" Width="200" />
+            <materialDesign:PackIcon Kind="TextboxPassword" />
+            <PasswordBox x:Name="TxtPassword" Margin="20 0 0 0" Width="200" />
         </WrapPanel>
         <WrapPanel Grid.Row="2" Margin="50 0 0 0">
             <Button x:Name="InBtn" Margin="50 0 0 0" Content="登录" Click="InBtn_Click"></Button>

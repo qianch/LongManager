@@ -66,10 +66,17 @@ namespace LongManager
                 ShowInTaskbar = false
             };
 
+            //设置MainWindow透明度模拟蒙版效果
+            Opacity = 0.3;
             login.ShowDialog();
             if (login.DialogResult == false)
             {
                 Application.Current.Shutdown();
+            }
+            else
+            {
+                //登录成功恢复透明度
+                Opacity = 1;
             }
         }
 
