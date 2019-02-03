@@ -1,4 +1,5 @@
-﻿using LongManager.Core.DataBase;
+﻿using LongManager.Core;
+using LongManager.Core.DataBase;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,6 +49,7 @@ namespace LongManager.Pages
             if (count == 1)
             {
                 DialogResult = true;
+                GlobalCache.Instance.FrameUser = _longDBContext.FrameUsers.Where(x => x.UserName == _frameUser.UserName && x.Password == _frameUser.Password).FirstOrDefault();
                 MessageBox.Show("登录成功", "提示", MessageBoxButton.OK, MessageBoxImage.Asterisk);
             }
             else

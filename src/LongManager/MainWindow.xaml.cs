@@ -68,14 +68,14 @@ namespace LongManager
 
             //设置MainWindow透明度模拟蒙版效果
             Opacity = 0.3;
-            login.ShowDialog();
-            if (login.DialogResult == false)
+            if (login.ShowDialog() == false)
             {
                 Application.Current.Shutdown();
             }
             else
             {
                 //登录成功恢复透明度
+                SystemPanel.DataContext = GlobalCache.Instance.FrameUser;
                 Opacity = 1;
             }
         }
