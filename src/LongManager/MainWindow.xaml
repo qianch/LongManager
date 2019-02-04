@@ -23,12 +23,12 @@
         </DockPanel>
         <DockPanel DockPanel.Dock="Bottom" Width="auto" Height="40" Background="LightGray">
             <WrapPanel x:Name="SystemPanel" VerticalAlignment="Center">
-                <TextBlock Foreground="Black" Margin="0 0 0 20" Text="系统时间："></TextBlock>
-                <TextBlock Foreground="Black" Margin="0 0 0 20" x:Name="TxtDate"/>
-                <TextBlock Foreground="Black" Margin="20 0 0 20" Text="当前登录用户账号："></TextBlock>
-                <TextBlock Foreground="Black" Margin="0 0 0 20" Text="{Binding UserName}"></TextBlock>
-                <TextBlock Foreground="Black" Margin="20 0 0 20" Text="用户名称："></TextBlock>
-                <TextBlock Foreground="Black" Margin="0 0 0 20" Text="{Binding DisplayName}"></TextBlock>
+                <TextBlock Foreground="Black" Margin="20 0 0 0" Text="系统时间："></TextBlock>
+                <TextBlock Foreground="Black" x:Name="TxtDate"/>
+                <TextBlock Foreground="Black" Margin="20 0 0 0" Text="当前登录用户账号："></TextBlock>
+                <TextBlock Foreground="Black" Text="{Binding UserName}"></TextBlock>
+                <TextBlock Foreground="Black" Margin="20 0 0 0" Text="用户名称："></TextBlock>
+                <TextBlock Foreground="Black" Text="{Binding DisplayName}"></TextBlock>
             </WrapPanel>
         </DockPanel>
         <StackPanel DockPanel.Dock="Left" Width="200" Height="auto" Background="#FF9459C5">
