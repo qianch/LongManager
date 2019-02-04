@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:LongManager.Pages"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="" Height="200" Width="400"
+        Title="登录" Height="200" Width="400"
         Icon="../Images/favicon.ico">
     <Grid>
         <Grid.RowDefinitions>

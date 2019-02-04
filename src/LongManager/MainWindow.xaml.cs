@@ -62,8 +62,7 @@ namespace LongManager
             var login = new Login
             {
                 ResizeMode = ResizeMode.NoResize,
-                WindowStartupLocation = WindowStartupLocation.CenterScreen,
-                ShowInTaskbar = false
+                WindowStartupLocation = WindowStartupLocation.CenterScreen
             };
 
             //设置MainWindow透明度模拟蒙版效果
