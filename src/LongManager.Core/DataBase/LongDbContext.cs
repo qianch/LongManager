@@ -8,7 +8,7 @@ namespace LongManager.Core.DataBase
 {
     public class LongDbContext : DbContext
     {
-        private static readonly string frameConnection = $"Data Source={Path.Combine(new[] { AppDomain.CurrentDomain.BaseDirectory, "DB", "Long.db" })};";
+        private static readonly string frameConnection = $"Data Source={Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "DB/Long.db")};";
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlite(frameConnection);
