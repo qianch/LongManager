@@ -13,5 +13,6 @@ namespace LongManager.Pages
     {
         protected ILog _log = LogManager.GetLogger("Window");
         protected LongDbContext _longDBContext = new LongDbContext();
+        public object ExtraData { get; set; }
     }
 }

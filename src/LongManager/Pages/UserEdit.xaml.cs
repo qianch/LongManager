@@ -1,5 +1,4 @@
-﻿using LongManager.Core;
-using LongManager.Core.DataBase;
+﻿using LongManager.Core.DataBase;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,15 +11,14 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace LongManager.Pages
 {
     /// <summary>
-    /// UserEdit.xaml 的交互逻辑
+    /// UserEdit1.xaml 的交互逻辑
     /// </summary>
-    public partial class UserEdit : BasePage
+    public partial class UserEdit : BaseWindow
     {
         public UserEdit()
         {

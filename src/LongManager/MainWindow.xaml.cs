@@ -38,7 +38,6 @@ namespace LongManager
             //加载所有的Page
             GlobalCache.Instance.AllPages.Add("Welcome", new Welcome());
             GlobalCache.Instance.AllPages.Add("UserList", new UserList());
-            GlobalCache.Instance.AllPages.Add("UserEdit", new UserEdit());
             GlobalCache.Instance.AllPages.Add("LogList", new LogList());
             GlobalCache.Instance.AllPages.Add("CarList", new CarList());
             GlobalCache.Instance.AllPages.Add("SystemConfig", new SystemConfig());

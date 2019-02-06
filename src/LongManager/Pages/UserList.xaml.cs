@@ -35,21 +35,16 @@ namespace LongManager.Pages
         private void EditBtn_Click(object sender, RoutedEventArgs e)
         {
             var editButton = sender as Button;
-            var pageFrame = GlobalCache.Instance.Frame;
-            var userEdit = GlobalCache.Instance.AllPages["UserEdit"] as UserEdit;
-            userEdit.ExtraData = editButton.Tag;
-
-            var window = new NavigationWindow
+            var window = new UserEdit
             {
-                ShowsNavigationUI = false,
                 Width = 800,
                 Height = 450,
                 ShowInTaskbar = false,
                 ResizeMode = ResizeMode.NoResize,
                 WindowStartupLocation = WindowStartupLocation.CenterScreen,
+                ExtraData = editButton.Tag,
+                Icon = new BitmapImage(new Uri("Images/favicon.ico", UriKind.Relative))
             };
-            window.Icon = new BitmapImage(new Uri("Images/favicon.ico", UriKind.Relative));
-            window.NavigationService.Navigate(userEdit);
             window.ShowDialog();
         }
 
