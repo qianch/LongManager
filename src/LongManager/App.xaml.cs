@@ -1,9 +1,11 @@
 ﻿using log4net;
+using LongManager.Port;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Diagnostics;
+using System.IO.Ports;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
@@ -24,6 +26,12 @@ namespace LongManager
             if (ExistRunningInstance())
             {
                 Shutdown();
+            }
+            //监听com端口
+            string[] portNames = SerialPort.GetPortNames();
+            foreach (var portName in portNames)
+            {
+                new LongSerialPort(portName);
             }
         }
 
