@@ -1,4 +1,5 @@
 ﻿using log4net;
+using LongManager.Core;
 using LongManager.Port;
 using System;
 using System.Collections.Generic;
@@ -27,11 +28,12 @@ namespace LongManager
             {
                 Shutdown();
             }
+
             //监听com端口
             string[] portNames = SerialPort.GetPortNames();
             foreach (var portName in portNames)
             {
-                new LongSerialPort(portName);
+                GlobalCache.Instance.LongSerialPort = new LongSerialPort(portName);
             }
         }
 

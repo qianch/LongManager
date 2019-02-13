@@ -12,6 +12,7 @@ namespace LongManager.Port
     {
         private static readonly ILog _log = LogManager.GetLogger(typeof(LongSerialPort));
         public SerialPort _serialPort = new SerialPort();
+
         public LongSerialPort(string portName)
         {
             _serialPort.BaudRate = 9600;
@@ -37,13 +38,33 @@ namespace LongManager.Port
         //接收数据
         private void DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
-            _log.Info("SerialPort接收到数据");
+            var length = _serialPort.BytesToRead;
+            var buffer = new byte[length];
+            _serialPort.Read(buffer, 0, length);
+            var data = new StringBuilder();
+            foreach (var b in buffer)
+            {
+                data.Append(b.ToString("X2"));
+                data.Append(" ");
+            }
+            _serialPort.DiscardInBuffer();
+            _log.Info("SerialPort接收到数据" + data.ToString().Trim());
         }
 
         //发送数据
-        public void SendData()
+        public void SendData(string data)
         {
-            _log.Info("SerialPort发送数据");
+            var array = data.Split(' ');
+            var buffer = new byte[16];
+            var sum = 0;
+            for (int i = 0; i < array.Length; i++)
+            {
+                buffer[i] = Convert.ToByte(array[i], 16);
+                sum += buffer[i];
+            }
+            buffer[15] = Convert.ToByte(sum % 256);
+            _serialPort.Write(buffer, 0, buffer.Length);
+            _log.Info("SerialPort发送数据" + data);
         }
     }
 }

@@ -1,9 +1,9 @@
 24V+		HV
 24V-		GND
-直流电机		K2+、K2-
+直流电机	K2+、K2-
 
-读标签号		H1、GND
+读标签号	H1、GND
 读小车车号	H2、GND
 
-无线模块		3.3V、JRx、JTx、GND
+无线模块	3.3V、JRx、JTx、GND
 读卡器		J2

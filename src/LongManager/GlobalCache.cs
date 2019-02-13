@@ -1,4 +1,5 @@
 ﻿using LongManager.Core.DataBase;
+using LongManager.Port;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -15,5 +16,6 @@ namespace LongManager.Core
         public Dictionary<string, Page> AllPages { get; } = new Dictionary<string, Page>();
         public Frame Frame { get; set; } = new Frame();
         public FrameUser FrameUser { get; set; } = new FrameUser();
+        public LongSerialPort LongSerialPort { get; set; }
     }
 }

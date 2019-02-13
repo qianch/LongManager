@@ -35,14 +35,7 @@ namespace LongManager.Core.DataBase
         public string RowGuid
         {
             get { return _rowGuid; }
-            set
-            {
-                if (value != RowGuid)
-                {
-                    _rowGuid = value;
-                    Notify("RowGuid");
-                }
-            }
+            set { _rowGuid = value; }
         }
 
         public string UserName

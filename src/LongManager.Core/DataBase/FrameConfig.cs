@@ -11,6 +11,7 @@ namespace LongManager.Core.DataBase
     {
         [Key]
         public int ID { get; set; }
+        public string RowGuid { get; set; }
         public string ConfigName { get; set; }
         public string ConfigValue { get; set; }
     }
