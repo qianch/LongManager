@@ -2,13 +2,13 @@
 
 1,登记车号：
 小车：FE 01 XX XX XX XX XX XX XX CRC
-PC:     FE 01 XX XX XX XX XX XX XX CRC
+PC:   FE 01 XX XX XX XX XX XX XX CRC
 
 小车车号为 7字节唯一序列号
 
 
 2，发送物流信息
-PC:     FE 02 XX XX XX XX XX XX XX YY YY YY YY T1 T2 CRC
+PC:   FE 02 XX XX XX XX XX XX XX YY YY YY YY T1 T2 CRC
 小车：FE 02 01 CRC  收到信息成功
 小车：FE 02 02 CRC  失败（比如车上的货没有能放掉）
 
