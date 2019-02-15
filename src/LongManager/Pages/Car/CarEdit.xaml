@@ -1,0 +1,31 @@
+﻿<pages:BaseWindow
+        x:Class="LongManager.Pages.Car.CarEdit"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:pages="clr-namespace:LongManager.Pages"
+        xmlns:local="clr-namespace:LongManager.Pages.Car"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="CarEdit" Height="450" Width="800" Loaded="CarEdit_Loaded">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0">
+            <WrapPanel Margin="10">
+                <TextBlock Text="车辆编号：" Width="100"></TextBlock>
+                <TextBlock Text="{Binding CarNO}" Width="100"></TextBlock>
+            </WrapPanel>
+            <WrapPanel Margin="10">
+                <TextBlock Text="标签编号：" Width="100"></TextBlock>
+                <ComboBox x:Name="LabelCBox" materialDesign:HintAssist.Hint="选择关联标签" IsEditable="True" materialDesign:HintAssist.HintOpacity=".26"></ComboBox>
+            </WrapPanel>
+        </StackPanel>
+        <StackPanel Grid.Row="1">
+            <Button x:Name="SendBtn" Content="发送" Click="SendBtn_Click"></Button>
+        </StackPanel>
+    </Grid>
+</pages:BaseWindow>

@@ -28,7 +28,7 @@ namespace LongManager.Pages.User
         private void UserEdit_Loaded(object sender, RoutedEventArgs e)
         {
             var key = ExtraData as string;
-            FrameUser frameUser = _longDBContext.FrameUsers.Where(x => x.RowGuid == key).FirstOrDefault();
+            var frameUser = _longDBContext.FrameUsers.Where(x => x.RowGuid == key).FirstOrDefault();
             DataContext = frameUser;
         }
 
