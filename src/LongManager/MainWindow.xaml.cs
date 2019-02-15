@@ -40,6 +40,7 @@ namespace LongManager
             GlobalCache.Instance.AllPages.Add("UserList", new UserList());
             GlobalCache.Instance.AllPages.Add("LogList", new LogList());
             GlobalCache.Instance.AllPages.Add("CarList", new CarList());
+            GlobalCache.Instance.AllPages.Add("LabelList", new LabelList());
             GlobalCache.Instance.AllPages.Add("SystemConfig", new SystemConfig());
             GlobalCache.Instance.Frame = PageFrame;
 

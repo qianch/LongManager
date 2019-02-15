@@ -8,35 +8,14 @@ using System.Text;
 namespace LongManager.Core.DataBase
 {
     [Table("FrameUser")]
-    public class FrameUser : INotifyPropertyChanged
+    public class FrameUser : BaseEntity
     {
-        private int _id;
-        private string _rowGuid;
         private string _userName;
         private string _password;
         private string _displayName;
         private string _mobile;
         private string _address;
         private string _birthday;
-        [Key]
-        public int ID
-        {
-            get { return _id; }
-            set
-            {
-                if (value != _id)
-                {
-                    _id = value;
-                    Notify("ID");
-                }
-            }
-        }
-
-        public string RowGuid
-        {
-            get { return _rowGuid; }
-            set { _rowGuid = value; }
-        }
 
         public string UserName
         {
@@ -114,13 +93,6 @@ namespace LongManager.Core.DataBase
                     Notify("Birthday");
                 }
             }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void Notify(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

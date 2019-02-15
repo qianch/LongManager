@@ -37,13 +37,7 @@ namespace LongManager.Pages
             var editButton = sender as Button;
             var window = new UserEdit
             {
-                Width = 800,
-                Height = 450,
-                ShowInTaskbar = false,
-                ResizeMode = ResizeMode.NoResize,
-                WindowStartupLocation = WindowStartupLocation.CenterScreen,
                 ExtraData = editButton.Tag,
-                Icon = new BitmapImage(new Uri("Images/favicon.ico", UriKind.Relative))
             };
             window.ShowDialog();
         }

@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace LongManager.Pages
 {
     /// <summary>
-    /// CarList.xaml 的交互逻辑
+    /// LabelList.xaml 的交互逻辑
     /// </summary>
-    public partial class CarList : BasePage
+    public partial class LabelList : Page
     {
-        public CarList()
+        public LabelList()
         {
             InitializeComponent();
         }

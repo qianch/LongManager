@@ -67,7 +67,7 @@ namespace LongManager.Port
                 switch (flag)
                 {
                     case "01": //登记车号
-
+                        HandleCarNO(data);
                         break;
                     case "02"://发送电机与标签的关联信息返回结果
                         break;

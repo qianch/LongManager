@@ -7,11 +7,8 @@ using System.Text;
 namespace LongManager.Core.DataBase
 {
     [Table("CarBasicInfo")]
-    public class CarBasicInfo
+    public class CarBasicInfo : BaseEntity
     {
-        [Key]
-        public int ID { get; set; }
-        public string RowGuid { get; set; }
         public string CarNO { get; set; }
     }
 }

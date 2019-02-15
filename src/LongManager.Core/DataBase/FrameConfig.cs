@@ -7,11 +7,8 @@ using System.Text;
 namespace LongManager.Core.DataBase
 {
     [Table("FrameConfig")]
-    public class FrameConfig
+    public class FrameConfig : BaseEntity
     {
-        [Key]
-        public int ID { get; set; }
-        public string RowGuid { get; set; }
         public string ConfigName { get; set; }
         public string ConfigValue { get; set; }
     }
