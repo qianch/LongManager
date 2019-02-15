@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace LongManager.Pages
+namespace LongManager.Pages.Config
 {
     /// <summary>
-    /// CarList.xaml 的交互逻辑
+    /// SystemConfig.xaml 的交互逻辑
     /// </summary>
-    public partial class CarList : BasePage
+    public partial class SystemConfig : BasePage
     {
-        public CarList()
+        public SystemConfig()
         {
             InitializeComponent();
         }

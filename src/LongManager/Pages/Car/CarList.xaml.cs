@@ -13,16 +13,31 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace LongManager.Pages
+namespace LongManager.Pages.Car
 {
     /// <summary>
-    /// LogList.xaml 的交互逻辑
+    /// CarList.xaml 的交互逻辑
     /// </summary>
-    public partial class LogList : Page
+    public partial class CarList : BasePage
     {
-        public LogList()
+        public CarList()
         {
             InitializeComponent();
+        }
+
+        private void CarList_Loaded(object sender, RoutedEventArgs e)
+        {
+            CarDataGrid.ItemsSource = _longDBContext.Cars.ToList();
+        }
+
+        private void ViewBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void PrintBtn_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

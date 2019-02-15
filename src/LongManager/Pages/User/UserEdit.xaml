@@ -1,9 +1,10 @@
-﻿<local:BaseWindow x:Class="LongManager.Pages.UserEdit"
+﻿<LongPages:BaseWindow x:Class="LongManager.Pages.User.UserEdit"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:LongManager.Pages"
+        xmlns:LongPages="clr-namespace:LongManager.Pages"
+        xmlns:local="clr-namespace:LongManager.Pages.User"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Title="修改用户" Height="450" Width="800" Loaded="UserEdit_Loaded">
@@ -38,4 +39,4 @@
             <Button x:Name="SaveBtn" Content="保存" Click="SaveBtn_Click"></Button>
         </StackPanel>
     </Grid>
-</local:BaseWindow>
+</LongPages:BaseWindow>

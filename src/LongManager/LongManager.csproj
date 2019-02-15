@@ -98,11 +98,11 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Pages\CarList.xaml">
+    <Page Include="Pages\Car\CarList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\LabelList.xaml">
+    <Page Include="Pages\Label\LabelList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -110,19 +110,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\LogList.xaml">
+    <Page Include="Pages\Log\LogList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\SystemConfig.xaml">
+    <Page Include="Pages\Config\SystemConfig.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\UserEdit.xaml">
+    <Page Include="Pages\User\UserEdit.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\UserList.xaml">
+    <Page Include="Pages\User\UserList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -135,25 +135,25 @@
     <Compile Include="ModelBinding\MethodInterceptorLogger.cs" />
     <Compile Include="Pages\BasePage.cs" />
     <Compile Include="Pages\BaseWindow.cs" />
-    <Compile Include="Pages\CarList.xaml.cs">
+    <Compile Include="Pages\Car\CarList.xaml.cs">
       <DependentUpon>CarList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\LabelList.xaml.cs">
+    <Compile Include="Pages\Label\LabelList.xaml.cs">
       <DependentUpon>LabelList.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\LogList.xaml.cs">
+    <Compile Include="Pages\Log\LogList.xaml.cs">
       <DependentUpon>LogList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\SystemConfig.xaml.cs">
+    <Compile Include="Pages\Config\SystemConfig.xaml.cs">
       <DependentUpon>SystemConfig.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\UserEdit.xaml.cs">
+    <Compile Include="Pages\User\UserEdit.xaml.cs">
       <DependentUpon>UserEdit.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\UserList.xaml.cs">
+    <Compile Include="Pages\User\UserList.xaml.cs">
       <DependentUpon>UserList.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Welcome.xaml.cs">

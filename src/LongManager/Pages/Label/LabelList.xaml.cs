@@ -13,12 +13,12 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace LongManager.Pages
+namespace LongManager.Pages.Label
 {
     /// <summary>
     /// LabelList.xaml 的交互逻辑
     /// </summary>
-    public partial class LabelList : Page
+    public partial class LabelList : BasePage
     {
         public LabelList()
         {
