@@ -28,7 +28,6 @@ namespace LongManager.Pages
         {
             InitializeComponent();
 
-            CefSharpSettings.LegacyJavascriptBindingEnabled = true;
             var bindingOptions = new BindingOptions()
             {
                 Binder = BindingOptions.DefaultBinder.Binder,

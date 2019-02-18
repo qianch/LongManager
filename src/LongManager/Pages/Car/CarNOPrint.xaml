@@ -1,0 +1,24 @@
+﻿<pages:BaseWindow x:Class="LongManager.Pages.Car.CarNOPrint"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:pages="clr-namespace:LongManager.Pages"
+        xmlns:local="clr-namespace:LongManager.Pages.Car"
+                  xmlns:wpf="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
+                  mc:Ignorable="d"
+        Title="打印车辆号码" Height="450" Width="800"
+        Loaded="CarNOPrint_Loaded">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <WrapPanel Grid.Row="0" Margin="24 0 0 0" VerticalAlignment="Center">
+            <Button x:Name="PrintCarNO" Margin="10" Content="打印车号二维码" Click="PrintCarNO_Click" ></Button>
+        </WrapPanel>
+        <DockPanel Grid.Row="1">
+            <wpf:ChromiumWebBrowser x:Name="Browser"></wpf:ChromiumWebBrowser>
+        </DockPanel>
+    </Grid>
+</pages:BaseWindow>

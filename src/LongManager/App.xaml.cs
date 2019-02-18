@@ -1,4 +1,5 @@
-﻿using log4net;
+﻿using CefSharp;
+using log4net;
 using LongManager.Core;
 using LongManager.Port;
 using System;
@@ -35,6 +36,9 @@ namespace LongManager
             {
                 GlobalCache.Instance.LongSerialPort = new LongSerialPort(portName);
             }
+
+            //设置CefSharp
+            CefSharpSettings.LegacyJavascriptBindingEnabled = true; 
         }
 
         private void App_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)

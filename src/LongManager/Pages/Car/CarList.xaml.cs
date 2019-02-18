@@ -42,7 +42,12 @@ namespace LongManager.Pages.Car
 
         private void PrintBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            var editButton = sender as Button;
+            var window = new CarNOPrint
+            {
+                ExtraData = editButton.Tag,
+            };
+            window.ShowDialog();
         }
     }
 }
