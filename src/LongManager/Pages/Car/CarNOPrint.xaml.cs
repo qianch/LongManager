@@ -50,14 +50,16 @@ namespace LongManager.Pages.Car
             var qrBase64 = Convert.ToBase64String(qrStream.ToArray());
 
             Browser.LoadHtml($@"<html>
-                                  <body style='width:600px;margin-left:100px;'>
-                                    <div style='margin:10px;'>
-                                       <img src='data:image/jpeg;base64,{barBase64}'></img>
+                                  <body style='width:700px;'>
+                                    <div style='margin-left:200px;'>
+                                       <div style='margin:10px;'>
+                                          <img src='data:image/jpeg;base64,{barBase64}'></img>
+                                       </div>
+                                       <div style='margin:10px;'>
+                                          <img src='data:image/jpeg;base64,{qrBase64}'></img>
+                                       </div>
+                                       <div style='margin:10px;'>{_carBasicInfo.CarNO}</div>
                                     </div>
-                                    <div style='margin:10px;'>
-                                       <img src='data:image/jpeg;base64,{qrBase64}'></img>
-                                    </div>
-                                    <div style='margin:10px;'>{_carBasicInfo.CarNO}</div>
                                   </body>
                                 </html>");
         }

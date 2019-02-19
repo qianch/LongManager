@@ -24,5 +24,10 @@ namespace LongManager.Pages.Label
         {
             InitializeComponent();
         }
+
+        private void LabelList_Loaded(object sender, RoutedEventArgs e)
+        {
+            LabelDataGrid.ItemsSource = _longDBContext.Labels.ToList();
+        }
     }
 }

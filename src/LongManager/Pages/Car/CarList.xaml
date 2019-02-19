@@ -44,4 +44,4 @@
         </DataGrid>
         <WrapPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left"></WrapPanel>
     </Grid>
-    </LongPages:BasePage>
+</LongPages:BasePage>
