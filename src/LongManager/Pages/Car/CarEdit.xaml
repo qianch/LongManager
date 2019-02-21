@@ -17,11 +17,11 @@
         <StackPanel Grid.Row="0">
             <WrapPanel Margin="10">
                 <TextBlock Text="车辆编号：" Width="100"></TextBlock>
-                <TextBlock Text="{Binding CarNO}" Width="100"></TextBlock>
+                <TextBlock Text="{Binding CarNO}" Width="300"></TextBlock>
             </WrapPanel>
             <WrapPanel Margin="10">
                 <TextBlock Text="标签编号：" Width="100"></TextBlock>
-                <ComboBox x:Name="LabelCBox" materialDesign:HintAssist.Hint="选择关联标签" IsEditable="True" materialDesign:HintAssist.HintOpacity=".26"></ComboBox>
+                <ComboBox x:Name="LabelCBox" Width="300" materialDesign:HintAssist.Hint="选择关联标签" IsEditable="True" materialDesign:HintAssist.HintOpacity=".26"></ComboBox>
             </WrapPanel>
         </StackPanel>
         <StackPanel Grid.Row="1">

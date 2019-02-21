@@ -38,6 +38,8 @@ namespace LongManager
             InitializeComponent();
 
             //最大化
+            ResizeMode = ResizeMode.CanResize;
+            ShowInTaskbar = true;
             WindowState = WindowState.Maximized;
 
             //加载所有的Page
