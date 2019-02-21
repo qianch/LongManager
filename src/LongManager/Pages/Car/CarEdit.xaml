@@ -16,12 +16,28 @@
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0">
             <WrapPanel Margin="10">
-                <TextBlock Text="车辆编号：" Width="100"></TextBlock>
+                <TextBlock Text="车辆编号：" Width="200"></TextBlock>
                 <TextBlock Text="{Binding CarNO}" Width="300"></TextBlock>
             </WrapPanel>
             <WrapPanel Margin="10">
-                <TextBlock Text="标签编号：" Width="100"></TextBlock>
+                <TextBlock Text="标签编号：" Width="200"></TextBlock>
                 <ComboBox x:Name="LabelCBox" Width="300" materialDesign:HintAssist.Hint="选择关联标签" IsEditable="True" materialDesign:HintAssist.HintOpacity=".26"></ComboBox>
+            </WrapPanel>
+            <WrapPanel Margin="10">
+                <TextBlock Text="收到指令后延时时间：" Width="200"></TextBlock>
+                <ComboBox x:Name="DelayTime" Width="300" materialDesign:HintAssist.Hint="选择指令执行延迟时间" IsEditable="True" materialDesign:HintAssist.HintOpacity=".26">
+                    <ComboBoxItem IsSelected="True" >1</ComboBoxItem>
+                    <ComboBoxItem>5</ComboBoxItem>
+                    <ComboBoxItem>10</ComboBoxItem>
+                </ComboBox>
+            </WrapPanel>
+            <WrapPanel Margin="10">
+                <TextBlock Text="电机动作延时时间：" Width="200"></TextBlock>
+                <ComboBox x:Name="ActionTime" Width="300" materialDesign:HintAssist.Hint="选择电机执行延迟时间" IsEditable="True" materialDesign:HintAssist.HintOpacity=".26">
+                    <ComboBoxItem IsSelected="True">1</ComboBoxItem>
+                    <ComboBoxItem>5</ComboBoxItem>
+                    <ComboBoxItem>10</ComboBoxItem>
+                </ComboBox>
             </WrapPanel>
         </StackPanel>
         <StackPanel Grid.Row="1">

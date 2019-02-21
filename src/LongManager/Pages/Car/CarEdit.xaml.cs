@@ -47,8 +47,16 @@ namespace LongManager.Pages.Car
             }
             else
             {
-                longSerialPort.SendOrderData(_carBasicInfo.CarNO, LabelCBox.SelectedValue.ToString());
-                MessageBox.Show("数据已经发送", "提示", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+                if (DelayTime.Text.ToArray().Any(x => Char.IsNumber(x)) &&
+                    ActionTime.Text.ToArray().Any(x => Char.IsNumber(x)))
+                {
+                    longSerialPort.SendOrderData(_carBasicInfo.CarNO, LabelCBox.SelectedValue.ToString(), DelayTime.Text, ActionTime.Text);
+                    MessageBox.Show("数据已经发送", "提示", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+                }
+                else
+                {
+                    MessageBox.Show("延迟时间格式不正确", "警告", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
             }
         }
     }

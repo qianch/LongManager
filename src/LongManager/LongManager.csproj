@@ -424,6 +424,7 @@
   <ItemGroup>
     <Folder Include="Htmls\Content\css\" />
     <Folder Include="Htmls\Content\img\" />
+    <Folder Include="Pages\Index\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

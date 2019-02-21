@@ -23,8 +23,7 @@
         </DockPanel>
         <DockPanel DockPanel.Dock="Bottom" Width="auto" Height="40" Background="LightGray">
             <WrapPanel x:Name="SystemPanel" VerticalAlignment="Center">
-                <TextBlock Foreground="Black" Margin="20 0 0 0" Text="当前时间："></TextBlock>
-                <TextBlock Foreground="Black" x:Name="TxtDate"/>
+                <TextBlock Foreground="Black" Margin="20 0 0 0" x:Name="TxtDate"/>
                 <TextBlock Foreground="Black" Margin="20 0 0 0" Text="用户账号："></TextBlock>
                 <TextBlock Foreground="Black" Text="{Binding UserName}"></TextBlock>
                 <TextBlock Foreground="Black" Margin="20 0 0 0" Text="用户名称："></TextBlock>
