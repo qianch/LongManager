@@ -24,5 +24,10 @@ namespace LongManager.Pages.Config
         {
             InitializeComponent();
         }
+
+        private void BasePage_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

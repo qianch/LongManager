@@ -25,7 +25,7 @@ namespace LongManager.Pages.Car
             InitializeComponent();
         }
 
-        private void CarList_Loaded(object sender, RoutedEventArgs e)
+        private void BasePage_Loaded(object sender, RoutedEventArgs e)
         {
             CarDataGrid.ItemsSource = _longDBContext.Cars.ToList();
         }

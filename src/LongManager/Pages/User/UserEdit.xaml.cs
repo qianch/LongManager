@@ -25,7 +25,7 @@ namespace LongManager.Pages.User
             InitializeComponent();
         }
 
-        private void UserEdit_Loaded(object sender, RoutedEventArgs e)
+        private void BaseWindow_Loaded(object sender, RoutedEventArgs e)
         {
             var key = ExtraData as string;
             var frameUser = _longDBContext.FrameUsers.Where(x => x.RowGuid == key).FirstOrDefault();

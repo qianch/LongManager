@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:LongManager.Pages.User"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="修改用户" Height="450" Width="800" Loaded="UserEdit_Loaded">
+        Title="修改用户" Height="450" Width="800" Loaded="BaseWindow_Loaded">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>

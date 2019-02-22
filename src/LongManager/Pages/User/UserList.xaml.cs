@@ -27,7 +27,7 @@ namespace LongManager.Pages.User
             InitializeComponent();
         }
 
-        private void UserList_Loaded(object sender, RoutedEventArgs e)
+        private void BasePage_Loaded(object sender, RoutedEventArgs e)
         {
             UserDataGrid.ItemsSource = _longDBContext.FrameUsers.ToList();
         }

@@ -36,9 +36,9 @@ namespace LongManager.Pages
             Browser.RegisterAsyncJsObject("jsObject", new CallbackObjectForJs(), bindingOptions);
         }
 
-        private void Page_Loaded(object sender, RoutedEventArgs e)
+        private void BasePage_Loaded(object sender, RoutedEventArgs e)
         {
-            Browser.Address = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Htmls/pages/welcome.html");
+            Browser.Load(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Htmls/pages/welcome.html"));
         }
 
         private void CallBrowser_Click(object sender, RoutedEventArgs e)

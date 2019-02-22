@@ -7,7 +7,7 @@
       xmlns:wpf="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="Welcome" Loaded="Page_Loaded">
+      Title="Welcome" Loaded="BasePage_Loaded">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />

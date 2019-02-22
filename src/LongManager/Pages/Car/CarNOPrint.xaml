@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:pages="clr-namespace:LongManager.Pages"
         xmlns:local="clr-namespace:LongManager.Pages.Car"
-                  xmlns:wpf="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
-                  mc:Ignorable="d"
+        xmlns:wpf="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
+        mc:Ignorable="d"
         Title="打印车辆号码" Height="450" Width="800"
-        Loaded="CarNOPrint_Loaded">
+        Loaded="BaseWindow_Loaded">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />

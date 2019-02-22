@@ -27,7 +27,7 @@ namespace LongManager.Pages.Car
             InitializeComponent();
         }
 
-        private void CarEdit_Loaded(object sender, RoutedEventArgs e)
+        private void BaseWindow_Loaded(object sender, RoutedEventArgs e)
         {
             var key = ExtraData as string;
             _carBasicInfo = _longDBContext.Cars.Where(x => x.RowGuid == key).FirstOrDefault();
