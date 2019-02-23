@@ -30,9 +30,15 @@ namespace LongManager.Pages.Car
         public CarNOPrint()
         {
             InitializeComponent();
+            Browser.IsBrowserInitializedChanged += Browser_IsBrowserInitializedChanged;
         }
 
         private void BaseWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Browser_IsBrowserInitializedChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             var key = ExtraData as string;
             _carBasicInfo = _longDBContext.Cars.Where(x => x.RowGuid == key).FirstOrDefault();

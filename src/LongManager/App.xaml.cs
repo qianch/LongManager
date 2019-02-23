@@ -1,4 +1,5 @@
 ﻿using CefSharp;
+using CefSharp.Wpf;
 using log4net;
 using LongManager.Core;
 using LongManager.Port;
@@ -38,7 +39,12 @@ namespace LongManager
             }
 
             //设置CefSharp
-            CefSharpSettings.LegacyJavascriptBindingEnabled = true; 
+            var settings = new CefSettings
+            {
+                IgnoreCertificateErrors = true,
+            };
+            Cef.Initialize(settings);
+            CefSharpSettings.LegacyJavascriptBindingEnabled = true;
         }
 
         private void App_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)

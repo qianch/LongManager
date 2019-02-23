@@ -111,6 +111,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\EMS\EMSSearch.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\Label\LabelList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -152,6 +156,9 @@
     </Compile>
     <Compile Include="Pages\Car\CarNOPrint.xaml.cs">
       <DependentUpon>CarNOPrint.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\EMS\EMSSearch.xaml.cs">
+      <DependentUpon>EMSSearch.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Label\LabelList.xaml.cs">
       <DependentUpon>LabelList.xaml</DependentUpon>

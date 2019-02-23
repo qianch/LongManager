@@ -1,5 +1,6 @@
 ﻿using CefSharp;
 using CefSharp.Wpf;
+using LongManager.Core.JSObject;
 using LongManager.Core.ModelBinding;
 using System;
 using System.Collections.Generic;
@@ -34,9 +35,15 @@ namespace LongManager.Pages
                 MethodInterceptor = new MethodInterceptorLogger()
             };
             Browser.RegisterAsyncJsObject("jsObject", new CallbackObjectForJs(), bindingOptions);
+            Browser.IsBrowserInitializedChanged += Browser_IsBrowserInitializedChanged;
         }
 
         private void BasePage_Loaded(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void Browser_IsBrowserInitializedChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             Browser.Load(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Htmls/pages/welcome.html"));
         }
@@ -53,15 +60,6 @@ namespace LongManager.Pages
             {
                 MessageBox.Show(javascriptResponse.Result.Result.ToString(), "C#调用js的返回值", MessageBoxButton.OK, MessageBoxImage.Asterisk);
             }
-        }
-    }
-
-    public class CallbackObjectForJs
-    {
-        public string name = "";
-        public void showMsg(string msg)
-        {
-            MessageBox.Show(msg, "提示", MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 }

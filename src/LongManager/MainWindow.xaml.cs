@@ -5,6 +5,7 @@ using LongManager.Core.DataBase;
 using LongManager.Pages;
 using LongManager.Pages.Car;
 using LongManager.Pages.Config;
+using LongManager.Pages.EMS;
 using LongManager.Pages.Label;
 using LongManager.Pages.Log;
 using LongManager.Pages.User;
@@ -48,6 +49,7 @@ namespace LongManager
             GlobalCache.Instance.AllPages.Add("LogList", new LogList());
             GlobalCache.Instance.AllPages.Add("CarList", new CarList());
             GlobalCache.Instance.AllPages.Add("LabelList", new LabelList());
+            GlobalCache.Instance.AllPages.Add("EMSSearch", new EMSSearch());
             GlobalCache.Instance.AllPages.Add("SystemConfig", new SystemConfig());
             GlobalCache.Instance.Frame = PageFrame;
 

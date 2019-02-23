@@ -18,5 +18,6 @@ namespace LongManager.Core.DataBase
         public DbSet<FrameUser> FrameUsers { get; set; }
         public DbSet<CarBasicInfo> Cars { get; set; }
         public DbSet<LabelBasicInfo> Labels { get; set; }
+        public DbSet<MailBasicInfo> Mails { get; set; }
     }
 }
