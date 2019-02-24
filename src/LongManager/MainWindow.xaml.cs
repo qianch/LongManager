@@ -1,5 +1,5 @@
 ﻿using log4net;
-using LongManager.Controls;
+using LongManager.Command;
 using LongManager.Core;
 using LongManager.Core.DataBase;
 using LongManager.Pages;

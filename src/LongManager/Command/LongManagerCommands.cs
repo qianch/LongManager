@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace LongManager.Controls
+namespace LongManager.Command
 {
     public static class LongManagerCommands
     {

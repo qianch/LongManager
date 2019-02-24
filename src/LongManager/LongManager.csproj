@@ -68,6 +68,7 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Numerics" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -85,6 +86,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Controls\LongPager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -94,7 +99,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="CEF\LongCEFMenuHandler.cs" />
-    <Compile Include="Controls\LongManagerCommands.cs" />
+    <Compile Include="Command\LongManagerCommands.cs" />
+    <Compile Include="Controls\LongPager.xaml.cs">
+      <DependentUpon>LongPager.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GlobalCache.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

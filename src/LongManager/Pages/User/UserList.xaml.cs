@@ -25,11 +25,19 @@ namespace LongManager.Pages.User
         public UserList()
         {
             InitializeComponent();
+            Pager.PageIndexChange += Pager_PageIndexChange;
+        }
+
+        private void Pager_PageIndexChange(int pageIndex, EventArgs e)
+        {
+            UserDataGrid.ItemsSource = _longDBContext.FrameUsers.ToList().Skip(Pager.LongPage.PageSize * (pageIndex - 1)).Take(Pager.LongPage.PageSize);
         }
 
         private void BasePage_Loaded(object sender, RoutedEventArgs e)
         {
-            UserDataGrid.ItemsSource = _longDBContext.FrameUsers.ToList();
+            Pager.LongPage.AllCount = _longDBContext.FrameUsers.Count();
+            Pager.InitButton();
+            UserDataGrid.ItemsSource = _longDBContext.FrameUsers.ToList().Take(Pager.LongPage.PageSize);
         }
 
         private void EditBtn_Click(object sender, RoutedEventArgs e)
