@@ -93,6 +93,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="CEF\LongCEFMenuHandler.cs" />
     <Compile Include="Controls\LongManagerCommands.cs" />
     <Compile Include="GlobalCache.cs" />
     <Compile Include="MainWindow.xaml.cs">

@@ -1,4 +1,5 @@
 ﻿using CefSharp;
+using LongManager.CEF;
 using LongManager.Core;
 using LongManager.Core.DataBase;
 using System;
@@ -31,6 +32,7 @@ namespace LongManager.Pages.Car
         {
             InitializeComponent();
             Browser.IsBrowserInitializedChanged += Browser_IsBrowserInitializedChanged;
+            Browser.MenuHandler = new LongCEFMenuHandler();
         }
 
         private void BaseWindow_Loaded(object sender, RoutedEventArgs e)

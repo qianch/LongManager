@@ -1,6 +1,7 @@
 ﻿using CefSharp;
 using CefSharp.Wpf;
-using LongManager.Core.JSObject;
+using LongManager.CEF;
+using LongManager.Core.CEF.JSObject;
 using LongManager.Core.ModelBinding;
 using System;
 using System.Collections.Generic;
@@ -36,11 +37,12 @@ namespace LongManager.Pages
             };
             Browser.RegisterAsyncJsObject("jsObject", new CallbackObjectForJs(), bindingOptions);
             Browser.IsBrowserInitializedChanged += Browser_IsBrowserInitializedChanged;
+            Browser.MenuHandler = new LongCEFMenuHandler();
         }
 
         private void BasePage_Loaded(object sender, RoutedEventArgs e)
         {
-            
+
         }
 
         private void Browser_IsBrowserInitializedChanged(object sender, DependencyPropertyChangedEventArgs e)

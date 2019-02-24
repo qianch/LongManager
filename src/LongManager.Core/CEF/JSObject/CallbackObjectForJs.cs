@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Windows;
 
-namespace LongManager.Core.JSObject
+namespace LongManager.Core.CEF.JSObject
 {
     public class CallbackObjectForJs
     {
