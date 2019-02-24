@@ -11,6 +11,15 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="EMSSearch" Loaded="BasePage_Loaded">
     <Grid>
-        <wpf:ChromiumWebBrowser x:Name="Browser"></wpf:ChromiumWebBrowser>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <WrapPanel Grid.Row="0" Margin="24 0 0 0" VerticalAlignment="Center">
+            
+        </WrapPanel>
+        <DockPanel Grid.Row="1">
+            <wpf:ChromiumWebBrowser x:Name="Browser"></wpf:ChromiumWebBrowser>
+        </DockPanel>
     </Grid>
 </pages:BasePage>

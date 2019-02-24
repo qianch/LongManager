@@ -1,7 +1,6 @@
 ﻿using CefSharp;
 using LongManager.CEF;
 using LongManager.Core.CEF.JSObject;
-using LongManager.Core.DataBase;
 using LongManager.Core.ModelBinding;
 using System;
 using System.Collections.Generic;
