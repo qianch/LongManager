@@ -1,4 +1,5 @@
-﻿using LongManager.Core.DataBase;
+﻿using LongManager.Core;
+using LongManager.Core.DataBase;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,6 +37,7 @@ namespace LongManager.Pages.User
         {
             _longDBContext.FrameUsers.Update(DataContext as FrameUser);
             _longDBContext.SaveChanges();
+            GlobalCache.Instance.Frame.Refresh();
         }
     }
 }

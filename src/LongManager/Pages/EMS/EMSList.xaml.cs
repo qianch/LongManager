@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace LongManager.Pages.Label
+namespace LongManager.Pages.EMS
 {
     /// <summary>
-    /// LabelList.xaml 的交互逻辑
+    /// EMSList.xaml 的交互逻辑
     /// </summary>
-    public partial class LabelList : BasePage
+    public partial class EMSList : BasePage
     {
-        public LabelList()
+        public EMSList()
         {
             InitializeComponent();
 
@@ -29,16 +29,30 @@ namespace LongManager.Pages.Label
 
         private void BasePage_Loaded(object sender, RoutedEventArgs e)
         {
-            Pager.LongPage.AllCount = _longDBContext.Labels.Count();
+            Pager.LongPage.AllCount = _longDBContext.Mails.Count();
             Pager.InitButton();
-            LabelDataGrid.ItemsSource = _longDBContext.Labels
+            MailDataGrid.ItemsSource = _longDBContext.Mails
                 .Take(Pager.LongPage.PageSize)
                 .ToList();
         }
 
         private void Pager_PageIndexChange(object sender, EventArgs e)
         {
-            LabelDataGrid.ItemsSource = _longDBContext.Labels
+            MailDataGrid.ItemsSource = _longDBContext.Mails
+                .Skip(Pager.LongPage.PageSize * (Pager.LongPage.PageIndex - 1))
+                .Take(Pager.LongPage.PageSize)
+                .ToList();
+        }
+
+        private void SearchBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var mails = _longDBContext.Mails.AsEnumerable();
+            if (!string.IsNullOrEmpty(TxtMailNO.Text))
+            {
+                mails = mails.Where(x => x.MailNO.Contains(TxtMailNO.Text));
+            }
+
+            MailDataGrid.ItemsSource = mails
                 .Skip(Pager.LongPage.PageSize * (Pager.LongPage.PageIndex - 1))
                 .Take(Pager.LongPage.PageSize)
                 .ToList();

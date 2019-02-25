@@ -21,7 +21,7 @@ namespace LongManager.Controls
     /// </summary>
     public partial class LongPager : UserControl
     {
-        public delegate void PageIndexChangeEvent(int pageIndex, EventArgs e);
+        public delegate void PageIndexChangeEvent(object sender, EventArgs e);
         public event PageIndexChangeEvent PageIndexChange;
         public LongPage LongPage = new LongPage() { PageIndex = 1, PageSize = 8 };
         public LongPager()
@@ -79,28 +79,28 @@ namespace LongManager.Controls
         {
             LongPage.PageIndex = 1;
             InitButton();
-            PageIndexChange(LongPage.PageIndex, e);
+            PageIndexChange(sender, e);
         }
 
         private void PreBtn_Click(object sender, RoutedEventArgs e)
         {
             LongPage.PageIndex--;
             InitButton();
-            PageIndexChange(LongPage.PageIndex, e);
+            PageIndexChange(sender, e);
         }
 
         private void NextBtn_Click(object sender, RoutedEventArgs e)
         {
             LongPage.PageIndex++;
             InitButton();
-            PageIndexChange(LongPage.PageIndex, e);
+            PageIndexChange(sender, e);
         }
 
         private void LastBtn_Click(object sender, RoutedEventArgs e)
         {
             LongPage.PageIndex = LongPage.PageCount;
             InitButton();
-            PageIndexChange(LongPage.PageIndex, e);
+            PageIndexChange(sender, e);
         }
     }
 

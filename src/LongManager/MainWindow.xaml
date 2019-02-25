@@ -35,7 +35,8 @@
             <Button x:Name="FrameUserBtn" Margin="10" Width="auto" Height="30" Content="用户管理" Command="command:LongManagerCommands.CustomCommand" CommandParameter="UserList"></Button>
             <Button x:Name="CarBtn" Margin="10" Width="auto" Height="30" Content="车辆管理" Command="command:LongManagerCommands.CustomCommand" CommandParameter="CarList"></Button>
             <Button x:Name="LabelBtn" Margin="10" Width="auto" Height="30" Content="标签管理" Command="command:LongManagerCommands.CustomCommand" CommandParameter="LabelList"></Button>
-            <Button x:Name="EMSBtn" Margin="10" Width="auto" Height="30" Content="EMS查询" Command="command:LongManagerCommands.CustomCommand" CommandParameter="EMSSearch"></Button>
+            <Button x:Name="EMSListBtn" Margin="10" Width="auto" Height="30" Content="EMS管理" Command="command:LongManagerCommands.CustomCommand" CommandParameter="EMSList"></Button>
+            <Button x:Name="EMSSearchBtn" Margin="10" Width="auto" Height="30" Content="EMS查询" Command="command:LongManagerCommands.CustomCommand" CommandParameter="EMSSearch"></Button>
             <Button x:Name="LogBtn" Margin="10" Width="auto" Height="30" Content="日志管理" Command="command:LongManagerCommands.CustomCommand" CommandParameter="LogList"></Button>
             <Button x:Name="SystemBtn" Margin="10" Width="auto" Height="30" Content="系统设置" Command="command:LongManagerCommands.CustomCommand" CommandParameter="SystemConfig"></Button>
         </StackPanel>

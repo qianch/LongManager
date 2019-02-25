@@ -28,16 +28,21 @@ namespace LongManager.Pages.User
             Pager.PageIndexChange += Pager_PageIndexChange;
         }
 
-        private void Pager_PageIndexChange(int pageIndex, EventArgs e)
+        private void Pager_PageIndexChange(object sender, EventArgs e)
         {
-            UserDataGrid.ItemsSource = _longDBContext.FrameUsers.ToList().Skip(Pager.LongPage.PageSize * (pageIndex - 1)).Take(Pager.LongPage.PageSize);
+            UserDataGrid.ItemsSource = _longDBContext.FrameUsers
+                .Skip(Pager.LongPage.PageSize * (Pager.LongPage.PageIndex - 1))
+                .Take(Pager.LongPage.PageSize)
+                .ToList();
         }
 
         private void BasePage_Loaded(object sender, RoutedEventArgs e)
         {
             Pager.LongPage.AllCount = _longDBContext.FrameUsers.Count();
             Pager.InitButton();
-            UserDataGrid.ItemsSource = _longDBContext.FrameUsers.ToList().Take(Pager.LongPage.PageSize);
+            UserDataGrid.ItemsSource = _longDBContext.FrameUsers
+                .Take(Pager.LongPage.PageSize)
+                .ToList();
         }
 
         private void EditBtn_Click(object sender, RoutedEventArgs e)
@@ -52,16 +57,16 @@ namespace LongManager.Pages.User
 
         private void SearchBtn_Click(object sender, RoutedEventArgs e)
         {
+            var frameUsers = _longDBContext.FrameUsers.AsEnumerable();
             if (!string.IsNullOrEmpty(TxtUserName.Text))
             {
-                UserDataGrid.ItemsSource = _longDBContext.FrameUsers
-                    .Where(x => x.UserName.Contains(TxtUserName.Text))
-                    .ToList();
+                frameUsers = frameUsers.Where(x => x.UserName.Contains(TxtUserName.Text));
             }
-            else
-            {
-                UserDataGrid.ItemsSource = _longDBContext.FrameUsers.ToList();
-            }
+
+            UserDataGrid.ItemsSource = frameUsers
+                .Skip(Pager.LongPage.PageSize * (Pager.LongPage.PageIndex - 1))
+                .Take(Pager.LongPage.PageSize)
+                .ToList();
         }
     }
 }
