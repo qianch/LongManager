@@ -3,7 +3,8 @@
 ; HM NIS Edit Wizard helper defines
 !define PRODUCT_NAME "ÁúÏèÎïÁ÷"
 !define PRODUCT_VERSION "1.0"
-!define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\LongManager.exe"
+!define PRODUCT_PUBLISHER "Ellis"
+!define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\CefSharp.BrowserSubprocess.exe"
 !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
 !define PRODUCT_UNINST_ROOT_KEY "HKLM"
 
@@ -24,7 +25,7 @@
 ; Instfiles page
 !insertmacro MUI_PAGE_INSTFILES
 ; Finish page
-!define MUI_FINISHPAGE_RUN "$INSTDIR\LongManager.exe"
+!define MUI_FINISHPAGE_RUN "$INSTDIR\CefSharp.BrowserSubprocess.exe"
 !insertmacro MUI_PAGE_FINISH
 
 ; Uninstaller pages
@@ -158,6 +159,11 @@ Section "MainSection" SEC01
   File "..\src\LongManager\bin\x86\Debug\locales\zh-TW.pak"
   SetOutPath "$INSTDIR"
   File "..\src\LongManager\bin\x86\Debug\log4net.dll"
+  SetOutPath "$INSTDIR\LogFiles"
+  File "..\src\LongManager\bin\x86\Debug\LogFiles\20190223.txt"
+  File "..\src\LongManager\bin\x86\Debug\LogFiles\20190224.txt"
+  File "..\src\LongManager\bin\x86\Debug\LogFiles\20190225.txt"
+  File "..\src\LongManager\bin\x86\Debug\LogFiles\20190226.txt"
   SetOutPath "$INSTDIR"
   File "..\src\LongManager\bin\x86\Debug\LongManager.Core.dll"
   File "..\src\LongManager\bin\x86\Debug\LongManager.Core.pdb"
@@ -324,11 +330,12 @@ SectionEnd
 
 Section -Post
   WriteUninstaller "$INSTDIR\uninst.exe"
-  WriteRegStr HKLM "${PRODUCT_DIR_REGKEY}" "" "$INSTDIR\LongManager.exe"
+  WriteRegStr HKLM "${PRODUCT_DIR_REGKEY}" "" "$INSTDIR\CefSharp.BrowserSubprocess.exe"
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayName" "$(^Name)"
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "UninstallString" "$INSTDIR\uninst.exe"
-  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayIcon" "$INSTDIR\LongManager.exe"
+  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayIcon" "$INSTDIR\CefSharp.BrowserSubprocess.exe"
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayVersion" "${PRODUCT_VERSION}"
+  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "Publisher" "${PRODUCT_PUBLISHER}"
 SectionEnd
 
 
@@ -493,17 +500,10 @@ Section Uninstall
   Delete "$INSTDIR\LongManager.exe"
   Delete "$INSTDIR\LongManager.Core.pdb"
   Delete "$INSTDIR\LongManager.Core.dll"
+  Delete "$INSTDIR\LogFiles\20190226.txt"
+  Delete "$INSTDIR\LogFiles\20190225.txt"
+  Delete "$INSTDIR\LogFiles\20190224.txt"
   Delete "$INSTDIR\LogFiles\20190223.txt"
-  Delete "$INSTDIR\LogFiles\20190222.txt"
-  Delete "$INSTDIR\LogFiles\20190221.txt"
-  Delete "$INSTDIR\LogFiles\20190220.txt"
-  Delete "$INSTDIR\LogFiles\20190219.txt"
-  Delete "$INSTDIR\LogFiles\20190217.txt"
-  Delete "$INSTDIR\LogFiles\20190215.txt"
-  Delete "$INSTDIR\LogFiles\20190214.txt"
-  Delete "$INSTDIR\LogFiles\20190213.txt"
-  Delete "$INSTDIR\LogFiles\20190210.txt"
-  Delete "$INSTDIR\LogFiles\20190201.txt"
   Delete "$INSTDIR\log4net.dll"
   Delete "$INSTDIR\locales\zh-TW.pak"
   Delete "$INSTDIR\locales\zh-CN.pak"
