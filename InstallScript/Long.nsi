@@ -12,49 +12,71 @@
 !include "MUI.nsh"
 !include "WordFunc.nsh"
 
-Function GetNetFrameworkVersion
-;获取.Net Framework版本支持
-Push $1
-Push $0
-ReadRegDWORD $0 HKLM "SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full""Install"
-ReadRegDWORD $1 HKLM "SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full""Version"
-StrCmp $0 1 KnowNetFrameworkVersion +1
-ReadRegDWORD $0 HKLM "SOFTWARE\Microsoft\NET Framework Setup\NDP\v3.5""Install"
-ReadRegDWORD $1 HKLM "SOFTWARE\Microsoft\NET Framework Setup\NDP\v3.5""Version"
-StrCmp $0 1 KnowNetFrameworkVersion +1
-ReadRegDWORD $0 HKLM "SOFTWARE\Microsoft\NET Framework Setup\NDP\v3.0\Setup" "InstallSuccess"
-ReadRegDWORD $1 HKLM "SOFTWARE\Microsoft\NET Framework Setup\NDP\v3.0\Setup" "Version"
-StrCmp $0 1 KnowNetFrameworkVersion +1
-ReadRegDWORD $0 HKLM "SOFTWARE\Microsoft\NET Framework Setup\NDP\v2.0.50727" "Install"
-ReadRegDWORD $1 HKLM "SOFTWARE\Microsoft\NET Framework Setup\NDP\v2.0.50727" "Version"
-StrCmp $1 "" +1 +2
-StrCpy $1 "2.0.50727.832"
-StrCmp $0 1 KnowNetFrameworkVersion +1
-ReadRegDWORD $0 HKLM "SOFTWARE\Microsoft\NET Framework Setup\NDP\v1.1.4322" "Install"
-ReadRegDWORD $1 HKLM "SOFTWARE\Microsoft\NET Framework Setup\NDP\v1.1.4322" "Version"
-StrCmp $1 "" +1 +2
-StrCpy $1 "1.1.4322.573"
-StrCmp $0 1 KnowNetFrameworkVersion +1
-ReadRegDWORD $0 HKLM "SOFTWARE\Microsoft\.NETFramework\policy\v1.0""Install"
-ReadRegDWORD $1 HKLM "SOFTWARE\Microsoft\.NETFramework\policy\v1.0""Version"
-StrCmp $1 "" +1 +2
-StrCpy $1 "1.0.3705.0"
-StrCmp $0 1 KnowNetFrameworkVersion +1
-StrCpy $1 "not .NetFramework"
-KnowNetFrameworkVersion:
-Pop $0
-Exch $1
+; 安装VC环境
+Section - "InstallVC"
+   Push $R0
+   ClearErrors
+   ReadRegStr $R0 HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\{74d0e5db-b326-4dae-a6b2-445b9de1836e}" "BundleVersion" ;这里检测的是 vc_redist.x86 2015
+   ; 检测含有vc的注册表信息是否存在
+   IfErrors 0 VSRedistInstalled
+        MessageBox MB_ICONINFORMATION|MB_OK "检测到当前系统缺少 vc_redist.x86 组件。"
+        SetDetailsPrint textonly
+        DetailPrint "准备安装 vc_redist.x86 组件"
+        SetDetailsPrint listonly
+        SetOutPath "$TEMP"
+        SetOverwrite on
+        File "Framework\vc_redist.x86.exe"
+        ExecWait '$TEMP\vc_redist.x86.exe ' $R1
+        Delete "$TEMP\vc_redist.x86.exe"   ;若不存在，执行安装
+        StrCpy $R0 "-1"  ;MessageBox MB_OK  "安装完毕"
+
+    VSRedistInstalled: ;MessageBox MB_OK  "已安装"
+        pop $R0
+SectionEnd
+
+
+Function GetNetFrameworkVersion ;获取.Net Framework版本支持
+    Push $1
+    Push $0
+    ReadRegDWORD $0 HKLM "SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full""Install"
+    ReadRegDWORD $1 HKLM "SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full""Version"
+    StrCmp $0 1 KnowNetFrameworkVersion +1
+    ReadRegDWORD $0 HKLM "SOFTWARE\Microsoft\NET Framework Setup\NDP\v3.5""Install"
+    ReadRegDWORD $1 HKLM "SOFTWARE\Microsoft\NET Framework Setup\NDP\v3.5""Version"
+    StrCmp $0 1 KnowNetFrameworkVersion +1
+    ReadRegDWORD $0 HKLM "SOFTWARE\Microsoft\NET Framework Setup\NDP\v3.0\Setup" "InstallSuccess"
+    ReadRegDWORD $1 HKLM "SOFTWARE\Microsoft\NET Framework Setup\NDP\v3.0\Setup" "Version"
+    StrCmp $0 1 KnowNetFrameworkVersion +1
+    ReadRegDWORD $0 HKLM "SOFTWARE\Microsoft\NET Framework Setup\NDP\v2.0.50727" "Install"
+    ReadRegDWORD $1 HKLM "SOFTWARE\Microsoft\NET Framework Setup\NDP\v2.0.50727" "Version"
+    StrCmp $1 "" +1 +2
+    StrCpy $1 "2.0.50727.832"
+    StrCmp $0 1 KnowNetFrameworkVersion +1
+    ReadRegDWORD $0 HKLM "SOFTWARE\Microsoft\NET Framework Setup\NDP\v1.1.4322" "Install"
+    ReadRegDWORD $1 HKLM "SOFTWARE\Microsoft\NET Framework Setup\NDP\v1.1.4322" "Version"
+    StrCmp $1 "" +1 +2
+    StrCpy $1 "1.1.4322.573"
+    StrCmp $0 1 KnowNetFrameworkVersion +1
+    ReadRegDWORD $0 HKLM "SOFTWARE\Microsoft\.NETFramework\policy\v1.0""Install"
+    ReadRegDWORD $1 HKLM "SOFTWARE\Microsoft\.NETFramework\policy\v1.0""Version"
+    StrCmp $1 "" +1 +2
+    StrCpy $1 "1.0.3705.0"
+    StrCmp $0 1 KnowNetFrameworkVersion +1
+    StrCpy $1 "not .NetFramework"
+    KnowNetFrameworkVersion:
+    Pop $0
+    Exch $1
 FunctionEnd
 
 Section - "比较版本号"
   DetailPrint "正在检测安装环境..."
     Call GetNetFrameworkVersion
     Pop $R1
-    ${VersionCompare} "4.5.2" "$R1" $R2
+    ${VersionCompare} "4.6.2" "$R1" $R2
     ${If} $R2 == 0
         DetailPrint "当前版本($R1)，无需安装组件"
     ${ElseIf} $R2 == 1
-        DetailPrint "当前组件版本($R1)过低,需要安装(4.5.2)版本的组件"
+        DetailPrint "当前组件版本($R1)过低,需要安装(4.6.2)版本的组件"
     ${ElseIf} $R2 == 2
         DetailPrint "当前版本($R1)，无需安装组件"
     ${EndIf}
@@ -641,6 +663,7 @@ Section Uninstall
   RMDir "$INSTDIR\Htmls\Content"
   RMDir "$INSTDIR\Htmls"
   RMDir "$INSTDIR\DB"
+  RMDir "$INSTDIR\debug.log"
   RMDir "$INSTDIR"
 
   DeleteRegKey ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}"
