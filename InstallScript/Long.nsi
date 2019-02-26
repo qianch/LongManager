@@ -4,12 +4,78 @@
 !define PRODUCT_NAME "龙翔物流"
 !define PRODUCT_VERSION "1.0"
 !define PRODUCT_PUBLISHER "Ellis"
-!define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\CefSharp.BrowserSubprocess.exe"
+!define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\LongManager.exe"
 !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
 !define PRODUCT_UNINST_ROOT_KEY "HKLM"
 
 ; MUI 1.67 compatible ------
 !include "MUI.nsh"
+!include "WordFunc.nsh"
+
+Function GetNetFrameworkVersion
+;获取.Net Framework版本支持
+Push $1
+Push $0
+ReadRegDWORD $0 HKLM "SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full""Install"
+ReadRegDWORD $1 HKLM "SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full""Version"
+StrCmp $0 1 KnowNetFrameworkVersion +1
+ReadRegDWORD $0 HKLM "SOFTWARE\Microsoft\NET Framework Setup\NDP\v3.5""Install"
+ReadRegDWORD $1 HKLM "SOFTWARE\Microsoft\NET Framework Setup\NDP\v3.5""Version"
+StrCmp $0 1 KnowNetFrameworkVersion +1
+ReadRegDWORD $0 HKLM "SOFTWARE\Microsoft\NET Framework Setup\NDP\v3.0\Setup" "InstallSuccess"
+ReadRegDWORD $1 HKLM "SOFTWARE\Microsoft\NET Framework Setup\NDP\v3.0\Setup" "Version"
+StrCmp $0 1 KnowNetFrameworkVersion +1
+ReadRegDWORD $0 HKLM "SOFTWARE\Microsoft\NET Framework Setup\NDP\v2.0.50727" "Install"
+ReadRegDWORD $1 HKLM "SOFTWARE\Microsoft\NET Framework Setup\NDP\v2.0.50727" "Version"
+StrCmp $1 "" +1 +2
+StrCpy $1 "2.0.50727.832"
+StrCmp $0 1 KnowNetFrameworkVersion +1
+ReadRegDWORD $0 HKLM "SOFTWARE\Microsoft\NET Framework Setup\NDP\v1.1.4322" "Install"
+ReadRegDWORD $1 HKLM "SOFTWARE\Microsoft\NET Framework Setup\NDP\v1.1.4322" "Version"
+StrCmp $1 "" +1 +2
+StrCpy $1 "1.1.4322.573"
+StrCmp $0 1 KnowNetFrameworkVersion +1
+ReadRegDWORD $0 HKLM "SOFTWARE\Microsoft\.NETFramework\policy\v1.0""Install"
+ReadRegDWORD $1 HKLM "SOFTWARE\Microsoft\.NETFramework\policy\v1.0""Version"
+StrCmp $1 "" +1 +2
+StrCpy $1 "1.0.3705.0"
+StrCmp $0 1 KnowNetFrameworkVersion +1
+StrCpy $1 "not .NetFramework"
+KnowNetFrameworkVersion:
+Pop $0
+Exch $1
+FunctionEnd
+
+Section - "比较版本号"
+  DetailPrint "正在检测安装环境..."
+    Call GetNetFrameworkVersion
+    Pop $R1
+    ${VersionCompare} "4.5.2" "$R1" $R2
+    ${If} $R2 == 0
+        DetailPrint "当前版本($R1)，无需安装组件"
+    ${ElseIf} $R2 == 1
+        DetailPrint "当前组件版本($R1)过低,需要安装(4.5.2)版本的组件"
+    ${ElseIf} $R2 == 2
+        DetailPrint "当前版本($R1)，无需安装组件"
+    ${EndIf}
+SectionEnd
+
+Section -.NET
+ Call GetNetFrameworkVersion
+ Pop $R1
+ ${VersionCompare} "4.6.2" $R1 $R2
+  ${If} $R2 == 1
+   MessageBox MB_ICONINFORMATION|MB_OK "检测到当前系统缺少微软.NetFramework 4.6.2组件。"
+   SetDetailsPrint textonly
+   DetailPrint "准备安装.NetFramework 4.6.2组件"
+   SetDetailsPrint listonly
+   SetOutPath "$TEMP"
+   SetOverwrite on
+   File "Framework\NDP462-DevPack-KB3151934-ENU.exe"
+   ExecWait '$TEMP\NDP462-DevPack-KB3151934-ENU.exe ' $R1
+   Delete "$TEMP\NDP462-DevPack-KB3151934-ENU.exe"
+  ${EndIf}
+SectionEnd
 
 ; MUI Settings
 !define MUI_ABORTWARNING
@@ -25,7 +91,7 @@
 ; Instfiles page
 !insertmacro MUI_PAGE_INSTFILES
 ; Finish page
-!define MUI_FINISHPAGE_RUN "$INSTDIR\CefSharp.BrowserSubprocess.exe"
+!define MUI_FINISHPAGE_RUN "$INSTDIR\LongManager.exe"
 !insertmacro MUI_PAGE_FINISH
 
 ; Uninstaller pages
@@ -48,16 +114,11 @@ Section "MainSection" SEC01
   SetOverwrite try
   File "..\src\LongManager\bin\x86\Debug\cef.pak"
   File "..\src\LongManager\bin\x86\Debug\CefSharp.BrowserSubprocess.Core.dll"
-  File "..\src\LongManager\bin\x86\Debug\CefSharp.BrowserSubprocess.Core.pdb"
   File "..\src\LongManager\bin\x86\Debug\CefSharp.BrowserSubprocess.exe"
-  File "..\src\LongManager\bin\x86\Debug\CefSharp.BrowserSubprocess.pdb"
   File "..\src\LongManager\bin\x86\Debug\CefSharp.Core.dll"
-  File "..\src\LongManager\bin\x86\Debug\CefSharp.Core.pdb"
   File "..\src\LongManager\bin\x86\Debug\CefSharp.Core.xml"
   File "..\src\LongManager\bin\x86\Debug\CefSharp.dll"
-  File "..\src\LongManager\bin\x86\Debug\CefSharp.pdb"
   File "..\src\LongManager\bin\x86\Debug\CefSharp.Wpf.dll"
-  File "..\src\LongManager\bin\x86\Debug\CefSharp.Wpf.pdb"
   File "..\src\LongManager\bin\x86\Debug\CefSharp.Wpf.XML"
   File "..\src\LongManager\bin\x86\Debug\CefSharp.XML"
   File "..\src\LongManager\bin\x86\Debug\cef_100_percent.pak"
@@ -68,19 +129,8 @@ Section "MainSection" SEC01
   SetOutPath "$INSTDIR\DB"
   File "..\src\LongManager\bin\x86\Debug\DB\Long.db"
   SetOutPath "$INSTDIR"
-  File "..\src\LongManager\bin\x86\Debug\debug.log"
   File "..\src\LongManager\bin\x86\Debug\devtools_resources.pak"
   File "..\src\LongManager\bin\x86\Debug\e_sqlite3.dll"
-  SetOutPath "$INSTDIR\GPUCache"
-  File "..\src\LongManager\bin\x86\Debug\GPUCache\data_0"
-  File "..\src\LongManager\bin\x86\Debug\GPUCache\data_1"
-  File "..\src\LongManager\bin\x86\Debug\GPUCache\data_2"
-  File "..\src\LongManager\bin\x86\Debug\GPUCache\data_3"
-  File "..\src\LongManager\bin\x86\Debug\GPUCache\f_000001"
-  File "..\src\LongManager\bin\x86\Debug\GPUCache\f_000002"
-  File "..\src\LongManager\bin\x86\Debug\GPUCache\f_000003"
-  File "..\src\LongManager\bin\x86\Debug\GPUCache\f_000004"
-  File "..\src\LongManager\bin\x86\Debug\GPUCache\index"
   SetOutPath "$INSTDIR\Htmls\Content\js"
   File "..\src\LongManager\bin\x86\Debug\Htmls\Content\js\echarts.js"
   File "..\src\LongManager\bin\x86\Debug\Htmls\Content\js\jquery-3.3.1.min.js"
@@ -159,24 +209,15 @@ Section "MainSection" SEC01
   File "..\src\LongManager\bin\x86\Debug\locales\zh-TW.pak"
   SetOutPath "$INSTDIR"
   File "..\src\LongManager\bin\x86\Debug\log4net.dll"
-  SetOutPath "$INSTDIR\LogFiles"
-  File "..\src\LongManager\bin\x86\Debug\LogFiles\20190223.txt"
-  File "..\src\LongManager\bin\x86\Debug\LogFiles\20190224.txt"
-  File "..\src\LongManager\bin\x86\Debug\LogFiles\20190225.txt"
-  File "..\src\LongManager\bin\x86\Debug\LogFiles\20190226.txt"
   SetOutPath "$INSTDIR"
   File "..\src\LongManager\bin\x86\Debug\LongManager.Core.dll"
-  File "..\src\LongManager\bin\x86\Debug\LongManager.Core.pdb"
   File "..\src\LongManager\bin\x86\Debug\LongManager.exe"
   CreateDirectory "$SMPROGRAMS\龙翔物流"
   CreateShortCut "$SMPROGRAMS\龙翔物流\龙翔物流.lnk" "$INSTDIR\LongManager.exe"
   CreateShortCut "$DESKTOP\龙翔物流.lnk" "$INSTDIR\LongManager.exe"
   File "..\src\LongManager\bin\x86\Debug\LongManager.exe.config"
-  File "..\src\LongManager\bin\x86\Debug\LongManager.pdb"
   File "..\src\LongManager\bin\x86\Debug\MaterialDesignColors.dll"
-  File "..\src\LongManager\bin\x86\Debug\MaterialDesignColors.pdb"
   File "..\src\LongManager\bin\x86\Debug\MaterialDesignThemes.Wpf.dll"
-  File "..\src\LongManager\bin\x86\Debug\MaterialDesignThemes.Wpf.pdb"
   File "..\src\LongManager\bin\x86\Debug\Microsoft.Data.Sqlite.dll"
   File "..\src\LongManager\bin\x86\Debug\Microsoft.DotNet.PlatformAbstractions.dll"
   File "..\src\LongManager\bin\x86\Debug\Microsoft.EntityFrameworkCore.Abstractions.dll"
@@ -201,7 +242,6 @@ Section "MainSection" SEC01
   File "..\src\LongManager\bin\x86\Debug\natives_blob.bin"
   File "..\src\LongManager\bin\x86\Debug\netstandard.dll"
   File "..\src\LongManager\bin\x86\Debug\Newtonsoft.Json.dll"
-  File "..\src\LongManager\bin\x86\Debug\Newtonsoft.Json.pdb"
   File "..\src\LongManager\bin\x86\Debug\README.txt"
   File "..\src\LongManager\bin\x86\Debug\Remotion.Linq.dll"
   File "..\src\LongManager\bin\x86\Debug\snapshot_blob.bin"
@@ -466,7 +506,6 @@ Section Uninstall
   Delete "$INSTDIR\snapshot_blob.bin"
   Delete "$INSTDIR\Remotion.Linq.dll"
   Delete "$INSTDIR\README.txt"
-  Delete "$INSTDIR\Newtonsoft.Json.pdb"
   Delete "$INSTDIR\Newtonsoft.Json.dll"
   Delete "$INSTDIR\netstandard.dll"
   Delete "$INSTDIR\natives_blob.bin"
@@ -491,19 +530,11 @@ Section Uninstall
   Delete "$INSTDIR\Microsoft.EntityFrameworkCore.Abstractions.dll"
   Delete "$INSTDIR\Microsoft.DotNet.PlatformAbstractions.dll"
   Delete "$INSTDIR\Microsoft.Data.Sqlite.dll"
-  Delete "$INSTDIR\MaterialDesignThemes.Wpf.pdb"
   Delete "$INSTDIR\MaterialDesignThemes.Wpf.dll"
-  Delete "$INSTDIR\MaterialDesignColors.pdb"
   Delete "$INSTDIR\MaterialDesignColors.dll"
-  Delete "$INSTDIR\LongManager.pdb"
   Delete "$INSTDIR\LongManager.exe.config"
   Delete "$INSTDIR\LongManager.exe"
-  Delete "$INSTDIR\LongManager.Core.pdb"
   Delete "$INSTDIR\LongManager.Core.dll"
-  Delete "$INSTDIR\LogFiles\20190226.txt"
-  Delete "$INSTDIR\LogFiles\20190225.txt"
-  Delete "$INSTDIR\LogFiles\20190224.txt"
-  Delete "$INSTDIR\LogFiles\20190223.txt"
   Delete "$INSTDIR\log4net.dll"
   Delete "$INSTDIR\locales\zh-TW.pak"
   Delete "$INSTDIR\locales\zh-CN.pak"
@@ -573,18 +604,8 @@ Section Uninstall
   Delete "$INSTDIR\Htmls\Content\js\layer\layer.js"
   Delete "$INSTDIR\Htmls\Content\js\jquery-3.3.1.min.js"
   Delete "$INSTDIR\Htmls\Content\js\echarts.js"
-  Delete "$INSTDIR\GPUCache\index"
-  Delete "$INSTDIR\GPUCache\f_000004"
-  Delete "$INSTDIR\GPUCache\f_000003"
-  Delete "$INSTDIR\GPUCache\f_000002"
-  Delete "$INSTDIR\GPUCache\f_000001"
-  Delete "$INSTDIR\GPUCache\data_3"
-  Delete "$INSTDIR\GPUCache\data_2"
-  Delete "$INSTDIR\GPUCache\data_1"
-  Delete "$INSTDIR\GPUCache\data_0"
   Delete "$INSTDIR\e_sqlite3.dll"
   Delete "$INSTDIR\devtools_resources.pak"
-  Delete "$INSTDIR\debug.log"
   Delete "$INSTDIR\DB\Long.db"
   Delete "$INSTDIR\d3dcompiler_47.dll"
   Delete "$INSTDIR\chrome_elf.dll"
@@ -593,16 +614,11 @@ Section Uninstall
   Delete "$INSTDIR\cef_100_percent.pak"
   Delete "$INSTDIR\CefSharp.XML"
   Delete "$INSTDIR\CefSharp.Wpf.XML"
-  Delete "$INSTDIR\CefSharp.Wpf.pdb"
   Delete "$INSTDIR\CefSharp.Wpf.dll"
-  Delete "$INSTDIR\CefSharp.pdb"
   Delete "$INSTDIR\CefSharp.dll"
   Delete "$INSTDIR\CefSharp.Core.xml"
-  Delete "$INSTDIR\CefSharp.Core.pdb"
   Delete "$INSTDIR\CefSharp.Core.dll"
-  Delete "$INSTDIR\CefSharp.BrowserSubprocess.pdb"
   Delete "$INSTDIR\CefSharp.BrowserSubprocess.exe"
-  Delete "$INSTDIR\CefSharp.BrowserSubprocess.Core.pdb"
   Delete "$INSTDIR\CefSharp.BrowserSubprocess.Core.dll"
   Delete "$INSTDIR\cef.pak"
 
@@ -619,9 +635,11 @@ Section Uninstall
   RMDir "$INSTDIR\Images"
   RMDir "$INSTDIR\Htmls\pages"
   RMDir "$INSTDIR\Htmls\Content\js\layer\theme\default"
+  RMDir "$INSTDIR\Htmls\Content\js\layer\theme"
   RMDir "$INSTDIR\Htmls\Content\js\layer"
   RMDir "$INSTDIR\Htmls\Content\js"
-  RMDir "$INSTDIR\GPUCache"
+  RMDir "$INSTDIR\Htmls\Content"
+  RMDir "$INSTDIR\Htmls"
   RMDir "$INSTDIR\DB"
   RMDir "$INSTDIR"
 
