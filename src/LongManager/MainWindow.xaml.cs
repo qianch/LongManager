@@ -55,7 +55,9 @@ namespace LongManager
             GlobalCache.Instance.Frame = PageFrame;
 
             //绑定自定义命令
-            CommandBindings.Add(new CommandBinding(LongManagerCommands.CustomCommand, CustomCommandBinding));
+            CommandBindings.Add(new CommandBinding(LongManagerCommands.OpenPageCommand, OpenPageCommandBinding));
+            CommandBindings.Add(new CommandBinding(LongManagerCommands.Exit, Exit));
+            CommandBindings.Add(new CommandBinding(LongManagerCommands.MenuCommand, MenuCommandBinding));
 
             //默认加载欢迎页面
             PageFrame.NavigationService.Navigate(GlobalCache.Instance.AllPages["Welcome"]);
@@ -89,11 +91,29 @@ namespace LongManager
             }
         }
 
-        //button 关联 custom command
-        private void CustomCommandBinding(object sender, ExecutedRoutedEventArgs e)
+        //button 关联 open page command
+        private void OpenPageCommandBinding(object sender, ExecutedRoutedEventArgs e)
         {
             var param = e.Parameter.ToString();
             GlobalCache.Instance.Frame.NavigationService.Navigate(GlobalCache.Instance.AllPages[param]);
+        }
+
+        private void MenuCommandBinding(object sender, ExecutedRoutedEventArgs e)
+        {
+            var param = e.Parameter.ToString();
+            switch (param)
+            {
+                case "About":
+                    MessageBox.Show("龙翔物流管理系统 1.0", "版权信息", MessageBoxButton.OK, MessageBoxImage.Information);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void Exit(object sender, ExecutedRoutedEventArgs e)
+        {
+            Close();
         }
 
         public void GetTimer(object sender, EventArgs e)

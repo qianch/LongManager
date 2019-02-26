@@ -13,5 +13,7 @@ namespace LongManager.Command
         public static RoutedUICommand OpenTabCommand = new RoutedUICommand("OpenTabCommand", "OpenTabCommand", typeof(LongManagerCommands));
         public static RoutedUICommand PrintTabToPdfCommand = new RoutedUICommand("PrintTabToPdfCommand", "PrintTabToPdfCommand", typeof(LongManagerCommands));
         public static RoutedUICommand CustomCommand = new RoutedUICommand("CustomCommand", "CustomCommand", typeof(LongManagerCommands));
+        public static RoutedUICommand MenuCommand = new RoutedUICommand("MenuCommand", "MenuCommand", typeof(LongManagerCommands));
+        public static RoutedUICommand OpenPageCommand = new RoutedUICommand("OpenPageCommand", "OpenPageCommand", typeof(LongManagerCommands));
     }
 }
