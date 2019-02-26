@@ -57,7 +57,7 @@ namespace LongManager.Pages
 
         private void CallBrowserGet_Click(object sender, RoutedEventArgs e)
         {
-            Task<CefSharp.JavascriptResponse> javascriptResponse = Browser.EvaluateScriptAsync("browserAlertReturn", "browserAlertReturn");
+            Task<JavascriptResponse> javascriptResponse = Browser.EvaluateScriptAsync("browserAlertReturn", "browserAlertReturn");
             if (javascriptResponse.Result.Success)
             {
                 MessageBox.Show(javascriptResponse.Result.Result.ToString(), "C#调用js的返回值", MessageBoxButton.OK, MessageBoxImage.Asterisk);

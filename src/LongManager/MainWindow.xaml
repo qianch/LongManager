@@ -34,7 +34,7 @@
             </WrapPanel>
         </DockPanel>
         <StackPanel DockPanel.Dock="Left" Width="200" Height="auto" Background="#FF9459C5">
-            <Button x:Name="WelcomeBtn" Margin="10" Width="auto" Height="30" Content="预览" Command="command:LongManagerCommands.OpenPageCommand" CommandParameter="Welcome"></Button>
+            <Button x:Name="IndexBtn" Margin="10" Width="auto" Height="30" Content="首页" Command="command:LongManagerCommands.OpenPageCommand" CommandParameter="Index"></Button>
             <Button x:Name="FrameUserBtn" Margin="10" Width="auto" Height="30" Content="用户管理" Command="command:LongManagerCommands.OpenPageCommand" CommandParameter="UserList"></Button>
             <Button x:Name="CarBtn" Margin="10" Width="auto" Height="30" Content="车辆管理" Command="command:LongManagerCommands.OpenPageCommand" CommandParameter="CarList"></Button>
             <Button x:Name="LabelBtn" Margin="10" Width="auto" Height="30" Content="标签管理" Command="command:LongManagerCommands.OpenPageCommand" CommandParameter="LabelList"></Button>

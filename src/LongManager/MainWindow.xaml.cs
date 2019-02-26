@@ -6,6 +6,7 @@ using LongManager.Pages;
 using LongManager.Pages.Car;
 using LongManager.Pages.Config;
 using LongManager.Pages.EMS;
+using LongManager.Pages.Index;
 using LongManager.Pages.Label;
 using LongManager.Pages.Log;
 using LongManager.Pages.User;
@@ -44,6 +45,7 @@ namespace LongManager
             WindowState = WindowState.Maximized;
 
             //加载所有的Page
+            GlobalCache.Instance.AllPages.Add("Index", new Index());
             GlobalCache.Instance.AllPages.Add("Welcome", new Welcome());
             GlobalCache.Instance.AllPages.Add("UserList", new UserList());
             GlobalCache.Instance.AllPages.Add("LogList", new LogList());
@@ -60,7 +62,7 @@ namespace LongManager
             CommandBindings.Add(new CommandBinding(LongManagerCommands.MenuCommand, MenuCommandBinding));
 
             //默认加载欢迎页面
-            PageFrame.NavigationService.Navigate(GlobalCache.Instance.AllPages["Welcome"]);
+            PageFrame.NavigationService.Navigate(GlobalCache.Instance.AllPages["Index"]);
 
             //添加timer
             _showTimer.Tick += new EventHandler(GetTimer);
