@@ -72,7 +72,7 @@ Section - "比较版本号"
   DetailPrint "正在检测安装环境..."
     Call GetNetFrameworkVersion
     Pop $R1
-    ${VersionCompare} "4.6.2" "$R1" $R2
+    ${VersionCompare} "4.6.01590" "$R1" $R2
     ${If} $R2 == 0
         DetailPrint "当前版本($R1)，无需安装组件"
     ${ElseIf} $R2 == 1
@@ -85,7 +85,7 @@ SectionEnd
 Section -.NET
  Call GetNetFrameworkVersion
  Pop $R1
- ${VersionCompare} "4.6.2" $R1 $R2
+ ${VersionCompare} "4.6.01590" $R1 $R2
   ${If} $R2 == 1
    MessageBox MB_ICONINFORMATION|MB_OK "检测到当前系统缺少微软.NetFramework 4.6.2组件。"
    SetDetailsPrint textonly
@@ -94,6 +94,7 @@ Section -.NET
    SetOutPath "$TEMP"
    SetOverwrite on
    File "Framework\NDP462-DevPack-KB3151934-ENU.exe"
+   MessageBox MB_ICONINFORMATION|MB_OK $R1
    ExecWait '$TEMP\NDP462-DevPack-KB3151934-ENU.exe ' $R1
    Delete "$TEMP\NDP462-DevPack-KB3151934-ENU.exe"
   ${EndIf}
@@ -165,8 +166,17 @@ Section "MainSection" SEC01
   File "..\src\LongManager\bin\x86\Debug\Htmls\Content\js\layer\theme\default\loading-0.gif"
   File "..\src\LongManager\bin\x86\Debug\Htmls\Content\js\layer\theme\default\loading-1.gif"
   File "..\src\LongManager\bin\x86\Debug\Htmls\Content\js\layer\theme\default\loading-2.gif"
+  SetOutPath "$INSTDIR\Htmls\Content\img"
+  File "..\src\LongManager\bin\x86\Debug\Htmls\Content\img\1.jpg"
+  File "..\src\LongManager\bin\x86\Debug\Htmls\Content\img\2.jpg"
+  File "..\src\LongManager\bin\x86\Debug\Htmls\Content\img\3.jpg"
+  File "..\src\LongManager\bin\x86\Debug\Htmls\Content\img\4.jpg"
+  File "..\src\LongManager\bin\x86\Debug\Htmls\Content\img\5.jpg"
+  File "..\src\LongManager\bin\x86\Debug\Htmls\Content\img\6.jpg"
+  File "..\src\LongManager\bin\x86\Debug\Htmls\Content\img\7.jpg"
   SetOutPath "$INSTDIR\Htmls\pages"
   File "..\src\LongManager\bin\x86\Debug\Htmls\pages\welcome.html"
+  File "..\src\LongManager\bin\x86\Debug\Htmls\pages\index.html"
   SetOutPath "$INSTDIR"
   File "..\src\LongManager\bin\x86\Debug\icudtl.dat"
   SetOutPath "$INSTDIR\Images"
@@ -617,6 +627,7 @@ Section Uninstall
   Delete "$INSTDIR\Images\favicon.ico"
   Delete "$INSTDIR\icudtl.dat"
   Delete "$INSTDIR\Htmls\pages\welcome.html"
+  Delete "$INSTDIR\Htmls\pages\index.html"
   Delete "$INSTDIR\Htmls\Content\js\layer\theme\default\loading-2.gif"
   Delete "$INSTDIR\Htmls\Content\js\layer\theme\default\loading-1.gif"
   Delete "$INSTDIR\Htmls\Content\js\layer\theme\default\loading-0.gif"
@@ -626,6 +637,13 @@ Section Uninstall
   Delete "$INSTDIR\Htmls\Content\js\layer\layer.js"
   Delete "$INSTDIR\Htmls\Content\js\jquery-3.3.1.min.js"
   Delete "$INSTDIR\Htmls\Content\js\echarts.js"
+  Delete "$INSTDIR\Htmls\Content\img\1.jpg"
+  Delete "$INSTDIR\Htmls\Content\img\2.jpg"
+  Delete "$INSTDIR\Htmls\Content\img\3.jpg"
+  Delete "$INSTDIR\Htmls\Content\img\4.jpg"
+  Delete "$INSTDIR\Htmls\Content\img\5.jpg"
+  Delete "$INSTDIR\Htmls\Content\img\6.jpg"
+  Delete "$INSTDIR\Htmls\Content\img\7.jpg"
   Delete "$INSTDIR\e_sqlite3.dll"
   Delete "$INSTDIR\devtools_resources.pak"
   Delete "$INSTDIR\DB\Long.db"
@@ -643,6 +661,7 @@ Section Uninstall
   Delete "$INSTDIR\CefSharp.BrowserSubprocess.exe"
   Delete "$INSTDIR\CefSharp.BrowserSubprocess.Core.dll"
   Delete "$INSTDIR\cef.pak"
+  Delete "$INSTDIR\debug.log"
 
   Delete "$SMPROGRAMS\龙翔物流\Uninstall.lnk"
   Delete "$DESKTOP\龙翔物流.lnk"
@@ -652,7 +671,9 @@ Section Uninstall
   RMDir "$INSTDIR\x86"
   RMDir "$INSTDIR\x64"
   RMDir "$INSTDIR\swiftshader"
-  RMDir "$INSTDIR\LogFiles"
+  RMDir /r "$INSTDIR\LogFiles"
+  RMDir /r "$INSTDIR\GPUCache"
+  RMDIR /r "$INSTDIR\blob_storage"
   RMDir "$INSTDIR\locales"
   RMDir "$INSTDIR\Images"
   RMDir "$INSTDIR\Htmls\pages"
@@ -660,10 +681,10 @@ Section Uninstall
   RMDir "$INSTDIR\Htmls\Content\js\layer\theme"
   RMDir "$INSTDIR\Htmls\Content\js\layer"
   RMDir "$INSTDIR\Htmls\Content\js"
+  RMDir "$INSTDIR\Htmls\Content\img"
   RMDir "$INSTDIR\Htmls\Content"
   RMDir "$INSTDIR\Htmls"
   RMDir "$INSTDIR\DB"
-  RMDir "$INSTDIR\debug.log"
   RMDir "$INSTDIR"
 
   DeleteRegKey ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}"
