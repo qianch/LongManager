@@ -1,0 +1,33 @@
+﻿<pages:BaseWindow
+    xmlns:pages="clr-namespace:LongManagerClient.Pages"
+    x:Class="LongManagerClient.Pages.Login"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="登录" Height="200" Width="400"
+        Icon="../Images/favicon.ico">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"></RowDefinition>
+            <RowDefinition Height="60"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <WrapPanel Grid.Row="0" Margin="50 10 0 0">
+            <TextBlock Text="账号："></TextBlock>
+            <materialDesign:PackIcon Kind="Account" />
+            <TextBox x:Name="TxtUserName" Margin="20 0 0 0" Width="200" Text="{Binding UserName}"></TextBox>
+        </WrapPanel>
+        <WrapPanel Grid.Row="1" Margin="50 10 0 0">
+            <TextBlock Text="密码 ："></TextBlock>
+            <materialDesign:PackIcon Kind="TextboxPassword" />
+            <PasswordBox x:Name="TxtPassword" Margin="20 0 0 0" Width="200" />
+        </WrapPanel>
+        <WrapPanel Grid.Row="2" Margin="50 0 0 0">
+            <Button x:Name="InBtn" Margin="50 0 0 0" Content="登录" Click="InBtn_Click" IsDefault="True"></Button>
+            <Button x:Name="OutBtn" Margin="50 0 0 0" Content="退出" Click="OutBtn_Click"></Button>
+        </WrapPanel>
+    </Grid>
+</pages:BaseWindow>

@@ -1,0 +1,42 @@
+﻿<LongPages:BaseWindow x:Class="LongManagerClient.Pages.User.UserEdit"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:LongPages="clr-namespace:LongManagerClient.Pages"
+        xmlns:local="clr-namespace:LongManagerClient.Pages.User"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="修改用户" Height="450" Width="800" Loaded="BaseWindow_Loaded">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0">
+            <WrapPanel Margin="10">
+                <TextBlock Text="用户名称：" Width="100"></TextBlock>
+                <TextBlock Text="{Binding UserName}" Width="100"></TextBlock>
+            </WrapPanel>
+            <WrapPanel Margin="10">
+                <TextBlock Text="手机号码：" Width="100"></TextBlock>
+                <TextBox x:Name="MobileTextBox" materialDesign:HintAssist.Hint="手机号码">
+                    <TextBox.Text>
+                        <Binding Path="Mobile"></Binding>
+                    </TextBox.Text>
+                </TextBox>
+            </WrapPanel>
+            <WrapPanel Margin="10">
+                <TextBlock Text="常用地址：" Width="100"></TextBlock>
+                <TextBox x:Name="AddressTextBox" materialDesign:HintAssist.Hint="常用地址">
+                    <TextBox.Text>
+                        <Binding Path="Address"></Binding>
+                    </TextBox.Text>
+                </TextBox>
+            </WrapPanel>
+        </StackPanel>
+        <StackPanel Grid.Row="1">
+            <Button x:Name="SaveBtn" Content="保存" Click="SaveBtn_Click"></Button>
+        </StackPanel>
+    </Grid>
+</LongPages:BaseWindow>

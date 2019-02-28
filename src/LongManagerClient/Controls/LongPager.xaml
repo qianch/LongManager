@@ -1,0 +1,26 @@
+﻿<UserControl x:Class="LongManagerClient.Controls.LongPager"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:LongManagerClient.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <StackPanel x:Name="ShowCount" Orientation="Horizontal">
+        <Button x:Name="FirstBtn" Content="首页" Margin="5" Click="FirstBtn_Click"></Button>
+        <Button x:Name="PreBtn" Content="上一页" Margin="5" Click="PreBtn_Click"></Button>
+        <Button x:Name="NextBtn" Content="下一页" Margin="5" Click="NextBtn_Click"></Button>
+        <Button x:Name="LastBtn" Content="尾页" Margin="5" Click="LastBtn_Click"></Button>
+        <TextBlock VerticalAlignment="Center"> 
+                <TextBlock Text="【共"/>
+                <TextBlock Text="{Binding PageCount}" Foreground="Red"/>
+                <TextBlock Text="页】"/> 
+                <TextBlock Text="【当前第"/>
+                <TextBlock Text="{Binding PageIndex}" Foreground="Red"/>
+                <TextBlock Text="页】"/>
+                <TextBlock Text="【共"/>
+                <TextBlock Text="{Binding AllCount}" Foreground="Red"/>
+                <TextBlock Text="条记录】"/>
+         </TextBlock>
+    </StackPanel>
+</UserControl>

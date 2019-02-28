@@ -1,0 +1,49 @@
+﻿<LongPages:BasePage
+      x:Class="LongManagerClient.Pages.User.UserList"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:LongPages="clr-namespace:LongManagerClient.Pages"
+      xmlns:local="clr-namespace:LongManagerClient.Pages.User"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:controls="clr-namespace:LongManagerClient.Controls"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="UserList" 
+      Loaded="BasePage_Loaded">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+        </Grid.RowDefinitions>
+        <WrapPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left">
+            <TextBox x:Name="TxtUserName" materialDesign:HintAssist.Hint="用户名称" Width="200" Margin="10"></TextBox>
+            <Button x:Name="SearchBtn" Content="搜索" Click="SearchBtn_Click"></Button>
+        </WrapPanel>
+        <DataGrid x:Name="UserDataGrid" Grid.Row="1" HorizontalAlignment="Stretch" IsReadOnly="True" AutoGenerateColumns="False"
+                   CanUserAddRows="False" CanUserDeleteRows="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding UserName}" Header="登录名"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding DisplayName}" Header="用户名称"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Birthday}" Header="出生日期"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Mobile}" Header="手机号码"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Address}" Header="常用地址"></DataGridTextColumn>
+                <DataGridTemplateColumn Header="修改">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button x:Name="EditBtn" Tag="{Binding RowGuid}" Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                                    ToolTip="修改" Click="EditBtn_Click">
+                                <materialDesign:PackIcon Kind="Edit" Height="24" Width="24"/>
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <WrapPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left">
+            <controls:LongPager x:Name="Pager"></controls:LongPager>
+        </WrapPanel>
+    </Grid>
+</LongPages:BasePage>
