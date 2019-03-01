@@ -22,8 +22,10 @@
     <DockPanel  LastChildFill="True" Margin="0">
         <Menu DockPanel.Dock="Top" Width="auto" Height="40" Background="LightGray">
             <MenuItem Header="文件">
-                <MenuItem Header="关于" Command="command:LongManagerClientCommands.MenuCommand" CommandParameter="About"></MenuItem>
                 <MenuItem Header="退出" Command="command:LongManagerClientCommands.Exit"/>
+            </MenuItem>
+            <MenuItem Header="帮助">
+                <MenuItem Header="关于" Command="command:LongManagerClientCommands.MenuCommand" CommandParameter="About"></MenuItem>
             </MenuItem>
         </Menu>
         <DockPanel DockPanel.Dock="Bottom" Width="auto" Height="40" Background="LightGray">
