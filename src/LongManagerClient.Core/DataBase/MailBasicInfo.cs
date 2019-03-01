@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
-namespace LongManager.Core.DataBase
+namespace LongManagerClient.Core.DataBase
 {
     [Table("MailBasicInfo")]
     public class MailBasicInfo : BaseEntity

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace LongManager.Core.DataBase
+namespace LongManagerClient.Core.DataBase
 {
     public class LongDbContext : DbContext
     {

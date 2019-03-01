@@ -234,9 +234,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\LongManager.Core\LongManager.Core.csproj">
+    <ProjectReference Include="..\LongManagerClient.Core\LongManagerClient.Core.csproj">
       <Project>{b7459e63-8681-446d-b38c-a6b6dbb61e7e}</Project>
-      <Name>LongManager.Core</Name>
+      <Name>LongManagerClient.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

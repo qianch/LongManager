@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace LongManager.Core.DataBase
+namespace LongManagerClient.Core.DataBase
 {
     public class BaseEntity : INotifyPropertyChanged
     {

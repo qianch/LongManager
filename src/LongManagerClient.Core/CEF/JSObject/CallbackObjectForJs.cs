@@ -1,11 +1,11 @@
-﻿using LongManager.Core.DataBase;
+﻿using LongManagerClient.Core.DataBase;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows;
 
-namespace LongManager.Core.CEF.JSObject
+namespace LongManagerClient.Core.CEF.JSObject
 {
     public class CallbackObjectForJs
     {

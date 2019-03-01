@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
-namespace LongManager.Core.DataBase
+namespace LongManagerClient.Core.DataBase
 {
     [Table("FrameConfig")]
     public class FrameConfig : BaseEntity

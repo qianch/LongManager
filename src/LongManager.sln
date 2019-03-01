@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28307.271
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LongManagerClient", "LongManagerClient\LongManagerClient.csproj", "{F2B7FDD8-2478-48AE-A6F9-E2B449AC7B6A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LongManager.Core", "LongManager.Core\LongManager.Core.csproj", "{B7459E63-8681-446D-B38C-A6B6DBB61E7E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LongManagerClient.Core", "LongManagerClient.Core\LongManagerClient.Core.csproj", "{B7459E63-8681-446D-B38C-A6B6DBB61E7E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

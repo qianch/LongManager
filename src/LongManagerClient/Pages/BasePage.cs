@@ -1,5 +1,5 @@
 ﻿using log4net;
-using LongManager.Core.DataBase;
+using LongManagerClient.Core.DataBase;
 using System;
 using System.Collections.Generic;
 using System.Linq;

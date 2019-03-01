@@ -1,6 +1,6 @@
 ﻿using log4net;
-using LongManager.Core;
-using LongManager.Core.DataBase;
+using LongManagerClient.Core;
+using LongManagerClient.Core.DataBase;
 using LongManagerClient.Command;
 using LongManagerClient.Pages;
 using LongManagerClient.Pages.Car;

@@ -1,7 +1,7 @@
 ﻿using CefSharp;
 using CefSharp.Wpf;
 using log4net;
-using LongManager.Core;
+using LongManagerClient.Core;
 using LongManagerClient.Port;
 using System;
 using System.Collections.Generic;
