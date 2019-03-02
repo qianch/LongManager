@@ -12,6 +12,8 @@ Log4Net/
 *.log 
 obj/
 bin/
+node_modules/
+*.exe
 *.user
 *.suo  
 *.class 
