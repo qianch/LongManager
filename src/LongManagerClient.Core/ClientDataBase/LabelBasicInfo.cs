@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
-namespace LongManagerClient.Core.DataBase
+namespace LongManagerClient.Core.ClientDataBase
 {
     [Table("LabelBasicInfo")]
     public class LabelBasicInfo : BaseEntity

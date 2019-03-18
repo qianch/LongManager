@@ -1,6 +1,6 @@
 ﻿using CefSharp;
 using LongManagerClient.Core;
-using LongManagerClient.Core.DataBase;
+using LongManagerClient.Core.ClientDataBase;
 using LongManagerClient.CEF;
 using System;
 using System.Collections.Generic;

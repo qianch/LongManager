@@ -1,4 +1,4 @@
-﻿using LongManagerClient.Core.DataBase;
+﻿using LongManagerClient.Core.ClientDataBase;
 using LongManagerClient.Port;
 using System;
 using System.Collections.Generic;

@@ -1,5 +1,5 @@
 ﻿using LongManagerClient.Core;
-using LongManagerClient.Core.DataBase;
+using LongManagerClient.Core.ClientDataBase;
 using System;
 using System.Collections.Generic;
 using System.Linq;

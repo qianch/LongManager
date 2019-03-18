@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace LongManagerClient.Core.DataBase
+namespace LongManagerClient.Core.ClientDataBase
 {
-    public class LongDbContext : DbContext
+    public class LongClientDbContext : DbContext
     {
-        private static readonly string frameConnection = $"Data Source={Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "DB/Long.db")};";
+        private static readonly string frameConnection = $"Data Source={Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "DB/LongClient.db")};";
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlite(frameConnection);

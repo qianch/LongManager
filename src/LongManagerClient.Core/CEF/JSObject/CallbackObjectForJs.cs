@@ -1,4 +1,4 @@
-﻿using LongManagerClient.Core.DataBase;
+﻿using LongManagerClient.Core.ClientDataBase;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ namespace LongManagerClient.Core.CEF.JSObject
 {
     public class CallbackObjectForJs
     {
-        private LongDbContext _longDBContext = new LongDbContext();
+        private LongClientDbContext _longDBContext = new LongClientDbContext();
         public void showMsg(string msg)
         {
             MessageBox.Show(msg, "提示", MessageBoxButton.OK, MessageBoxImage.Information);

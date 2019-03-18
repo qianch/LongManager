@@ -1,5 +1,5 @@
 ﻿using log4net;
-using LongManagerClient.Core.DataBase;
+using LongManagerClient.Core.ClientDataBase;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +17,7 @@ namespace LongManagerClient.Pages
 
         }
         protected static readonly ILog _log = LogManager.GetLogger("Page");
-        protected LongDbContext _longDBContext = new LongDbContext();
+        protected LongClientDbContext _longDBContext = new LongClientDbContext();
         public object ExtraData { get; set; }
     }
 }

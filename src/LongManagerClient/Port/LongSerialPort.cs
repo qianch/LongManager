@@ -1,6 +1,6 @@
 ﻿using log4net;
 using LongManagerClient.Core;
-using LongManagerClient.Core.DataBase;
+using LongManagerClient.Core.ClientDataBase;
 using System;
 using System.Collections.Generic;
 using System.IO.Ports;
@@ -13,7 +13,7 @@ namespace LongManagerClient.Port
     public class LongSerialPort
     {
         private static readonly ILog _log = LogManager.GetLogger(typeof(LongSerialPort));
-        private LongDbContext _longDBContext = new LongDbContext();
+        private LongClientDbContext _longDBContext = new LongClientDbContext();
         private SerialPort _serialPort = new SerialPort();
 
         public LongSerialPort(string portName)
