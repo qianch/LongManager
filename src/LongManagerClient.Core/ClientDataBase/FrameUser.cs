@@ -11,7 +11,7 @@ namespace LongManagerClient.Core.ClientDataBase
     public class FrameUser : BaseEntity
     {
         private string _userName;
-        private string _password;
+        private string _userPassword;
         private string _displayName;
         private string _mobile;
         private string _address;
@@ -30,15 +30,15 @@ namespace LongManagerClient.Core.ClientDataBase
             }
         }
 
-        public string Password
+        public string UserPassword
         {
-            get { return _password; }
+            get { return _userPassword; }
             set
             {
-                if (value != _password)
+                if (value != _userPassword)
                 {
-                    _password = value;
-                    Notify("Password");
+                    _userPassword = value;
+                    Notify("UserPassword");
                 }
             }
         }
@@ -77,7 +77,7 @@ namespace LongManagerClient.Core.ClientDataBase
                 if (value != _address)
                 {
                     _address = value;
-                    Notify("address");
+                    Notify("Address");
                 }
             }
         }

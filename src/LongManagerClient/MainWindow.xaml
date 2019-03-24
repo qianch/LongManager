@@ -44,8 +44,6 @@
             <Button x:Name="LabelBtn" Margin="10" Width="auto" Height="30" Content="标签管理" Command="command:LongManagerClientCommands.OpenPageCommand" CommandParameter="LabelList"></Button>
             <Button x:Name="EMSListBtn" Margin="10" Width="auto" Height="30" Content="EMS管理" Command="command:LongManagerClientCommands.OpenPageCommand" CommandParameter="EMSList"></Button>
             <Button x:Name="EMSSearchBtn" Margin="10" Width="auto" Height="30" Content="EMS查询" Command="command:LongManagerClientCommands.OpenPageCommand" CommandParameter="EMSSearch"></Button>
-            <Button x:Name="LogBtn" Margin="10" Width="auto" Height="30" Content="日志管理" Command="command:LongManagerClientCommands.OpenPageCommand" CommandParameter="LogList"></Button>
-            <Button x:Name="SystemBtn" Margin="10" Width="auto" Height="30" Content="系统设置" Command="command:LongManagerClientCommands.OpenPageCommand" CommandParameter="SystemConfig"></Button>
         </StackPanel>
         <DockPanel DockPanel.Dock="Right" Width="auto" Height="auto">
             <Frame x:Name="PageFrame" NavigationUIVisibility="Hidden"></Frame>

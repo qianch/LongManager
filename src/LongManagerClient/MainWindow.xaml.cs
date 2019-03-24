@@ -4,11 +4,9 @@ using LongManagerClient.Core.ClientDataBase;
 using LongManagerClient.Command;
 using LongManagerClient.Pages;
 using LongManagerClient.Pages.Car;
-using LongManagerClient.Pages.Config;
 using LongManagerClient.Pages.EMS;
 using LongManagerClient.Pages.Index;
 using LongManagerClient.Pages.Label;
-using LongManagerClient.Pages.Log;
 using LongManagerClient.Pages.User;
 using System;
 using System.Collections.Generic;
@@ -48,12 +46,10 @@ namespace LongManagerClient
             GlobalCache.Instance.AllPages.Add("Index", new Index());
             GlobalCache.Instance.AllPages.Add("Welcome", new Welcome());
             GlobalCache.Instance.AllPages.Add("UserList", new UserList());
-            GlobalCache.Instance.AllPages.Add("LogList", new LogList());
             GlobalCache.Instance.AllPages.Add("CarList", new CarList());
             GlobalCache.Instance.AllPages.Add("LabelList", new LabelList());
             GlobalCache.Instance.AllPages.Add("EMSList", new EMSList());
             GlobalCache.Instance.AllPages.Add("EMSSearch", new EMSSearch());
-            GlobalCache.Instance.AllPages.Add("SystemConfig", new SystemConfig());
             GlobalCache.Instance.Frame = PageFrame;
 
             //绑定自定义命令

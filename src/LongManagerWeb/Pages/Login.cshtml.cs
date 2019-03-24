@@ -9,17 +9,16 @@ using System.Threading.Tasks;
 
 namespace LongManagerWeb.Pages
 {
-    public class IndexModel : LongPageModel
+    public class LoginModel : LongPageModel
     {
-        public IndexModel(LongWebDbContext longWebDbContext)
+        public LoginModel(LongWebDbContext longWebDbContext)
             : base(longWebDbContext)
         {
 
         }
-
         public void OnGet()
         {
-            var frameUsers = _longWebDbContext.FrameUsers.ToList();
+
         }
     }
 }

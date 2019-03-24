@@ -31,25 +31,25 @@ namespace LongManagerClient.Pages
 
         private void InBtn_Click(object sender, RoutedEventArgs e)
         {
-            _frameUser.Password = TxtPassword.Password;
+            _frameUser.UserPassword = TxtPassword.Password;
             if (string.IsNullOrEmpty(_frameUser.UserName))
             {
                 MessageBox.Show("请输入用户名", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
 
-            if (string.IsNullOrEmpty(_frameUser.Password))
+            if (string.IsNullOrEmpty(_frameUser.UserPassword))
             {
                 MessageBox.Show("请输入密码", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
 
-            int count = _longDBContext.FrameUsers.Where(x => x.UserName == _frameUser.UserName && x.Password == _frameUser.Password).ToList().Count();
+            int count = _longDBContext.FrameUsers.Where(x => x.UserName == _frameUser.UserName && x.UserPassword == _frameUser.UserPassword).ToList().Count();
 
             if (count == 1)
             {
                 DialogResult = true;
-                GlobalCache.Instance.FrameUser = _longDBContext.FrameUsers.Where(x => x.UserName == _frameUser.UserName && x.Password == _frameUser.Password).FirstOrDefault();
+                GlobalCache.Instance.FrameUser = _longDBContext.FrameUsers.Where(x => x.UserName == _frameUser.UserName && x.UserPassword == _frameUser.UserPassword).FirstOrDefault();
                 MessageBox.Show("登录成功", "提示", MessageBoxButton.OK, MessageBoxImage.Asterisk);
             }
             else

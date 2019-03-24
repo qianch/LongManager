@@ -140,14 +140,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Log\LogList.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\Config\SystemConfig.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Pages\User\UserEdit.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -188,12 +180,6 @@
     </Compile>
     <Compile Include="Pages\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\Log\LogList.xaml.cs">
-      <DependentUpon>LogList.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\Config\SystemConfig.xaml.cs">
-      <DependentUpon>SystemConfig.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\User\UserEdit.xaml.cs">
       <DependentUpon>UserEdit.xaml</DependentUpon>
