@@ -43,7 +43,7 @@ namespace LongManagerClient.Pages.Car
         private void Browser_IsBrowserInitializedChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             var key = ExtraData as string;
-            _carBasicInfo = _longDBContext.Cars.Where(x => x.RowGuid == key).FirstOrDefault();
+            _carBasicInfo = _longDBContext.Car.Where(x => x.RowGuid == key).FirstOrDefault();
 
             var barStream = new MemoryStream();
             var barcode128 = BarcodeDrawFactory.Code128WithChecksum;

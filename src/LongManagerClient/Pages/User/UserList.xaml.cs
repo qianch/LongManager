@@ -30,7 +30,7 @@ namespace LongManagerClient.Pages.User
 
         private void Pager_PageIndexChange(object sender, EventArgs e)
         {
-            UserDataGrid.ItemsSource = _longDBContext.FrameUsers
+            UserDataGrid.ItemsSource = _longDBContext.FrameUser
                 .Skip(Pager.LongPage.PageSize * (Pager.LongPage.PageIndex - 1))
                 .Take(Pager.LongPage.PageSize)
                 .ToList();
@@ -38,9 +38,9 @@ namespace LongManagerClient.Pages.User
 
         private void BasePage_Loaded(object sender, RoutedEventArgs e)
         {
-            Pager.LongPage.AllCount = _longDBContext.FrameUsers.Count();
+            Pager.LongPage.AllCount = _longDBContext.FrameUser.Count();
             Pager.InitButton();
-            UserDataGrid.ItemsSource = _longDBContext.FrameUsers
+            UserDataGrid.ItemsSource = _longDBContext.FrameUser
                 .Take(Pager.LongPage.PageSize)
                 .ToList();
         }
@@ -57,7 +57,7 @@ namespace LongManagerClient.Pages.User
 
         private void SearchBtn_Click(object sender, RoutedEventArgs e)
         {
-            var frameUsers = _longDBContext.FrameUsers.AsEnumerable();
+            var frameUsers = _longDBContext.FrameUser.AsEnumerable();
             if (!string.IsNullOrEmpty(TxtUserName.Text))
             {
                 frameUsers = frameUsers.Where(x => x.UserName.Contains(TxtUserName.Text));

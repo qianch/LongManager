@@ -30,10 +30,10 @@ namespace LongManagerClient.Pages.Car
         private void BaseWindow_Loaded(object sender, RoutedEventArgs e)
         {
             var key = ExtraData as string;
-            _carBasicInfo = _longDBContext.Cars.Where(x => x.RowGuid == key).FirstOrDefault();
+            _carBasicInfo = _longDBContext.Car.Where(x => x.RowGuid == key).FirstOrDefault();
             DataContext = _carBasicInfo;
 
-            LabelCBox.ItemsSource = _longDBContext.Labels.ToList();
+            LabelCBox.ItemsSource = _longDBContext.Label.ToList();
             LabelCBox.DisplayMemberPath = "LabelNO";
             LabelCBox.SelectedValuePath = "LabelNO";
         }

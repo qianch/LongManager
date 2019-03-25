@@ -44,12 +44,21 @@ namespace LongManagerClient.Pages
                 return;
             }
 
-            int count = _longDBContext.FrameUsers.Where(x => x.UserName == _frameUser.UserName && x.UserPassword == _frameUser.UserPassword).ToList().Count();
+            int count = _longDBContext.FrameUser.Where(x => x.UserName == _frameUser.UserName && x.UserPassword == _frameUser.UserPassword).ToList().Count();
 
             if (count == 1)
             {
                 DialogResult = true;
-                GlobalCache.Instance.FrameUser = _longDBContext.FrameUsers.Where(x => x.UserName == _frameUser.UserName && x.UserPassword == _frameUser.UserPassword).FirstOrDefault();
+                var frameUser = GlobalCache.Instance.FrameUser = _longDBContext.FrameUser.Where(x => x.UserName == _frameUser.UserName && x.UserPassword == _frameUser.UserPassword).FirstOrDefault();
+                var loginHistory = new LoginHistory
+                {
+                    RowGuid = Guid.NewGuid().ToString(),
+                    LoginUserName = frameUser.UserName,
+                    LoginDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
+                    IsPush = 0
+                };
+                _longDBContext.LoginHistory.Add(loginHistory);
+                _longDBContext.SaveChanges();
                 MessageBox.Show("登录成功", "提示", MessageBoxButton.OK, MessageBoxImage.Asterisk);
             }
             else

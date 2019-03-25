@@ -100,7 +100,7 @@ namespace LongManagerClient.Port
         {
             var carNOList = data.Split(' ').Skip(2).Take(7).ToList();
             var carNO = string.Join(" ", carNOList);
-            if (_longDBContext.Cars.Where(x => x.CarNO == carNO).Count() == 0)
+            if (_longDBContext.Car.Where(x => x.CarNO == carNO).Count() == 0)
             {
                 var car = new CarBasicInfo()
                 {
@@ -108,7 +108,7 @@ namespace LongManagerClient.Port
                     CarNO = carNO
                 };
 
-                _longDBContext.Cars.Add(car);
+                _longDBContext.Car.Add(car);
                 _longDBContext.SaveChanges();
             }
         }
@@ -121,7 +121,7 @@ namespace LongManagerClient.Port
         {
             var labelNOList = data.Split(' ').Skip(2).Take(4).ToList();
             var labelNO = string.Join(" ", labelNOList);
-            if (_longDBContext.Labels.Where(x => x.LabelNO == labelNO).Count() == 0)
+            if (_longDBContext.Label.Where(x => x.LabelNO == labelNO).Count() == 0)
             {
                 var label = new LabelBasicInfo()
                 {
@@ -129,7 +129,7 @@ namespace LongManagerClient.Port
                     LabelNO = labelNO
                 };
 
-                _longDBContext.Labels.Add(label);
+                _longDBContext.Label.Add(label);
                 _longDBContext.SaveChanges();
             }
         }

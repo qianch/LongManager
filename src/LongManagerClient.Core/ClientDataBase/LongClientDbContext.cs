@@ -14,10 +14,11 @@ namespace LongManagerClient.Core.ClientDataBase
             optionsBuilder.UseSqlite(frameConnection);
         }
 
-        public DbSet<FrameConfig> FrameConfigs { get; set; }
-        public DbSet<FrameUser> FrameUsers { get; set; }
-        public DbSet<CarBasicInfo> Cars { get; set; }
-        public DbSet<LabelBasicInfo> Labels { get; set; }
-        public DbSet<MailBasicInfo> Mails { get; set; }
+        public DbSet<FrameConfig> FrameConfig { get; set; }
+        public DbSet<FrameUser> FrameUser { get; set; }
+        public DbSet<CarBasicInfo> Car { get; set; }
+        public DbSet<LabelBasicInfo> Label { get; set; }
+        public DbSet<MailBasicInfo> Mail { get; set; }
+        public DbSet<LoginHistory> LoginHistory { get; set; }
     }
 }

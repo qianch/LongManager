@@ -17,7 +17,7 @@ namespace LongManagerClient.Core.CEF.JSObject
 
         public void saveAddress(string mailNO, string address)
         {
-            var mail = _longDBContext.Mails.Where(x => x.MailNO == mailNO).FirstOrDefault();
+            var mail = _longDBContext.Mail.Where(x => x.MailNO == mailNO).FirstOrDefault();
             if (mail != null && string.IsNullOrEmpty(mail.Address))
             {
                 mail.Address = address;

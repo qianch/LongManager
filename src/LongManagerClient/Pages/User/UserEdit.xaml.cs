@@ -29,13 +29,13 @@ namespace LongManagerClient.Pages.User
         private void BaseWindow_Loaded(object sender, RoutedEventArgs e)
         {
             var key = ExtraData as string;
-            var frameUser = _longDBContext.FrameUsers.Where(x => x.RowGuid == key).FirstOrDefault();
+            var frameUser = _longDBContext.FrameUser.Where(x => x.RowGuid == key).FirstOrDefault();
             DataContext = frameUser;
         }
 
         private void SaveBtn_Click(object sender, RoutedEventArgs e)
         {
-            _longDBContext.FrameUsers.Update(DataContext as FrameUser);
+            _longDBContext.FrameUser.Update(DataContext as FrameUser);
             _longDBContext.SaveChanges();
             GlobalCache.Instance.Frame.Refresh();
         }

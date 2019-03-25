@@ -44,7 +44,7 @@ namespace LongManagerClient.Pages.EMS
 
         private void BasePage_Loaded(object sender, RoutedEventArgs e)
         {
-            _mailNOList = _longDBContext.Mails.Select(x => x.MailNO).ToList();
+            _mailNOList = _longDBContext.Mail.Select(x => x.MailNO).ToList();
         }
 
         private void Browser_IsBrowserInitializedChanged(object sender, DependencyPropertyChangedEventArgs e)

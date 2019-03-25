@@ -27,7 +27,7 @@ namespace LongManagerClient.Pages.Car
 
         private void BasePage_Loaded(object sender, RoutedEventArgs e)
         {
-            CarDataGrid.ItemsSource = _longDBContext.Cars.ToList();
+            CarDataGrid.ItemsSource = _longDBContext.Car.ToList();
         }
 
         private void ViewBtn_Click(object sender, RoutedEventArgs e)
