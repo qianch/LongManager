@@ -53,6 +53,7 @@ namespace LongManagerClient.Pages
                 var loginHistory = new LoginHistory
                 {
                     RowGuid = Guid.NewGuid().ToString(),
+                    LoginDisplayName = frameUser.DisplayName,
                     LoginUserName = frameUser.UserName,
                     LoginDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
                     IsPush = 0

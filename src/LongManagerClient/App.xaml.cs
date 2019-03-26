@@ -2,6 +2,7 @@
 using CefSharp.Wpf;
 using log4net;
 using LongManagerClient.Core;
+using LongManagerClient.Core.QuartzJob;
 using LongManagerClient.Port;
 using System;
 using System.Collections.Generic;
@@ -45,6 +46,9 @@ namespace LongManagerClient
             };
             Cef.Initialize(settings);
             CefSharpSettings.LegacyJavascriptBindingEnabled = true;
+
+            //quartz
+            new PushTask().Run().GetAwaiter().GetResult();
         }
 
         private void App_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)

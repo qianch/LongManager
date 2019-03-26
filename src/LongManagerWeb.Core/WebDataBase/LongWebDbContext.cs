@@ -12,7 +12,7 @@ namespace LongManagerWeb.Core.WebDataBase
         {
         }
 
-        public DbSet<FrameUser> FrameUsers { get; set; }
-        public DbSet<LoginHistory> LoginHistorys { get; set; }
+        public DbSet<FrameUser> FrameUser { get; set; }
+        public DbSet<LoginHistory> LoginHistory { get; set; }
     }
 }

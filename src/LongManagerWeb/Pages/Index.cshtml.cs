@@ -19,7 +19,7 @@ namespace LongManagerWeb.Pages
 
         public void OnGet()
         {
-            var frameUsers = _longWebDbContext.FrameUsers.ToList();
+            var frameUsers = _longWebDbContext.FrameUser.ToList();
         }
     }
 }

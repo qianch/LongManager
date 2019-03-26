@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace LongManagerClient.Core.ClientDataBase
@@ -10,7 +11,7 @@ namespace LongManagerClient.Core.ClientDataBase
     {
         public int _id;
         public string _rowGuid;
-        [Key]
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int ID
         {
             get { return _id; }

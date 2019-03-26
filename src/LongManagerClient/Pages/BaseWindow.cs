@@ -12,7 +12,7 @@ namespace LongManagerClient.Pages
 {
     public class BaseWindow : Window
     {
-        protected ILog _log = LogManager.GetLogger("Window");
+        protected readonly static ILog _log = LogManager.GetLogger(typeof(BaseWindow));
         protected LongClientDbContext _longDBContext = new LongClientDbContext();
         public object ExtraData { get; set; }
 

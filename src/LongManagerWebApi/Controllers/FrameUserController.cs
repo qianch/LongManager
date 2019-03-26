@@ -20,7 +20,7 @@ namespace LongManagerWebApi.Controllers
         [HttpPost]
         public ActionResult<IEnumerable<FrameUser>> Post()
         {
-            return _longWebDbContext.FrameUsers.ToList();
+            return _longWebDbContext.FrameUser.ToList();
         }
     }
 }

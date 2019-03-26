@@ -19,8 +19,7 @@ namespace LongManagerWebApi.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
-            return _longWebDbContext.FrameUsers.Select(x => x.UserName).ToArray();
-            //return new string[] { "value1", "value2" };
+            return new string[] { "value1", "value2" };
         }
 
         // GET api/values/5

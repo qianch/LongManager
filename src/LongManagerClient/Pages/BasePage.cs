@@ -16,7 +16,7 @@ namespace LongManagerClient.Pages
         {
 
         }
-        protected static readonly ILog _log = LogManager.GetLogger("Page");
+        protected readonly static ILog _log = LogManager.GetLogger(typeof(BasePage));
         protected LongClientDbContext _longDBContext = new LongClientDbContext();
         public object ExtraData { get; set; }
     }
