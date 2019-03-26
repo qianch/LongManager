@@ -14,7 +14,7 @@ namespace LongManagerClient.Core.QuartzJob
             ISchedulerFactory sf = new StdSchedulerFactory();
             IScheduler sched = await sf.GetScheduler();
             // define the job and tie it to our HelloJob class
-            IJobDetail job = JobBuilder.Create<PushJob>()
+            IJobDetail job = JobBuilder.Create<LoginHistoryJob>()
                 .WithIdentity("job1", "group1")
                 .Build();
 
