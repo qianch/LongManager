@@ -9,9 +9,10 @@ namespace LongManagerClient.Core.ClientDataBase
 {
     public class BaseEntity : INotifyPropertyChanged
     {
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int _id;
         public string _rowGuid;
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
+
         public int ID
         {
             get { return _id; }
