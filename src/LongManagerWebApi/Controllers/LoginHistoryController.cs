@@ -20,6 +20,7 @@ namespace LongManagerWebApi.Controllers
         [HttpPost]
         public void Post([FromBody] IEnumerable<LoginHistory> loginHistorys)
         {
+            loginHistorys.ToList().ForEach(x => x.ID = 0);
             _longWebDbContext.LoginHistory.AddRange(loginHistorys);
             _longWebDbContext.SaveChanges();
         }
