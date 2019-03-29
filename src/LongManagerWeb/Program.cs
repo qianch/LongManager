@@ -20,6 +20,12 @@ namespace LongManagerWeb
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseUrls("http://*:5000")
+                .ConfigureLogging((context, logger) =>
+                {
+                    logger.AddFilter("System", LogLevel.Warning);
+                    logger.AddFilter("Microsoft", LogLevel.Warning);
+                    logger.AddLog4Net();
+                })
                 .UseStartup<Startup>();
     }
 }

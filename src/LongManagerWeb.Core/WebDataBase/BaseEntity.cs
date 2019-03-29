@@ -8,7 +8,7 @@ namespace LongManagerWeb.Core.WebDataBase
 {
     public class BaseEntity
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
         public string RowGuid { get; set; }
     }
