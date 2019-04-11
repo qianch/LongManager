@@ -15,9 +15,9 @@ namespace LongManagerClient.Core.CEF.JSObject
             MessageBox.Show(msg, "提示", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
-        public void saveAddress(string mailNO, string address)
+        public void saveOutAddress(string mailNO, string address)
         {
-            var mail = _longDBContext.Mail.Where(x => x.MailNO == mailNO).FirstOrDefault();
+            var mail = _longDBContext.OutInfo.Where(x => x.MailNO == mailNO).FirstOrDefault();
             if (mail != null && string.IsNullOrEmpty(mail.Address))
             {
                 mail.Address = address;

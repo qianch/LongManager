@@ -44,7 +44,7 @@ namespace LongManagerClient.Pages.Out
 
         private void BasePage_Loaded(object sender, RoutedEventArgs e)
         {
-            _mailNOList = _longDBContext.Mail.Select(x => x.MailNO).ToList();
+            _mailNOList = _longDBContext.OutInfo.Select(x => x.MailNO).ToList();
         }
 
         private void Browser_IsBrowserInitializedChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -56,10 +56,10 @@ namespace LongManagerClient.Pages.Out
         {
             if (e.Frame.IsMain)
             {
-                var toMail = "https://10.3.131.164/pcs-tc-web/a/mailQuery/toMail";
+                var outMail = "https://10.3.131.164/pcs-tc-web/a/mailQuery/toMail";
                 var mailList = "https://10.3.131.164/pcs-tc-web/a/mailQuery/mailList";
 
-                if (e.Url.ToString() == toMail && _mailNOList.Count() > 0)
+                if (e.Url.ToString() == outMail && _mailNOList.Count() > 0)
                 {
                     _currentMialNO = _mailNOList[0];
                     _mailNOList.Remove(_currentMialNO);
@@ -75,12 +75,12 @@ namespace LongManagerClient.Pages.Out
                       password.value='zjg123456';
                       document.getElementById('login').click();
                    }}else{{
-                      window.location.href='{toMail}';
+                      window.location.href='{outMail}';
                    }};
                 }}
                 
                 //邮件查询
-                if('{e.Url}' == '{toMail}'){{
+                if('{e.Url}' == '{outMail}'){{
                    var wayBillNo = document.getElementById('wayBillNo');
                    if(wayBillNo != null){{
                       wayBillNo.value ='{_currentMialNO}';
@@ -97,9 +97,9 @@ namespace LongManagerClient.Pages.Out
                        if(rows.length > 0 && rows[1].cells.length > 0){{
                            var address = rows[1].cells[1].innerHTML;
                            console.log('{_currentMialNO}',address);
-                           jsObject.saveAddress('{_currentMialNO}',address);
+                           jsObject.saveOutAddress('{_currentMialNO}',address);
                            if({_mailNOList.Count()} > 0){{
-                              window.location.href='{toMail}';
+                              window.location.href='{outMail}';
                            }}
                        }}
                    }}

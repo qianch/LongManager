@@ -29,16 +29,16 @@ namespace LongManagerClient.Pages.Out
 
         private void BasePage_Loaded(object sender, RoutedEventArgs e)
         {
-            Pager.LongPage.AllCount = _longDBContext.Mail.Count();
+            Pager.LongPage.AllCount = _longDBContext.OutInfo.Count();
             Pager.InitButton();
-            MailDataGrid.ItemsSource = _longDBContext.Mail
+            MailDataGrid.ItemsSource = _longDBContext.OutInfo
                 .Take(Pager.LongPage.PageSize)
                 .ToList();
         }
 
         private void Pager_PageIndexChange(object sender, EventArgs e)
         {
-            MailDataGrid.ItemsSource = _longDBContext.Mail
+            MailDataGrid.ItemsSource = _longDBContext.OutInfo
                 .Skip(Pager.LongPage.PageSize * (Pager.LongPage.PageIndex - 1))
                 .Take(Pager.LongPage.PageSize)
                 .ToList();
@@ -46,7 +46,7 @@ namespace LongManagerClient.Pages.Out
 
         private void SearchBtn_Click(object sender, RoutedEventArgs e)
         {
-            var mails = _longDBContext.Mail.AsEnumerable();
+            var mails = _longDBContext.OutInfo.AsEnumerable();
             if (!string.IsNullOrEmpty(TxtMailNO.Text))
             {
                 mails = mails.Where(x => x.MailNO.Contains(TxtMailNO.Text));
