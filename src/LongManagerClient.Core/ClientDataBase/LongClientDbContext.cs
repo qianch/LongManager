@@ -18,7 +18,7 @@ namespace LongManagerClient.Core.ClientDataBase
         public DbSet<FrameUser> FrameUser { get; set; }
         public DbSet<CarBasicInfo> Car { get; set; }
         public DbSet<LabelBasicInfo> Label { get; set; }
-        public DbSet<MailBasicInfo> Mail { get; set; }
+        public DbSet<OutInfo> Mail { get; set; }
         public DbSet<LoginHistory> LoginHistory { get; set; }
     }
 }

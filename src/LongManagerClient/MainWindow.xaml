@@ -42,8 +42,10 @@
             <Button x:Name="FrameUserBtn" Margin="10" Width="auto" Height="30" Content="用户管理" Command="command:LongManagerClientCommands.OpenPageCommand" CommandParameter="UserList"></Button>
             <Button x:Name="CarBtn" Margin="10" Width="auto" Height="30" Content="车辆管理" Command="command:LongManagerClientCommands.OpenPageCommand" CommandParameter="CarList"></Button>
             <Button x:Name="LabelBtn" Margin="10" Width="auto" Height="30" Content="标签管理" Command="command:LongManagerClientCommands.OpenPageCommand" CommandParameter="LabelList"></Button>
-            <Button x:Name="EMSListBtn" Margin="10" Width="auto" Height="30" Content="EMS管理" Command="command:LongManagerClientCommands.OpenPageCommand" CommandParameter="EMSList"></Button>
-            <Button x:Name="EMSSearchBtn" Margin="10" Width="auto" Height="30" Content="EMS查询" Command="command:LongManagerClientCommands.OpenPageCommand" CommandParameter="EMSSearch"></Button>
+            <Button x:Name="OutListBtn" Margin="10" Width="auto" Height="30" Content="出口件查询" Command="command:LongManagerClientCommands.OpenPageCommand" CommandParameter="OutList"></Button>
+            <Button x:Name="OutSearchBtn" Margin="10" Width="auto" Height="30" Content="出口件爬取" Command="command:LongManagerClientCommands.OpenPageCommand" CommandParameter="OutSearch"></Button>
+            <Button x:Name="InListBtn" Margin="10" Width="auto" Height="30" Content="到达件查询" Command="command:LongManagerClientCommands.OpenPageCommand" CommandParameter="InList"></Button>
+            <Button x:Name="InSearchBtn" Margin="10" Width="auto" Height="30" Content="到达件爬取" Command="command:LongManagerClientCommands.OpenPageCommand" CommandParameter="InSearch"></Button>
         </StackPanel>
         <DockPanel DockPanel.Dock="Right" Width="auto" Height="auto">
             <Frame x:Name="PageFrame" NavigationUIVisibility="Hidden"></Frame>

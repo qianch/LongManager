@@ -120,11 +120,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\EMS\EMSList.xaml">
+    <Page Include="Pages\In\InList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\EMS\EMSSearch.xaml">
+    <Page Include="Pages\In\InSearch.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Out\OutList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Out\OutSearch.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -166,11 +174,17 @@
     <Compile Include="Pages\Car\CarNOPrint.xaml.cs">
       <DependentUpon>CarNOPrint.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\EMS\EMSList.xaml.cs">
-      <DependentUpon>EMSList.xaml</DependentUpon>
+    <Compile Include="Pages\In\InList.xaml.cs">
+      <DependentUpon>InList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\EMS\EMSSearch.xaml.cs">
-      <DependentUpon>EMSSearch.xaml</DependentUpon>
+    <Compile Include="Pages\In\InSearch.xaml.cs">
+      <DependentUpon>InSearch.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Out\OutList.xaml.cs">
+      <DependentUpon>OutList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Out\OutSearch.xaml.cs">
+      <DependentUpon>OutSearch.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Index\Index.xaml.cs">
       <DependentUpon>Index.xaml</DependentUpon>

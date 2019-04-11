@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace LongManagerClient.Pages.EMS
+namespace LongManagerClient.Pages.Out
 {
     /// <summary>
     /// EMSList.xaml 的交互逻辑
     /// </summary>
-    public partial class EMSList : BasePage
+    public partial class OutList : BasePage
     {
-        public EMSList()
+        public OutList()
         {
             InitializeComponent();
 

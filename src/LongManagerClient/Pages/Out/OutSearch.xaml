@@ -1,11 +1,11 @@
 ﻿<pages:BasePage
-      x:Class="LongManagerClient.Pages.EMS.EMSSearch"
+      x:Class="LongManagerClient.Pages.Out.OutSearch"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:pages="clr-namespace:LongManagerClient.Pages"
-      xmlns:local="clr-namespace:LongManagerClient.Pages.EMS"
+      xmlns:local="clr-namespace:LongManagerClient.Pages.Out"
       xmlns:wpf="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"

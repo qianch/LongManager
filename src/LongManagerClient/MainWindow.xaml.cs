@@ -1,13 +1,16 @@
 ﻿using log4net;
+using LongManagerClient.Command;
 using LongManagerClient.Core;
 using LongManagerClient.Core.ClientDataBase;
-using LongManagerClient.Command;
 using LongManagerClient.Pages;
 using LongManagerClient.Pages.Car;
-using LongManagerClient.Pages.EMS;
+using LongManagerClient.Pages.In;
 using LongManagerClient.Pages.Index;
 using LongManagerClient.Pages.Label;
+using LongManagerClient.Pages.Out;
 using LongManagerClient.Pages.User;
+using Quartz;
+using Quartz.Impl;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,8 +26,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
-using Quartz;
-using Quartz.Impl;
 
 namespace LongManagerClient
 {
@@ -50,8 +51,10 @@ namespace LongManagerClient
             GlobalCache.Instance.AllPages.Add("UserList", new UserList());
             GlobalCache.Instance.AllPages.Add("CarList", new CarList());
             GlobalCache.Instance.AllPages.Add("LabelList", new LabelList());
-            GlobalCache.Instance.AllPages.Add("EMSList", new EMSList());
-            GlobalCache.Instance.AllPages.Add("EMSSearch", new EMSSearch());
+            GlobalCache.Instance.AllPages.Add("OutList", new OutList());
+            GlobalCache.Instance.AllPages.Add("OutSearch", new OutSearch());
+            GlobalCache.Instance.AllPages.Add("InList", new InList());
+            GlobalCache.Instance.AllPages.Add("InSearch", new InSearch());
             GlobalCache.Instance.Frame = PageFrame;
 
             //绑定自定义命令

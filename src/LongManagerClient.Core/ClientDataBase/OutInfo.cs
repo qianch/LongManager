@@ -5,8 +5,8 @@ using System.Text;
 
 namespace LongManagerClient.Core.ClientDataBase
 {
-    [Table("MailBasicInfo")]
-    public class MailBasicInfo : BaseEntity
+    [Table("OutInfo")]
+    public class OutInfo : BaseEntity
     {
         public string MailNO { get; set; }
         public string Consignee { get; set; }

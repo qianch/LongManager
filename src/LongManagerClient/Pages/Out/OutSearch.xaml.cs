@@ -17,16 +17,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace LongManagerClient.Pages.EMS
+namespace LongManagerClient.Pages.Out
 {
     /// <summary>
     /// EMSSearch.xaml 的交互逻辑
     /// </summary>
-    public partial class EMSSearch : BasePage
+    public partial class OutSearch : BasePage
     {
         private List<string> _mailNOList = new List<string>();
         private string _currentMialNO = "";
-        public EMSSearch()
+        public OutSearch()
         {
             InitializeComponent();
 
