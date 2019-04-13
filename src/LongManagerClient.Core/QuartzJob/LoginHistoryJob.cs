@@ -27,7 +27,7 @@ namespace LongManagerClient.Core.QuartzJob
                 {
                     var content = new StringContent(JsonConvert.SerializeObject(history));
                     content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-                    var post = _httpClient.PostAsync("http://106.12.85.7:5001/api/loginhistory", content);
+                    var post = _httpClient.PostAsync("http://106.12.85.7/api/loginhistory", content);
                     var result = post.GetAwaiter().GetResult();
                     _longDBContext.LoginHistory.ToList().ForEach(x => x.IsPush = 1);
                     _longDBContext.SaveChanges();

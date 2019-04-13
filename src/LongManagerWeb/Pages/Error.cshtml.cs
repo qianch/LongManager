@@ -28,7 +28,7 @@ namespace LongManagerWeb.Pages
             RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier;
             var feature = HttpContext.Features.Get<IExceptionHandlerFeature>();
             var error = feature?.Error;
-            _logger.LogError(error.ToString());
+            _logger.LogError(RequestId + error.ToString());
         }
     }
 }
