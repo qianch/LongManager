@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LongManagerWeb", "LongManag
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LongManagerWeb.Core", "LongManagerWeb.Core\LongManagerWeb.Core.csproj", "{1E3751CE-4418-44FC-A817-407511D4E3F7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LongManagerWebApi", "LongManagerWebApi\LongManagerWebApi.csproj", "{63CA0526-31D7-460E-A9AD-9E301792E0CC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LongManagerWebApi", "LongManagerWebApi\LongManagerWebApi.csproj", "{63CA0526-31D7-460E-A9AD-9E301792E0CC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
