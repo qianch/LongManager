@@ -20,7 +20,7 @@ namespace LongManagerWeb.Pages
 
         public async Task OnGetAsync()
         {
-            Historys = await _longWebDbContext.LoginHistory.ToListAsync();
+            Historys = await _longWebDbContext.LoginHistory.OrderByDescending(x => x.ID).ToListAsync();
         }
     }
 }

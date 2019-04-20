@@ -952,7 +952,6 @@
 
 
   <ItemGroup>
-    <Folder Include="Logs\" />
     <Folder Include="doc\" />
   </ItemGroup>
 

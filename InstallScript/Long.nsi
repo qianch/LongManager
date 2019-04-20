@@ -150,7 +150,7 @@ Section "MainSection" SEC01
   File "..\src\LongManagerClient\bin\x86\Debug\chrome_elf.dll"
   File "..\src\LongManagerClient\bin\x86\Debug\d3dcompiler_47.dll"
   SetOutPath "$INSTDIR\DB"
-  File "..\src\LongManagerClient\bin\x86\Debug\DB\Long.db"
+  File "..\src\LongManagerClient\bin\x86\Debug\DB\LongClient.db"
   SetOutPath "$INSTDIR"
   File "..\src\LongManagerClient\bin\x86\Debug\devtools_resources.pak"
   File "..\src\LongManagerClient\bin\x86\Debug\e_sqlite3.dll"

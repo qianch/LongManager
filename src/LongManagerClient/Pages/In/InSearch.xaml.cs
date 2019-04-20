@@ -26,6 +26,8 @@ namespace LongManagerClient.Pages.In
     {
         private string _login = "https://10.3.131.164/cas/login";
         private string _inMail = "https://10.3.131.164/pcsnct-web/a/pcs/mailpretreatment/list";
+        private int _lastPage = 300;
+        private int _currentPage = 0;
 
         public InSearch()
         {
@@ -45,12 +47,18 @@ namespace LongManagerClient.Pages.In
         private void Browser_IsBrowserInitializedChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             Browser.Load(_login);
+            Browser.ShowDevTools();
         }
 
         private void Browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e)
         {
             if (e.Frame.IsMain)
             {
+                if (e.Url.ToString() == _inMail + "cx" && _currentPage <= _lastPage)
+                {
+                    _currentPage++;
+                }
+
                 var script = $@"
                 //登录
                 if( '{e.Url}' == '{_login}'){{
@@ -67,12 +75,22 @@ namespace LongManagerClient.Pages.In
                 
                 //设置寄达县
                 if('{e.Url}' == '{_inMail}'){{
-                   var receiverCountyName = $('#s2id_receiverCountyName');
-                   var chosen = receiverCountyName.find('.select2-chosen');
-                   if(chosen.text() == '请选择寄达县市'){{
-                      receiverCountyName.click();
-                   }}
+                   //县市
+                   var result = {{id:'张家港市',text:'张家港市',code:'320582'}}
+                   $('#receiverCountyCode').val('320582');
+                   $('#receiverCountyName').select2('data',result);
+
+                   //信息来源
+                   $('dataSource').prop('selectedIndex', 0);
+
+                   //查询时间
+                   //$('#postStartTime').val('2019-04-19');         
+
                    $('#btnSubmit').click();
+                }}
+                
+                if('{e.Url}' == '{_inMail}'+'cx'){{    
+                   page({_currentPage},10,'');
                 }}";
                 Browser.ExecuteScriptAsync(script);
             }
