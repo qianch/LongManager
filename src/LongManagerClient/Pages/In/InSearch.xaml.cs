@@ -86,11 +86,35 @@ namespace LongManagerClient.Pages.In
                    //查询时间
                    //$('#postStartTime').val('2019-04-19');         
 
-                   $('#btnSubmit').click();
+                   seachSubmit();
                 }}
                 
-                if('{e.Url}' == '{_inMail}'+'cx'){{    
+                if('{e.Url}' == '{_inMail}'+'cx'){{         
                    page({_currentPage},10,'');
+                   var tables = document.getElementsByTagName('table');
+                   if(tables != null && tables.length > 0 ){{
+                       var addressTable = tables[2];
+                       console.log(addressTable.innerHTML);
+
+                       var rows = addressTable.rows;
+                       if(rows.length > 0){{
+                           var rlength = rows.length;
+                           var clength = rows[1].cells.length;
+                           for(var i = 0 ; i < rlength; i++){{
+                               for(var j=0; j < clength; j++){{
+                                  console.log('位置信息___i:'+ i + 'j:' + j +'内容:'+rows[i].cells[j].innerHTML);
+                               }}
+                           }}
+                           
+                           for(var i = 0 ; i < rlength; i++){{                                
+                               var mailNO = rows[i].cells[2].innerHTML;
+                               var address = rows[i].cells[4].innerHTML;
+                               var orgName = rows[i].cells[5].innerHTML;
+                               var consignee = rows[i].cells[9].innerHTML;
+                               jsObject.saveInAddress(mailNO,address,orgName,consignee);
+                           }}
+                       }}
+                   }}
                 }}";
                 Browser.ExecuteScriptAsync(script);
             }

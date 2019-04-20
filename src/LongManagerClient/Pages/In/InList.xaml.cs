@@ -23,6 +23,8 @@ namespace LongManagerClient.Pages.In
         public InList()
         {
             InitializeComponent();
+
+            Pager.PageIndexChange += Pager_PageIndexChange;
         }
 
         private void BasePage_Loaded(object sender, RoutedEventArgs e)
