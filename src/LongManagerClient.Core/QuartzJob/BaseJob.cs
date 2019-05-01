@@ -16,7 +16,7 @@ namespace LongManagerClient.Core.QuartzJob
         protected readonly static ILog _log = LogManager.GetLogger(typeof(LoginHistoryJob));
         protected readonly static HttpClient _httpClient = new HttpClient();
         protected LongClientDbContext _longDBContext = new LongClientDbContext();
-        protected static bool _isRemot = true;
+        protected static bool _isRemote = true;
 
         [DllImport("wininet")]
         protected extern static bool InternetGetConnectedState(out int connectionDescription, int reservedValue);

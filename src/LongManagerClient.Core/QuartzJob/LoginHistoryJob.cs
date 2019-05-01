@@ -21,7 +21,7 @@ namespace LongManagerClient.Core.QuartzJob
         public override Task Execute(IJobExecutionContext context)
         {
             var history = _longDBContext.LoginHistory.Where(x => x.IsPush != 1);
-            if (history.Count() > 0 && IsNetWorkConnect() && _isRemot)
+            if (history.Count() > 0 && IsNetWorkConnect() && _isRemote)
             {
                 try
                 {
@@ -34,7 +34,7 @@ namespace LongManagerClient.Core.QuartzJob
                 }
                 catch (Exception e)
                 {
-                    _isRemot = false;
+                    _isRemote = false;
                     _log.Error(e.ToString());
                 }
             }
