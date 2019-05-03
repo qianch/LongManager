@@ -1,5 +1,6 @@
 ﻿using log4net;
 using LongManagerClient.Core.ClientDataBase;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,14 +18,33 @@ namespace LongManagerClient.Core.CEF.JSObject
             MessageBox.Show(msg, "提示", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
-        public void saveOutAddress(string mailNO, string address)
+        public void saveOutInfo(string result)
         {
-            var mail = _longDBContext.OutInfo.Where(x => x.MailNO == mailNO).FirstOrDefault();
-            if (mail != null && string.IsNullOrEmpty(mail.Address))
+            var data = JsonConvert.DeserializeObject<Dictionary<string, object>>(result);
+            var details = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(data["detail"].ToString());
+            foreach (var detail in details)
             {
-                mail.Address = address;
-                _longDBContext.Update(mail);
-                _longDBContext.SaveChanges();
+                var mailNO = detail["waybillNo"].ToString();
+                var receiverArriveOrgName = detail["receiverArriveOrgName"].ToString();
+                var receiverAddr = detail["receiverAddr"].ToString();
+                var receiverLinker = detail["receiverLinker"].ToString();
+                var bizOccurDate = detail["bizOccurDate"].ToString();
+                var count = _longDBContext.OutInfo.Where(x => x.MailNO == mailNO).ToList().Count();
+                if (count == 0)
+                {
+                    var mail = new OutInfo
+                    {
+                        RowGuid = Guid.NewGuid().ToString(),
+                        MailNO = mailNO,
+                        Address = receiverAddr,
+                        OrgName = receiverArriveOrgName,
+                        Consignee = receiverLinker,
+                        AddDate = DateTime.Now,
+                        PostDate = bizOccurDate
+                    };
+                    _longDBContext.OutInfo.Add(mail);
+                    _longDBContext.SaveChanges();
+                }
             }
         }
 
@@ -39,7 +59,8 @@ namespace LongManagerClient.Core.CEF.JSObject
                     MailNO = mailNO,
                     Address = address,
                     OrgName = orgName,
-                    Consignee = consignee
+                    Consignee = consignee,
+                    AddDate = DateTime.Now
                 };
                 _longDBContext.InInfo.Add(mail);
                 _longDBContext.SaveChanges();

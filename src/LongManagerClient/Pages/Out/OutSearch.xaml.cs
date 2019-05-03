@@ -110,6 +110,7 @@ namespace LongManagerClient.Pages.Out
                      dataType:'JSON',
                      success:function(result){{
                         console.log(result);
+                        jsObject.saveOutInfo(JSON.stringify(result));
                      }}
                    }});
                 }}";

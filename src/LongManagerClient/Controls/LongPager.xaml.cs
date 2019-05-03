@@ -23,7 +23,7 @@ namespace LongManagerClient.Controls
     {
         public delegate void PageIndexChangeEvent(object sender, EventArgs e);
         public event PageIndexChangeEvent PageIndexChange;
-        public LongPage LongPage = new LongPage() { PageIndex = 1, PageSize = 8 };
+        public LongPage LongPage = new LongPage() { PageIndex = 1, PageSize = 20 };
         public LongPager()
         {
             InitializeComponent();

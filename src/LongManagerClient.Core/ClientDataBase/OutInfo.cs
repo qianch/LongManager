@@ -9,6 +9,8 @@ namespace LongManagerClient.Core.ClientDataBase
     public class OutInfo : BaseEntity
     {
         public string MailNO { get; set; }
+        public DateTime AddDate { get; set; }
+        public string PostDate { get; set; }
         public string OrgName { get; set; }
         public string Consignee { get; set; }
         public string Address { get; set; }
