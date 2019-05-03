@@ -27,7 +27,6 @@
                 <DataGridTextColumn Binding="{Binding MailNO}" Header="邮件条码"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding Address}" Header="邮件地址"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding OrgName}" Header="投递局"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding Consignee}" Header="收件人"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
         <WrapPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left">
