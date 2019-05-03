@@ -28,6 +28,7 @@ namespace LongManagerClient.Pages.In
         private string _inMail = "https://10.3.131.164/pcsnct-web/a/pcs/mailpretreatment/list";
         private int _lastPage = 300;
         private int _currentPage = 0;
+        private string _today = DateTime.Now.ToString("yyyy-MM-dd");
 
         public InSearch()
         {
@@ -83,7 +84,7 @@ namespace LongManagerClient.Pages.In
                    $('dataSource').prop('selectedIndex', 0);
 
                    //查询时间
-                   //$('#postStartTime').val('2019-04-19');         
+                   //$('#postStartTime').val('{_today}');         
 
                    seachSubmit();
                 }}
@@ -99,11 +100,12 @@ namespace LongManagerClient.Pages.In
                        if(rows.length > 0){{
                            var rlength = rows.length;
                            var clength = rows[1].cells.length;
-                           for(var i = 0 ; i < rlength; i++){{
+
+                           /* for(var i = 0 ; i < rlength; i++){{
                                for(var j=0; j < clength; j++){{
                                   console.log('位置信息___i:'+ i + 'j:' + j +'内容:'+rows[i].cells[j].innerHTML);
                                }}
-                           }}
+                           }} */
                            
                            for(var i = 0 ; i < rlength; i++){{                                
                                var mailNO = rows[i].cells[2].innerHTML;

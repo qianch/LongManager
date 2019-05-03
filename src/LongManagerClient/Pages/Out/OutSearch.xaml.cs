@@ -28,7 +28,7 @@ namespace LongManagerClient.Pages.Out
         private string _outMail = "https://10.3.131.164/pickup-web/a/pickup/waybillquery/main";
         private string _ajax = "https://10.3.131.164/pickup-web/a/pickup/waybillquery/querybase";
         private int _lastPage = 300;
-        private string today = DateTime.Now.ToString("yyyy-MM-dd");
+        private string _today = DateTime.Now.ToString("yyyy-MM-dd");
 
         public OutSearch()
         {
@@ -84,8 +84,8 @@ namespace LongManagerClient.Pages.Out
                        'orgDrdsCode':'',
                        'wayBillNo':'',
                        'postState':'',
-                       'bizOccurDateStart':'{today} 00:00:00',
-                       'bizOccurDateEnd':'{today} 23:59:59',
+                       'bizOccurDateStart':'{_today} 00:00:00',
+                       'bizOccurDateEnd':'{_today} 23:59:59',
                        'senderNo':'',
                        'sender':'',
                        'senderWarehouseId':'',
