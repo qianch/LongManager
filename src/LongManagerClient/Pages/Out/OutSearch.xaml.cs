@@ -49,7 +49,6 @@ namespace LongManagerClient.Pages.Out
         private void Browser_IsBrowserInitializedChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             Browser.Load(_login);
-            Browser.ShowDevTools();
         }
 
         private void Browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e)
