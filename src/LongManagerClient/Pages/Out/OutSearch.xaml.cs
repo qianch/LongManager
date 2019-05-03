@@ -28,6 +28,7 @@ namespace LongManagerClient.Pages.Out
         private string _outMail = "https://10.3.131.164/pickup-web/a/pickup/waybillquery/main";
         private string _ajax = "https://10.3.131.164/pickup-web/a/pickup/waybillquery/querybase";
         private int _lastPage = 300;
+        private string today = DateTime.Now.ToString("yyyy-MM-dd");
 
         public OutSearch()
         {
@@ -70,7 +71,13 @@ namespace LongManagerClient.Pages.Out
                 }}
 
                 if( '{e.Url}' == '{_outMail}'){{
-                   $.ajax({{
+                   for(var i=0;i<{_lastPage};i++){{
+                      getOutInfo(i,10);
+                   }}
+                }}
+                
+                function getOutInfo(pageNo,pageSize){{
+                  $.ajax({{
                      type:'POST',
                      url:'{_ajax}',
                      data:{{
@@ -78,8 +85,8 @@ namespace LongManagerClient.Pages.Out
                        'orgDrdsCode':'',
                        'wayBillNo':'',
                        'postState':'',
-                       'bizOccurDateStart':'2019-05-03 00:00:00',
-                       'bizOccurDateEnd':'2019-05-03 23:59:59',
+                       'bizOccurDateStart':'{today} 00:00:00',
+                       'bizOccurDateEnd':'{today} 23:59:59',
                        'senderNo':'',
                        'sender':'',
                        'senderWarehouseId':'',
@@ -104,12 +111,14 @@ namespace LongManagerClient.Pages.Out
                        'receiverLinker':'',
                        'receiverMobile':'',
                        'transferType':'',
-                       'pageNo':1,
-                       'pageSize':10
+                       'pageNo':pageNo,
+                       'pageSize':pageSize
                      }},
                      dataType:'JSON',
                      success:function(result){{
-                        console.log(result);
+                        if(result.resCode == '0001'){{
+                           return;
+                        }}
                         jsObject.saveOutInfo(JSON.stringify(result));
                      }}
                    }});
