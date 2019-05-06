@@ -81,7 +81,9 @@ namespace LongManagerClient.Pages.In
                    $('#receiverCountyName').select2('data',result);
 
                    //信息来源
-                   $('dataSource').prop('selectedIndex', 0);
+                   var dataSource1 = {{id:'0',text:'邮政'}}
+                   var dataSource2 = {{id:'1',text:'速递'}}
+                   $('#dataSource').select2('data',dataSource2);
 
                    //查询时间
                    //$('#postStartTime').val('{_today}');         
