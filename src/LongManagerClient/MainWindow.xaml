@@ -38,7 +38,7 @@
             </WrapPanel>
         </DockPanel>
         <StackPanel DockPanel.Dock="Left" Width="200" Height="auto" Background="#FF9459C5">
-            <TreeView MinWidth="220">
+            <TreeView MinWidth="220" Foreground="White">
                 <TreeViewItem Header="系统管理">
                     <Button x:Name="IndexBtn" Width="auto" Height="30" Content="首页查看" Command="command:LongManagerClientCommands.OpenPageCommand" CommandParameter="Index"></Button>
                     <Button x:Name="FrameUserBtn" Width="auto" Height="30" Content="用户管理" Command="command:LongManagerClientCommands.OpenPageCommand" CommandParameter="UserList"></Button>
