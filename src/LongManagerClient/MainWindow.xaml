@@ -12,7 +12,7 @@
         Title="管理系统" Height="450" Width="800"
         TextElement.Foreground="White"
         TextElement.FontWeight="Regular"
-        TextElement.FontSize="16"
+        TextElement.FontSize="14"
         TextOptions.TextFormattingMode="Ideal" 
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"

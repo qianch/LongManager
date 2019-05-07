@@ -11,7 +11,7 @@
         <Button x:Name="PreBtn" Content="上一页" Margin="5" Click="PreBtn_Click"></Button>
         <Button x:Name="NextBtn" Content="下一页" Margin="5" Click="NextBtn_Click"></Button>
         <Button x:Name="LastBtn" Content="尾页" Margin="5" Click="LastBtn_Click"></Button>
-        <TextBlock VerticalAlignment="Center"> 
+        <TextBlock VerticalAlignment="Center" FontSize="16"> 
                 <TextBlock Text="【共"/>
                 <TextBlock Text="{Binding PageCount}" Foreground="Red"/>
                 <TextBlock Text="页】"/> 
