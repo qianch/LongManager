@@ -40,20 +40,23 @@
         <StackPanel DockPanel.Dock="Left" Width="200" Height="auto" Background="#FF9459C5">
             <TreeView MinWidth="220" Foreground="White">
                 <TreeViewItem Header="系统管理">
-                    <Button x:Name="IndexBtn" Width="auto" Height="30" Content="首页查看" Command="command:LongManagerClientCommands.OpenPageCommand" CommandParameter="Index"></Button>
-                    <Button x:Name="FrameUserBtn" Width="auto" Height="30" Content="用户管理" Command="command:LongManagerClientCommands.OpenPageCommand" CommandParameter="UserList"></Button>
+                    <Button x:Name="IndexBtn" FontSize="14" Width="auto" Height="25" Content="首页查看" Command="command:LongManagerClientCommands.OpenPageCommand" CommandParameter="Index"></Button>
+                    <Button x:Name="FrameUserBtn" FontSize="14" Width="auto" Height="25" Content="用户管理" Command="command:LongManagerClientCommands.OpenPageCommand" CommandParameter="UserList"></Button>
                 </TreeViewItem>
                 <TreeViewItem Header="硬件管理">
-                    <Button x:Name="CarBtn"  Width="auto" Height="30" Content="车辆管理" Command="command:LongManagerClientCommands.OpenPageCommand" CommandParameter="CarList"></Button>
-                    <Button x:Name="LabelBtn" Width="auto" Height="30" Content="标签管理" Command="command:LongManagerClientCommands.OpenPageCommand" CommandParameter="LabelList"></Button>
+                    <Button x:Name="CarBtn" FontSize="14" Width="auto" Height="25" Content="车辆管理" Command="command:LongManagerClientCommands.OpenPageCommand" CommandParameter="CarList"></Button>
+                    <Button x:Name="LabelBtn" FontSize="14" Width="auto" Height="25" Content="标签管理" Command="command:LongManagerClientCommands.OpenPageCommand" CommandParameter="LabelList"></Button>
+                </TreeViewItem>
+                <TreeViewItem Header="地区管理">
+                    <Button x:Name="CityListBtn" FontSize="14" Width="auto" Height="25" Content="地区管理" Command="command:LongManagerClientCommands.OpenPageCommand" CommandParameter="CityList"></Button>
                 </TreeViewItem>
                 <TreeViewItem Header="出口件">
-                    <Button x:Name="OutListBtn"  Width="auto" Height="30" Content="出口件查询" Command="command:LongManagerClientCommands.OpenPageCommand" CommandParameter="OutList"></Button>
-                    <Button x:Name="OutSearchBtn"  Width="auto" Height="30" Content="出口件爬取" Command="command:LongManagerClientCommands.OpenPageCommand" CommandParameter="OutSearch"></Button>
+                    <Button x:Name="OutListBtn" FontSize="14" Width="auto" Height="25" Content="出口件" Command="command:LongManagerClientCommands.OpenPageCommand" CommandParameter="OutList"></Button>
+                    <Button x:Name="OutSearchBtn" FontSize="14" Width="auto" Height="25" Content="出口件爬取" Command="command:LongManagerClientCommands.OpenPageCommand" CommandParameter="OutSearch"></Button>
                 </TreeViewItem>
                 <TreeViewItem Header="到达件">
-                    <Button x:Name="InListBtn" Width="auto" Height="30" Content="到达件查询" Command="command:LongManagerClientCommands.OpenPageCommand" CommandParameter="InList"></Button>
-                    <Button x:Name="InSearchBtn"  Width="auto" Height="30" Content="到达件爬取" Command="command:LongManagerClientCommands.OpenPageCommand" CommandParameter="InSearch"></Button>
+                    <Button x:Name="InListBtn" FontSize="14" Width="auto" Height="25" Content="到达件" Command="command:LongManagerClientCommands.OpenPageCommand" CommandParameter="InList"></Button>
+                    <Button x:Name="InSearchBtn" FontSize="14" Width="auto" Height="25" Content="到达件爬取" Command="command:LongManagerClientCommands.OpenPageCommand" CommandParameter="InSearch"></Button>
                 </TreeViewItem>
             </TreeView>
         </StackPanel>

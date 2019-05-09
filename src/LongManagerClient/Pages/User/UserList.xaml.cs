@@ -63,6 +63,10 @@ namespace LongManagerClient.Pages.User
                 frameUsers = frameUsers.Where(x => x.UserName.Contains(TxtUserName.Text));
             }
 
+            Pager.LongPage.AllCount = frameUsers.Count();
+            Pager.LongPage.Search = TxtUserName.Text;
+            Pager.InitButton();
+
             UserDataGrid.ItemsSource = frameUsers
                 .Skip(Pager.LongPage.PageSize * (Pager.LongPage.PageIndex - 1))
                 .Take(Pager.LongPage.PageSize)

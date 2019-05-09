@@ -110,6 +110,7 @@ namespace LongManagerClient.Controls
         private int _pageSize;
         private int _pageCount;
         private int _allCount;
+        private string _search;
 
         /// <summary>
         /// 当前页
@@ -192,6 +193,26 @@ namespace LongManagerClient.Controls
                     {
                         PageCount = _allCount % PageSize == 0 ? _allCount / PageSize : _allCount / PageSize + 1;
                     }
+                }
+            }
+        }
+
+        /// <summary>
+        /// 当前搜索条件
+        /// </summary>
+        public string Search
+        {
+            get
+            {
+                return _search;
+            }
+            set
+            {
+                if (value != _search)
+                {
+                    _search = value;
+                    Notify("Search");
+                    PageIndex = 1;
                 }
             }
         }

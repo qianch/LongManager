@@ -21,5 +21,6 @@ namespace LongManagerClient.Core.ClientDataBase
         public DbSet<OutInfo> OutInfo { get; set; }
         public DbSet<InInfo> InInfo { get; set; }
         public DbSet<LoginHistory> LoginHistory { get; set; }
+        public DbSet<CityInfo> CityInfo { get; set; }
     }
 }

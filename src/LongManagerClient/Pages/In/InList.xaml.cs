@@ -52,6 +52,10 @@ namespace LongManagerClient.Pages.In
                 mails = mails.Where(x => x.MailNO.Contains(TxtMailNO.Text));
             }
 
+            Pager.LongPage.AllCount = mails.Count();
+            Pager.LongPage.Search = TxtMailNO.Text;
+            Pager.InitButton();
+
             MailDataGrid.ItemsSource = mails
                 .Skip(Pager.LongPage.PageSize * (Pager.LongPage.PageIndex - 1))
                 .Take(Pager.LongPage.PageSize)

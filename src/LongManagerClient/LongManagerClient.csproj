@@ -120,6 +120,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\City\CityList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\In\InList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -173,6 +177,9 @@
     </Compile>
     <Compile Include="Pages\Car\CarNOPrint.xaml.cs">
       <DependentUpon>CarNOPrint.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\City\CityList.xaml.cs">
+      <DependentUpon>CityList.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\In\InList.xaml.cs">
       <DependentUpon>InList.xaml</DependentUpon>
