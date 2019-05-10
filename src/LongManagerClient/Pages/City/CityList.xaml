@@ -26,8 +26,8 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding CityName}" Header="地区名称"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding OfficeName}" Header="邮局名称"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding BelongOfficeName}" Header="寄达局名称"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding Position}" Header="路口"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding BelongOfficeName}" Header="所属邮局名称"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Position}" Header="格口"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
         <WrapPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left">

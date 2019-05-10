@@ -21,6 +21,7 @@
         <WrapPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left">
             <TextBox x:Name="TxtMailNO" materialDesign:HintAssist.Hint="邮件条码" Width="200" Margin="10"></TextBox>
             <Button x:Name="SearchBtn" Content="搜索" Click="SearchBtn_Click"></Button>
+            <Button x:Name="PositionBtn" Content="格口划分" Click="PositionBtn_Click"></Button>
         </WrapPanel>
         <DataGrid x:Name="MailDataGrid" Grid.Row="1" HorizontalAlignment="Stretch" IsReadOnly="True" AutoGenerateColumns="False"
                    CanUserAddRows="False" CanUserDeleteRows="False">
@@ -28,6 +29,8 @@
                 <DataGridTextColumn Binding="{Binding MailNO}" Header="邮件条码"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding Address}" Header="邮件地址"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding OrgName}" Header="寄达局"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding BelongOfficeName}" Header="所属局"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Position}" Header="格口"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
         <WrapPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left">
