@@ -132,6 +132,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\JiangSuOut\JiangSuOutList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\Out\OutList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -186,6 +190,9 @@
     </Compile>
     <Compile Include="Pages\In\InSearch.xaml.cs">
       <DependentUpon>InSearch.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\JiangSuOut\JiangSuOutList.xaml.cs">
+      <DependentUpon>JiangSuOutList.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Out\OutList.xaml.cs">
       <DependentUpon>OutList.xaml</DependentUpon>

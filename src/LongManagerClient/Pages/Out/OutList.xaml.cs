@@ -65,16 +65,18 @@ namespace LongManagerClient.Pages.Out
         private void PositionBtn_Click(object sender, RoutedEventArgs e)
         {
             //格口已经划分好的地区
-            var firstCity = _longDBContext.CityInfo.Where(x => x.Position != null).ToList();
+            var firstCity = _longDBContext.CityInfo.Where(x => !string.IsNullOrEmpty(x.CountryPosition)).ToList();
             var mails = _longDBContext.OutInfo.Where(x => x.BelongOfficeName == null).ToList();
             foreach (var mail in mails)
             {
                 foreach (var city in firstCity)
                 {
-                    if (mail.OrgName.Contains(city.CityName) || mail.OrgName.Contains(city.OfficeName))
+                    if ((city.CityName + city.OfficeName).Contains(mail.OrgName) ||
+                        mail.OrgName.Contains(city.CityName) ||
+                        mail.OrgName.Contains(city.OfficeName))
                     {
                         mail.BelongOfficeName = city.CityName;
-                        mail.Position = city.Position;
+                        mail.CountryPosition = city.CountryPosition;
                         _longDBContext.OutInfo.Update(mail);
                     }
                 }
@@ -92,10 +94,10 @@ namespace LongManagerClient.Pages.Out
                     if (parentCity != null)
                     {
                         //上一级地区是否为格口划分的地区
-                        if (parentCity.Position != null)
+                        if (parentCity.CountryPosition != null)
                         {
                             mail.BelongOfficeName = parentCity.OfficeName;
-                            mail.Position = parentCity.Position;
+                            mail.CountryPosition = parentCity.CountryPosition;
                             _longDBContext.OutInfo.Update(mail);
                         }
                         //上一级地区是否有所属格口的划分
@@ -105,7 +107,7 @@ namespace LongManagerClient.Pages.Out
                             if (belongCity != null)
                             {
                                 mail.BelongOfficeName = belongCity.OfficeName;
-                                mail.Position = belongCity.Position;
+                                mail.CountryPosition = belongCity.CountryPosition;
                                 _longDBContext.OutInfo.Update(mail);
                             }
                         }

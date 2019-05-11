@@ -54,6 +54,9 @@
                     <Button x:Name="OutListBtn" FontSize="14" Width="auto" Height="25" Content="出口件" Command="command:LongManagerClientCommands.OpenPageCommand" CommandParameter="OutList"></Button>
                     <Button x:Name="OutSearchBtn" FontSize="14" Width="auto" Height="25" Content="出口件爬取" Command="command:LongManagerClientCommands.OpenPageCommand" CommandParameter="OutSearch"></Button>
                 </TreeViewItem>
+                <TreeViewItem Header="长三角地区出口件">
+                    <Button x:Name="JiangSuOutList" FontSize="14" Width="auto" Height="25" Content="出口件" Command="command:LongManagerClientCommands.OpenPageCommand" CommandParameter="JiangSuOutList"></Button>
+                </TreeViewItem>
                 <TreeViewItem Header="到达件">
                     <Button x:Name="InListBtn" FontSize="14" Width="auto" Height="25" Content="到达件" Command="command:LongManagerClientCommands.OpenPageCommand" CommandParameter="InList"></Button>
                     <Button x:Name="InSearchBtn" FontSize="14" Width="auto" Height="25" Content="到达件爬取" Command="command:LongManagerClientCommands.OpenPageCommand" CommandParameter="InSearch"></Button>

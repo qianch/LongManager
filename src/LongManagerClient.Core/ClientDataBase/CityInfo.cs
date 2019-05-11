@@ -11,6 +11,7 @@ namespace LongManagerClient.Core.ClientDataBase
         public string OfficeName { get; set; }
         public string BelongOfficeName { get; set; }
         public string BelongCityCode { get; set; }
-        public string Position { get; set; }
+        public string CountryPosition { get; set; }
+        public string JiangSuPosition { get; set; }
     }
 }

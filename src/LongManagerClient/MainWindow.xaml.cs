@@ -7,6 +7,7 @@ using LongManagerClient.Pages.Car;
 using LongManagerClient.Pages.City;
 using LongManagerClient.Pages.In;
 using LongManagerClient.Pages.Index;
+using LongManagerClient.Pages.JiangSuOut;
 using LongManagerClient.Pages.Label;
 using LongManagerClient.Pages.Out;
 using LongManagerClient.Pages.User;
@@ -54,6 +55,7 @@ namespace LongManagerClient
             GlobalCache.Instance.AllPages.Add("LabelList", new LabelList());
             GlobalCache.Instance.AllPages.Add("CityList", new CityList());
             GlobalCache.Instance.AllPages.Add("OutList", new OutList());
+            GlobalCache.Instance.AllPages.Add("JiangSuOutList", new JiangSuOutList());
             GlobalCache.Instance.AllPages.Add("OutSearch", new OutSearch());
             GlobalCache.Instance.AllPages.Add("InList", new InList());
             GlobalCache.Instance.AllPages.Add("InSearch", new InSearch());

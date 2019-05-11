@@ -17,6 +17,7 @@ namespace LongManagerClient.Core.ClientDataBase
         public string Phone { get; set; }
         public int IsPush { get; set; }
         public string BelongOfficeName { get; set; }
-        public string Position { get; set; }
+        public string CountryPosition { get; set; }
+        public string JiangSuPosition { get; set; }
     }
 }
