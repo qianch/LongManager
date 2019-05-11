@@ -37,7 +37,7 @@ namespace LongManagerClient.Pages.User
         {
             _longDBContext.FrameUser.Update(DataContext as FrameUser);
             _longDBContext.SaveChanges();
-            GlobalCache.Instance.Frame.Refresh();
+            MessageBox.Show("提示", "保存成功", MessageBoxButton.OK, MessageBoxImage.Asterisk);
         }
     }
 }

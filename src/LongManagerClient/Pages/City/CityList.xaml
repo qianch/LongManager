@@ -27,7 +27,8 @@
                 <DataGridTextColumn Binding="{Binding CityName}" Header="地区名称"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding OfficeName}" Header="邮局名称"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding BelongOfficeName}" Header="所属邮局名称"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding Position}" Header="格口"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding CountryPosition}" Header="全国格口划分"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding JiangSuPosition}" Header="长三角格口划分"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
         <WrapPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left">
