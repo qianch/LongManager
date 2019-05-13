@@ -19,7 +19,7 @@
         </Grid.RowDefinitions>
         <WrapPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left">
             <TextBox x:Name="TxtMailNO" materialDesign:HintAssist.Hint="邮件条码" Width="200" Margin="10"></TextBox>
-            <Button x:Name="SearchBtn" Content="搜索" Click="SearchBtn_Click"></Button>
+            <Button x:Name="SearchBtn" Content="查询" Click="SearchBtn_Click"></Button>
         </WrapPanel>
         <DataGrid x:Name="MailDataGrid" Grid.Row="1" HorizontalAlignment="Stretch" IsReadOnly="True" AutoGenerateColumns="False"
                    CanUserAddRows="False" CanUserDeleteRows="False">
