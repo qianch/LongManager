@@ -50,7 +50,7 @@ namespace LongManagerClient.Pages.Car
                 if (DelayTime.Text.ToArray().Any(x => Char.IsNumber(x)) &&
                     ActionTime.Text.ToArray().Any(x => Char.IsNumber(x)))
                 {
-                    longSerialPort.SendOrderData(_carBasicInfo.CarNO, LabelCBox.SelectedValue.ToString(), DelayTime.Text, ActionTime.Text);
+                    longSerialPort.SendOrderData(_carBasicInfo.CarNO, LabelCBox.SelectedValue.ToString(), DelayTime.Text, ActionTime.Text, orientation.Text == "正转" ? "0" : "1");
                     MessageBox.Show("数据已经发送", "提示", MessageBoxButton.OK, MessageBoxImage.Asterisk);
                 }
                 else

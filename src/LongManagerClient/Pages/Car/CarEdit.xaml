@@ -41,6 +41,13 @@
                     <ComboBoxItem>10</ComboBoxItem>
                 </ComboBox>
             </WrapPanel>
+            <WrapPanel Margin="10">
+                <TextBlock Text="电机运行方向：" Width="200"></TextBlock>
+                <ComboBox x:Name="orientation" Width="300" materialDesign:HintAssist.Hint="选择电机运动方向" IsEditable="False" materialDesign:HintAssist.HintOpacity=".26">
+                    <ComboBoxItem IsSelected="True">正转</ComboBoxItem>
+                    <ComboBoxItem>反转</ComboBoxItem>
+                </ComboBox>
+            </WrapPanel>
         </StackPanel>
         <StackPanel Grid.Row="1">
             <Button x:Name="SendBtn" Content="发送" Click="SendBtn_Click"></Button>

@@ -141,7 +141,8 @@ namespace LongManagerClient.Port
         /// <param name="labelNO">标签编号</param>
         /// <param name="delayTime">读到标签后延时时间（单位S）</param>
         /// <param name="actionTime">电机动作时间（单位S）</param>
-        public void SendOrderData(string carNO, string labelNO, string delayTime = "01", string actionTime = "01")
+        /// <param name="orientation">电机运动方向（1：正向、0：反向）</param>
+        public void SendOrderData(string carNO, string labelNO, string delayTime = "01", string actionTime = "01",string orientation = "0")
         {
             var data = new List<string> { "FE", "02" };
             var carNOList = carNO.Split(' ');
@@ -158,6 +159,7 @@ namespace LongManagerClient.Port
             data.AddRange(labelNOList);
             data.Add(delayTime);
             data.Add(actionTime);
+            data.Add(orientation);
             SendData(String.Join(" ", data));
         }
 

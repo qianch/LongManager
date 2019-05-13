@@ -37,32 +37,37 @@
                 <TextBlock Foreground="Black" Text="{Binding DisplayName}"></TextBlock>
             </WrapPanel>
         </DockPanel>
-        <StackPanel DockPanel.Dock="Left" Width="200" Height="auto" Background="#FF9459C5">
-            <TreeView MinWidth="220" Foreground="White">
-                <TreeViewItem Header="系统管理">
-                    <Button x:Name="IndexBtn" FontSize="14" Width="auto" Height="25" Content="首页查看" Command="command:LongManagerClientCommands.OpenPageCommand" CommandParameter="Index"></Button>
-                    <Button x:Name="FrameUserBtn" FontSize="14" Width="auto" Height="25" Content="用户管理" Command="command:LongManagerClientCommands.OpenPageCommand" CommandParameter="UserList"></Button>
-                </TreeViewItem>
-                <TreeViewItem Header="硬件管理">
-                    <Button x:Name="CarBtn" FontSize="14" Width="auto" Height="25" Content="车辆管理" Command="command:LongManagerClientCommands.OpenPageCommand" CommandParameter="CarList"></Button>
-                    <Button x:Name="LabelBtn" FontSize="14" Width="auto" Height="25" Content="标签管理" Command="command:LongManagerClientCommands.OpenPageCommand" CommandParameter="LabelList"></Button>
-                </TreeViewItem>
-                <TreeViewItem Header="地区管理">
-                    <Button x:Name="CityListBtn" FontSize="14" Width="auto" Height="25" Content="地区管理" Command="command:LongManagerClientCommands.OpenPageCommand" CommandParameter="CityList"></Button>
-                </TreeViewItem>
-                <TreeViewItem Header="出口件">
-                    <Button x:Name="OutListBtn" FontSize="14" Width="auto" Height="25" Content="出口件" Command="command:LongManagerClientCommands.OpenPageCommand" CommandParameter="OutList"></Button>
-                    <Button x:Name="OutSearchBtn" FontSize="14" Width="auto" Height="25" Content="出口件爬取" Command="command:LongManagerClientCommands.OpenPageCommand" CommandParameter="OutSearch"></Button>
-                </TreeViewItem>
-                <TreeViewItem Header="长三角地区出口件">
-                    <Button x:Name="JiangSuOutList" FontSize="14" Width="auto" Height="25" Content="出口件" Command="command:LongManagerClientCommands.OpenPageCommand" CommandParameter="JiangSuOutList"></Button>
-                </TreeViewItem>
-                <TreeViewItem Header="到达件">
-                    <Button x:Name="InListBtn" FontSize="14" Width="auto" Height="25" Content="到达件" Command="command:LongManagerClientCommands.OpenPageCommand" CommandParameter="InList"></Button>
-                    <Button x:Name="InSearchBtn" FontSize="14" Width="auto" Height="25" Content="到达件爬取" Command="command:LongManagerClientCommands.OpenPageCommand" CommandParameter="InSearch"></Button>
-                </TreeViewItem>
-            </TreeView>
-        </StackPanel>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel DockPanel.Dock="Left" Width="200" Background="#FF9459C5">
+                <TreeView Foreground="White">
+                    <TreeViewItem Header="系统管理">
+                        <Button x:Name="IndexBtn" FontSize="14" Width="auto" Height="25" Content="首页查看" Command="command:LongManagerClientCommands.OpenPageCommand" CommandParameter="Index"></Button>
+                        <Button x:Name="FrameUserBtn" FontSize="14" Width="auto" Height="25" Content="用户管理" Command="command:LongManagerClientCommands.OpenPageCommand" CommandParameter="UserList"></Button>
+                    </TreeViewItem>
+                    <TreeViewItem Header="硬件管理">
+                        <Button x:Name="CarBtn" FontSize="14" Width="auto" Height="25" Content="车辆管理" Command="command:LongManagerClientCommands.OpenPageCommand" CommandParameter="CarList"></Button>
+                        <Button x:Name="LabelBtn" FontSize="14" Width="auto" Height="25" Content="标签管理" Command="command:LongManagerClientCommands.OpenPageCommand" CommandParameter="LabelList"></Button>
+                    </TreeViewItem>
+                    <TreeViewItem Header="地区管理">
+                        <Button x:Name="CityListBtn" FontSize="14" Width="auto" Height="25" Content="地区管理" Command="command:LongManagerClientCommands.OpenPageCommand" CommandParameter="CityList"></Button>
+                    </TreeViewItem>
+                    <TreeViewItem Header="出口件">
+                        <Button x:Name="OutListBtn" FontSize="14" Width="auto" Height="25" Content="出口件" Command="command:LongManagerClientCommands.OpenPageCommand" CommandParameter="OutList"></Button>
+                        <Button x:Name="OutSearchBtn" FontSize="14" Width="auto" Height="25" Content="出口件爬取" Command="command:LongManagerClientCommands.OpenPageCommand" CommandParameter="OutSearch"></Button>
+                    </TreeViewItem>
+                    <TreeViewItem Header="长三角地区出口件">
+                        <Button x:Name="JiangSuOutList" FontSize="14" Width="auto" Height="25" Content="出口件" Command="command:LongManagerClientCommands.OpenPageCommand" CommandParameter="JiangSuOutList"></Button>
+                    </TreeViewItem>
+                    <TreeViewItem Header="倍乐生出口件">
+                        <Button x:Name="BLSList" FontSize="14" Width="auto" Height="25" Content="出口件" Command="command:LongManagerClientCommands.OpenPageCommand" CommandParameter="BLSList"></Button>
+                    </TreeViewItem>
+                    <TreeViewItem Header="到达件">
+                        <Button x:Name="InListBtn" FontSize="14" Width="auto" Height="25" Content="到达件" Command="command:LongManagerClientCommands.OpenPageCommand" CommandParameter="InList"></Button>
+                        <Button x:Name="InSearchBtn" FontSize="14" Width="auto" Height="25" Content="到达件爬取" Command="command:LongManagerClientCommands.OpenPageCommand" CommandParameter="InSearch"></Button>
+                    </TreeViewItem>
+                </TreeView>
+            </StackPanel>
+        </ScrollViewer>
         <DockPanel DockPanel.Dock="Right" Width="auto" Height="auto">
             <Frame x:Name="PageFrame" NavigationUIVisibility="Hidden"></Frame>
         </DockPanel>

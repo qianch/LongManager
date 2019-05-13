@@ -108,6 +108,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pages\BLS\BLSList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\Car\CarEdit.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -173,6 +177,9 @@
     <Compile Include="ModelBinding\MethodInterceptorLogger.cs" />
     <Compile Include="Pages\BasePage.cs" />
     <Compile Include="Pages\BaseWindow.cs" />
+    <Compile Include="Pages\BLS\BLSList.xaml.cs">
+      <DependentUpon>BLSList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Car\CarEdit.xaml.cs">
       <DependentUpon>CarEdit.xaml</DependentUpon>
     </Compile>

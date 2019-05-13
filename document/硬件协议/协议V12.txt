@@ -40,4 +40,4 @@ PC  ：FE 04  XX XX XX XX XX XX XX  T1 T2 FX CRC
 XX 为小车车号
 T1 ：收到指令后延时时间（单位S）
 T2 ：电机动作时间（单位S）
-FX ：电机动作方向
+FX ：电机动作方向（0 - 正转  1 - 反转）

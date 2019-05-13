@@ -3,6 +3,7 @@ using LongManagerClient.Command;
 using LongManagerClient.Core;
 using LongManagerClient.Core.ClientDataBase;
 using LongManagerClient.Pages;
+using LongManagerClient.Pages.BLS;
 using LongManagerClient.Pages.Car;
 using LongManagerClient.Pages.City;
 using LongManagerClient.Pages.In;
@@ -56,6 +57,7 @@ namespace LongManagerClient
             GlobalCache.Instance.AllPages.Add("CityList", new CityList());
             GlobalCache.Instance.AllPages.Add("OutList", new OutList());
             GlobalCache.Instance.AllPages.Add("JiangSuOutList", new JiangSuOutList());
+            GlobalCache.Instance.AllPages.Add("BLSList", new BLSList());
             GlobalCache.Instance.AllPages.Add("OutSearch", new OutSearch());
             GlobalCache.Instance.AllPages.Add("InList", new InList());
             GlobalCache.Instance.AllPages.Add("InSearch", new InSearch());
@@ -111,7 +113,7 @@ namespace LongManagerClient
             switch (param)
             {
                 case "About":
-                    MessageBox.Show("龙翔物流管理系统 1.0", "版权信息", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("龙翔物流管理系统 1.0，技术支持：qianchenchn@foxmail.com", "版权信息", MessageBoxButton.OK, MessageBoxImage.Information);
                     break;
                 default:
                     break;

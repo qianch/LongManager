@@ -20,12 +20,12 @@
                    CanUserAddRows="False" CanUserDeleteRows="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding CarNO}" Header="车辆编号"></DataGridTextColumn>
-                <DataGridTemplateColumn Header="查看">
+                <DataGridTemplateColumn Header="控制">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Button x:Name="ViewBtn" Tag="{Binding RowGuid}" Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
-                                    ToolTip="查看" Click="ViewBtn_Click" >
-                                <materialDesign:PackIcon Kind="ZoomInOutline" Height="24" Width="24"/>
+                                    ToolTip="控制" Click="ViewBtn_Click" >
+                                <materialDesign:PackIcon Kind="Build" Height="24" Width="24"/>
                             </Button>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
