@@ -36,18 +36,13 @@ namespace LongManagerClient.Pages
                 MethodInterceptor = new MethodInterceptorLogger()
             };
             Browser.RegisterAsyncJsObject("jsObject", new CallbackObjectForJs(), bindingOptions);
-            Browser.IsBrowserInitializedChanged += Browser_IsBrowserInitializedChanged;
+            Browser.Address = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Htmls/pages/welcome.html");
             Browser.MenuHandler = new LongCEFMenuHandler();
         }
 
         private void BasePage_Loaded(object sender, RoutedEventArgs e)
         {
 
-        }
-
-        private void Browser_IsBrowserInitializedChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            Browser.Load(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Htmls/pages/welcome.html"));
         }
 
         private void CallBrowser_Click(object sender, RoutedEventArgs e)

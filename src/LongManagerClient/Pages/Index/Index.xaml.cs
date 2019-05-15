@@ -25,13 +25,8 @@ namespace LongManagerClient.Pages.Index
         {
             InitializeComponent();
 
-            Browser.IsBrowserInitializedChanged += Browser_IsBrowserInitializedChanged;
+            Browser.Address = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Htmls/pages/index.html");
             Browser.MenuHandler = new LongCEFMenuHandler();
-        }
-
-        private void Browser_IsBrowserInitializedChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            Browser.Load(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Htmls/pages/index.html"));
         }
     }
 }

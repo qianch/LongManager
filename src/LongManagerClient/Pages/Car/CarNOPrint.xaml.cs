@@ -1,7 +1,7 @@
 ﻿using CefSharp;
+using LongManagerClient.CEF;
 using LongManagerClient.Core;
 using LongManagerClient.Core.ClientDataBase;
-using LongManagerClient.CEF;
 using System;
 using System.Collections.Generic;
 using System.Drawing.Imaging;
@@ -42,22 +42,24 @@ namespace LongManagerClient.Pages.Car
 
         private void Browser_IsBrowserInitializedChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            var key = ExtraData as string;
-            _carBasicInfo = _longDBContext.Car.Where(x => x.RowGuid == key).FirstOrDefault();
+            if (Browser.IsBrowserInitialized)
+            {
+                var key = ExtraData as string;
+                _carBasicInfo = _longDBContext.Car.Where(x => x.RowGuid == key).FirstOrDefault();
 
-            var barStream = new MemoryStream();
-            var barcode128 = BarcodeDrawFactory.Code128WithChecksum;
-            var barImg = barcode128.Draw(_carBasicInfo.CarNO, 40);
-            barImg.Save(barStream, ImageFormat.Jpeg);
-            var barBase64 = Convert.ToBase64String(barStream.ToArray());
+                var barStream = new MemoryStream();
+                var barcode128 = BarcodeDrawFactory.Code128WithChecksum;
+                var barImg = barcode128.Draw(_carBasicInfo.CarNO, 40);
+                barImg.Save(barStream, ImageFormat.Jpeg);
+                var barBase64 = Convert.ToBase64String(barStream.ToArray());
 
-            var qrStream = new MemoryStream();
-            var qrcode = BarcodeDrawFactory.CodeQr;
-            var qrImg = qrcode.Draw(_carBasicInfo.CarNO, qrcode.GetDefaultMetrics(40));
-            qrImg.Save(qrStream, ImageFormat.Jpeg);
-            var qrBase64 = Convert.ToBase64String(qrStream.ToArray());
+                var qrStream = new MemoryStream();
+                var qrcode = BarcodeDrawFactory.CodeQr;
+                var qrImg = qrcode.Draw(_carBasicInfo.CarNO, qrcode.GetDefaultMetrics(40));
+                qrImg.Save(qrStream, ImageFormat.Jpeg);
+                var qrBase64 = Convert.ToBase64String(qrStream.ToArray());
 
-            Browser.LoadHtml($@"<html>
+                Browser.LoadHtml($@"<html>
                                   <body style='width:700px;'>
                                     <div style='margin-left:200px;'>
                                        <div style='margin:10px;'>
@@ -70,6 +72,7 @@ namespace LongManagerClient.Pages.Car
                                     </div>
                                   </body>
                                 </html>");
+            }
         }
 
         private void PrintCarNO_Click(object sender, RoutedEventArgs e)

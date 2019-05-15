@@ -40,14 +40,9 @@ namespace LongManagerClient.Pages.In
                 MethodInterceptor = new MethodInterceptorLogger()
             };
             Browser.RegisterJsObject("jsObject", new CallbackObjectForJs(), bindingOptions);
-            Browser.IsBrowserInitializedChanged += Browser_IsBrowserInitializedChanged;
+            Browser.Address = _login;
             Browser.FrameLoadEnd += Browser_FrameLoadEnd;
             Browser.MenuHandler = new LongCEFMenuHandler();
-        }
-
-        private void Browser_IsBrowserInitializedChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            Browser.Load(_login);
         }
 
         private void Browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e)
