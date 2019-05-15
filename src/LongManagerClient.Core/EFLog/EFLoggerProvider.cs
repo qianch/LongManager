@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace LongManagerClient.Core.ClientDataBase
+namespace LongManagerClient.Core.EFLog
 {
     public class EFLoggerProvider : ILoggerProvider
     {
