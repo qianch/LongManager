@@ -39,7 +39,7 @@
         </DockPanel>
         <ScrollViewer VerticalScrollBarVisibility="Auto">
             <StackPanel DockPanel.Dock="Left" Width="200" Background="#FF9459C5">
-                <TreeView Foreground="White">
+                <TreeView x:Name="MenuTree" Foreground="White" SelectedItemChanged="MenuTree_SelectedItemChanged">
                     <TreeViewItem Header="系统管理">
                         <Button x:Name="IndexBtn" FontSize="14" Width="auto" Height="25" Content="首页查看" Command="command:LongManagerClientCommands.OpenPageCommand" CommandParameter="Index"></Button>
                         <Button x:Name="FrameUserBtn" FontSize="14" Width="auto" Height="25" Content="用户管理" Command="command:LongManagerClientCommands.OpenPageCommand" CommandParameter="UserList"></Button>
@@ -51,7 +51,7 @@
                     <TreeViewItem Header="地区管理">
                         <Button x:Name="CityListBtn" FontSize="14" Width="auto" Height="25" Content="地区管理" Command="command:LongManagerClientCommands.OpenPageCommand" CommandParameter="CityList"></Button>
                     </TreeViewItem>
-                    <TreeViewItem Header="出口件">
+                    <TreeViewItem Header="全国出口件">
                         <Button x:Name="OutListBtn" FontSize="14" Width="auto" Height="25" Content="出口件" Command="command:LongManagerClientCommands.OpenPageCommand" CommandParameter="OutList"></Button>
                         <Button x:Name="OutSearchBtn" FontSize="14" Width="auto" Height="25" Content="出口件爬取" Command="command:LongManagerClientCommands.OpenPageCommand" CommandParameter="OutSearch"></Button>
                     </TreeViewItem>
@@ -61,7 +61,7 @@
                     <TreeViewItem Header="倍乐生出口件">
                         <Button x:Name="BLSList" FontSize="14" Width="auto" Height="25" Content="出口件" Command="command:LongManagerClientCommands.OpenPageCommand" CommandParameter="BLSList"></Button>
                     </TreeViewItem>
-                    <TreeViewItem Header="到达件">
+                    <TreeViewItem Header="全国到达件">
                         <Button x:Name="InListBtn" FontSize="14" Width="auto" Height="25" Content="到达件" Command="command:LongManagerClientCommands.OpenPageCommand" CommandParameter="InList"></Button>
                         <Button x:Name="InSearchBtn" FontSize="14" Width="auto" Height="25" Content="到达件爬取" Command="command:LongManagerClientCommands.OpenPageCommand" CommandParameter="InSearch"></Button>
                     </TreeViewItem>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LongManagerClient.Core.BSL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -23,6 +25,59 @@ namespace LongManagerClient.Pages.BLS
         public BLSList()
         {
             InitializeComponent();
+
+            Pager.PageIndexChange += Pager_PageIndexChange;
+        }
+
+        private void BasePage_Loaded(object sender, RoutedEventArgs e)
+        {
+            Pager.LongPage.AllCount = _longDBContext.BLSInfo.Count();
+            Pager.InitButton();
+            MailDataGrid.ItemsSource = _longDBContext.BLSInfo
+                .Take(Pager.LongPage.PageSize)
+                .ToList();
+        }
+
+        private void Pager_PageIndexChange(object sender, EventArgs e)
+        {
+            MailDataGrid.ItemsSource = _longDBContext.BLSInfo
+                .Skip(Pager.LongPage.PageSize * (Pager.LongPage.PageIndex - 1))
+                .Take(Pager.LongPage.PageSize)
+                .ToList();
+        }
+
+        private void SearchBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var mails = _longDBContext.BLSInfo.AsEnumerable();
+            if (!string.IsNullOrEmpty(TxtMailNO.Text))
+            {
+                mails = mails.Where(x => x.MailNO.Contains(TxtMailNO.Text));
+            }
+
+            Pager.LongPage.AllCount = mails.Count();
+            Pager.LongPage.Search = TxtMailNO.Text;
+            Pager.InitButton();
+
+            MailDataGrid.ItemsSource = mails
+                .Skip(Pager.LongPage.PageSize * (Pager.LongPage.PageIndex - 1))
+                .Take(Pager.LongPage.PageSize)
+                .ToList();
+        }
+
+        private void PositionBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BLSExcel_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog
+            {
+                Multiselect = false,
+                DefaultExt = "*.xlsx"
+            };
+            dialog.ShowDialog();
+            new BLSExcelHandle(dialog.FileName).Save();
         }
     }
 }
