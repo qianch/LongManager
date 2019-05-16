@@ -664,6 +664,8 @@ Section Uninstall
   Delete "$INSTDIR\CefSharp.BrowserSubprocess.Core.dll"
   Delete "$INSTDIR\cef.pak"
   Delete "$INSTDIR\debug.log"
+  Delete "$INSTDIR\Quartz.dll"
+  Delete "$INSTDIR\EPPlus.dll"
 
   Delete "$SMPROGRAMS\龙翔物流\Uninstall.lnk"
   Delete "$DESKTOP\龙翔物流.lnk"
@@ -686,8 +688,6 @@ Section Uninstall
   RMDir "$INSTDIR\Htmls\Content\img"
   RMDir "$INSTDIR\Htmls\Content"
   RMDir "$INSTDIR\Htmls"
-  RMDir "$INSTDIR\DB"
-  RMDir "$INSTDIR"
 
   DeleteRegKey ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}"
   DeleteRegKey HKLM "${PRODUCT_DIR_REGKEY}"

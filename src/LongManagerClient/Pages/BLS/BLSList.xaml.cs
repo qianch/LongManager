@@ -74,10 +74,14 @@ namespace LongManagerClient.Pages.BLS
             OpenFileDialog dialog = new OpenFileDialog
             {
                 Multiselect = false,
-                DefaultExt = "*.xlsx"
+                Filter = "Excel|*.xlsx",
+                CheckFileExists = true
             };
-            dialog.ShowDialog();
-            new BLSExcelHandle(dialog.FileName).Save();
+
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                new BLSExcelHandle(dialog.FileName).Save();
+            }
         }
     }
 }

@@ -39,7 +39,7 @@
         </DockPanel>
         <ScrollViewer VerticalScrollBarVisibility="Auto">
             <StackPanel DockPanel.Dock="Left" Width="200" Background="#FF9459C5">
-                <TreeView x:Name="MenuTree" Foreground="White" SelectedItemChanged="MenuTree_SelectedItemChanged">
+                <TreeView x:Name="MenuTree" Foreground="White">
                     <TreeViewItem Header="系统管理">
                         <Button x:Name="IndexBtn" FontSize="14" Width="auto" Height="25" Content="首页查看" Command="command:LongManagerClientCommands.OpenPageCommand" CommandParameter="Index"></Button>
                         <Button x:Name="FrameUserBtn" FontSize="14" Width="auto" Height="25" Content="用户管理" Command="command:LongManagerClientCommands.OpenPageCommand" CommandParameter="UserList"></Button>

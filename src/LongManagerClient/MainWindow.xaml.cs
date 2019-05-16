@@ -130,10 +130,5 @@ namespace LongManagerClient
             var date = DateTime.Now;
             TxtDate.Text = date.ToString("yyyy年MM月dd日 HH:mm:ss  ") + date.ToString("dddd", new System.Globalization.CultureInfo("zh-cn"));
         }
-
-        private void MenuTree_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
-        {
-
-        }
     }
 }
