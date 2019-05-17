@@ -1,4 +1,5 @@
-﻿using LongManagerClient.Core;
+﻿using Autofac;
+using LongManagerClient.Core;
 using LongManagerClient.Core.ClientDataBase;
 using System;
 using System.Collections.Generic;
@@ -40,7 +41,7 @@ namespace LongManagerClient.Pages.Car
 
         private void SendBtn_Click(object sender, RoutedEventArgs e)
         {
-            var longSerialPort = GlobalCache.Instance.LongSerialPort;
+            var longSerialPort = _container.Resolve<GlobalCache>().LongSerialPort;
             if (longSerialPort == null)
             {
                 MessageBox.Show("没有找到对应的发射单元", "警告", MessageBoxButton.OK, MessageBoxImage.Warning);

@@ -1,4 +1,5 @@
-﻿using log4net;
+﻿using Autofac;
+using log4net;
 using LongManagerClient.Command;
 using LongManagerClient.Core;
 using LongManagerClient.Core.ClientDataBase;
@@ -37,7 +38,6 @@ namespace LongManagerClient
     /// </summary>
     public partial class MainWindow : BaseWindow
     {
-        private ILog log = LogManager.GetLogger(typeof(MainWindow));
         private DispatcherTimer _showTimer = new DispatcherTimer();
         public MainWindow()
         {
@@ -48,20 +48,7 @@ namespace LongManagerClient
             ShowInTaskbar = true;
             WindowState = WindowState.Maximized;
 
-            //加载所有的Page
-            GlobalCache.Instance.AllPages.Add("Index", new Index());
-            GlobalCache.Instance.AllPages.Add("Welcome", new Welcome());
-            GlobalCache.Instance.AllPages.Add("UserList", new UserList());
-            GlobalCache.Instance.AllPages.Add("CarList", new CarList());
-            GlobalCache.Instance.AllPages.Add("LabelList", new LabelList());
-            GlobalCache.Instance.AllPages.Add("CityList", new CityList());
-            GlobalCache.Instance.AllPages.Add("OutList", new OutList());
-            GlobalCache.Instance.AllPages.Add("JiangSuOutList", new JiangSuOutList());
-            GlobalCache.Instance.AllPages.Add("BLSList", new BLSList());
-            GlobalCache.Instance.AllPages.Add("OutSearch", new OutSearch());
-            GlobalCache.Instance.AllPages.Add("InList", new InList());
-            GlobalCache.Instance.AllPages.Add("InSearch", new InSearch());
-            GlobalCache.Instance.Frame = PageFrame;
+            _container.Resolve<GlobalCache>().Frame = PageFrame;
 
             //绑定自定义命令
             CommandBindings.Add(new CommandBinding(LongManagerClientCommands.OpenPageCommand, OpenPageCommandBinding));
@@ -69,7 +56,7 @@ namespace LongManagerClient
             CommandBindings.Add(new CommandBinding(LongManagerClientCommands.MenuCommand, MenuCommandBinding));
 
             //默认加载欢迎页面
-            PageFrame.NavigationService.Navigate(GlobalCache.Instance.AllPages["Index"]);
+            PageFrame.NavigationService.Navigate(_container.ResolveNamed<BasePage>("Index"));
 
             //添加timer
             _showTimer.Tick += new EventHandler(GetTimer);
@@ -95,7 +82,7 @@ namespace LongManagerClient
             else
             {
                 //登录成功恢复透明度
-                SystemPanel.DataContext = GlobalCache.Instance.FrameUser;
+                SystemPanel.DataContext = _container.ResolveNamed<FrameUser>("CurrentUser");
                 Opacity = 1;
             }
         }
@@ -104,7 +91,7 @@ namespace LongManagerClient
         private void OpenPageCommandBinding(object sender, ExecutedRoutedEventArgs e)
         {
             var param = e.Parameter.ToString();
-            GlobalCache.Instance.Frame.NavigationService.Navigate(GlobalCache.Instance.AllPages[param]);
+            _container.Resolve<GlobalCache>().Frame.NavigationService.Navigate(_container.ResolveNamed<BasePage>(param));
         }
 
         private void MenuCommandBinding(object sender, ExecutedRoutedEventArgs e)

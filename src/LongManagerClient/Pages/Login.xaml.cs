@@ -1,4 +1,5 @@
-﻿using LongManagerClient.Core;
+﻿using Autofac;
+using LongManagerClient.Core;
 using LongManagerClient.Core.ClientDataBase;
 using System;
 using System.Collections.Generic;
@@ -21,7 +22,7 @@ namespace LongManagerClient.Pages
     /// </summary>
     public partial class Login : BaseWindow
     {
-        private FrameUser _frameUser = new FrameUser();
+        private FrameUser _frameUser = _container.ResolveNamed<FrameUser>("CurrentUser");
         public Login()
         {
             InitializeComponent();
@@ -49,7 +50,9 @@ namespace LongManagerClient.Pages
             if (count == 1)
             {
                 DialogResult = true;
-                var frameUser = GlobalCache.Instance.FrameUser = _longDBContext.FrameUser.Where(x => x.UserName == _frameUser.UserName && x.UserPassword == _frameUser.UserPassword).FirstOrDefault();
+                var frameUser = _longDBContext.FrameUser.Where(x => x.UserName == _frameUser.UserName && x.UserPassword == _frameUser.UserPassword).FirstOrDefault();
+                _frameUser.DisplayName = frameUser.DisplayName;
+
                 var loginHistory = new LoginHistory
                 {
                     RowGuid = Guid.NewGuid().ToString(),

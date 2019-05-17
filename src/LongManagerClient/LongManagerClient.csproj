@@ -107,6 +107,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ApplicationModule.cs" />
     <Compile Include="CEF\LongCEFMenuHandler.cs" />
     <Compile Include="Command\LongManagerCommands.cs" />
     <Compile Include="Controls\LongPager.xaml.cs">
@@ -271,6 +272,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Autofac">
+      <Version>4.9.2</Version>
+    </PackageReference>
     <PackageReference Include="CefSharp.Wpf">
       <Version>73.1.130</Version>
     </PackageReference>

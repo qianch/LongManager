@@ -1,4 +1,5 @@
-﻿using CefSharp;
+﻿using Autofac;
+using CefSharp;
 using CefSharp.Wpf;
 using log4net;
 using LongManagerClient.Core;
@@ -22,7 +23,8 @@ namespace LongManagerClient
     /// </summary>
     public partial class App : Application
     {
-        private ILog log = LogManager.GetLogger(typeof(App));
+        private ILog _log = LogManager.GetLogger(typeof(App));
+        private IContainer _container = GlobalCache.Container();
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
@@ -36,7 +38,7 @@ namespace LongManagerClient
             string[] portNames = SerialPort.GetPortNames();
             foreach (var portName in portNames)
             {
-                GlobalCache.Instance.LongSerialPort = new LongSerialPort(portName);
+                _container.Resolve<GlobalCache>().LongSerialPort = new LongSerialPort(portName);
             }
 
             //设置CefSharp
@@ -49,11 +51,14 @@ namespace LongManagerClient
 
             //quartz
             new PushTask().Run().GetAwaiter().GetResult();
+
+            //autofac
+            var container = GlobalCache.Container();
         }
 
         private void App_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
-            log.Error(e.Exception.ToString());
+            _log.Error(e.Exception.ToString());
         }
 
         [DllImport("User32.dll")]
