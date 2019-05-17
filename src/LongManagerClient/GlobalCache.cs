@@ -17,15 +17,5 @@ namespace LongManagerClient
     public class GlobalCache
     {
         public Frame Frame { get; set; } = new Frame();
-        public LongSerialPort LongSerialPort { get; set; }
-
-        public static IContainer Container()
-        {
-            var builder = new ContainerBuilder();
-            builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).PropertiesAutowired();
-            builder.RegisterModule(new ApplicationModule());
-            builder.RegisterInstance(new GlobalCache()).As<GlobalCache>().SingleInstance();
-            return builder.Build();
-        }
     }
 }

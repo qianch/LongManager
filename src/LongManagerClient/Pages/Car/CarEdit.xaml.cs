@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using LongManagerClient.Core;
 using LongManagerClient.Core.ClientDataBase;
+using LongManagerClient.Port;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,23 +42,23 @@ namespace LongManagerClient.Pages.Car
 
         private void SendBtn_Click(object sender, RoutedEventArgs e)
         {
-            var longSerialPort = _container.Resolve<GlobalCache>().LongSerialPort;
-            if (longSerialPort == null)
+            var isRegistered = App.Container.IsRegistered<LongSerialPort>();
+            if (!isRegistered)
             {
                 MessageBox.Show("没有找到对应的发射单元", "警告", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            var longSerialPort = App.Container.Resolve<LongSerialPort>();
+            if (DelayTime.Text.ToArray().Any(x => Char.IsNumber(x)) &&
+                ActionTime.Text.ToArray().Any(x => Char.IsNumber(x)))
+            {
+                longSerialPort.SendOrderData(_carBasicInfo.CarNO, LabelCBox.SelectedValue.ToString(), DelayTime.Text, ActionTime.Text, orientation.Text == "正转" ? "0" : "1");
+                MessageBox.Show("数据已经发送", "提示", MessageBoxButton.OK, MessageBoxImage.Asterisk);
             }
             else
             {
-                if (DelayTime.Text.ToArray().Any(x => Char.IsNumber(x)) &&
-                    ActionTime.Text.ToArray().Any(x => Char.IsNumber(x)))
-                {
-                    longSerialPort.SendOrderData(_carBasicInfo.CarNO, LabelCBox.SelectedValue.ToString(), DelayTime.Text, ActionTime.Text, orientation.Text == "正转" ? "0" : "1");
-                    MessageBox.Show("数据已经发送", "提示", MessageBoxButton.OK, MessageBoxImage.Asterisk);
-                }
-                else
-                {
-                    MessageBox.Show("延迟时间格式不正确", "警告", MessageBoxButton.OK, MessageBoxImage.Warning);
-                }
+                MessageBox.Show("延迟时间格式不正确", "警告", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
     }

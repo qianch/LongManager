@@ -12,6 +12,7 @@ using System.Data;
 using System.Diagnostics;
 using System.IO.Ports;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows;
@@ -24,7 +25,7 @@ namespace LongManagerClient
     public partial class App : Application
     {
         private ILog _log = LogManager.GetLogger(typeof(App));
-        private IContainer _container = GlobalCache.Container();
+        public static IContainer Container { get; private set; }
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
@@ -32,13 +33,6 @@ namespace LongManagerClient
             if (ExistRunningInstance())
             {
                 Shutdown();
-            }
-
-            //监听com端口
-            string[] portNames = SerialPort.GetPortNames();
-            foreach (var portName in portNames)
-            {
-                _container.Resolve<GlobalCache>().LongSerialPort = new LongSerialPort(portName);
             }
 
             //设置CefSharp
@@ -53,7 +47,11 @@ namespace LongManagerClient
             new PushTask().Run().GetAwaiter().GetResult();
 
             //autofac
-            var container = GlobalCache.Container();
+            var builder = new ContainerBuilder();
+            //builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).PropertiesAutowired();
+            builder.RegisterModule(new ApplicationModule());
+            builder.RegisterInstance(new GlobalCache()).As<GlobalCache>().SingleInstance();
+            Container = builder.Build();
         }
 
         private void App_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)

@@ -15,7 +15,7 @@ namespace LongManagerClient.Pages
     {
         protected readonly static ILog _log = LogManager.GetLogger(typeof(BaseWindow));
         protected LongClientDbContext _longDBContext = new LongClientDbContext();
-        protected readonly static IContainer _container = GlobalCache.Container();
+        protected readonly static IContainer _container = App.Container;
 
         public object ExtraData { get; set; }
 
