@@ -276,6 +276,7 @@ Section "MainSection" SEC01
   File "..\src\LongManagerClient\bin\x86\Debug\Newtonsoft.Json.dll"
   File "..\src\LongManagerClient\bin\x86\Debug\Quartz.dll"
   File "..\src\LongManagerClient\bin\x86\Debug\EPPlus.dll"
+  File "..\src\LongManagerClient\bin\x86\Debug\Autofac.dll"
   File "..\src\LongManagerClient\bin\x86\Debug\README.txt"
   File "..\src\LongManagerClient\bin\x86\Debug\Remotion.Linq.dll"
   File "..\src\LongManagerClient\bin\x86\Debug\snapshot_blob.bin"
@@ -666,6 +667,7 @@ Section Uninstall
   Delete "$INSTDIR\debug.log"
   Delete "$INSTDIR\Quartz.dll"
   Delete "$INSTDIR\EPPlus.dll"
+  Delete "$INSTDIR\Autofac.dll"
 
   Delete "$SMPROGRAMS\龙翔物流\Uninstall.lnk"
   Delete "$DESKTOP\龙翔物流.lnk"
