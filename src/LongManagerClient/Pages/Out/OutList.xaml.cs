@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Autofac;
+using LongManagerClient.Core;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -64,55 +66,19 @@ namespace LongManagerClient.Pages.Out
 
         private void PositionBtn_Click(object sender, RoutedEventArgs e)
         {
-            //全国格口已经划分好的地区
-            var countryPositionCity = _longDBContext.CityInfo.Where(x => !string.IsNullOrEmpty(x.CountryPosition)).ToList();
+            var cityPosition = _container.Resolve<CityPosition>();
             var mails = _longDBContext.OutInfo.Where(x => x.BelongOfficeName == null).ToList();
             foreach (var mail in mails)
             {
-                foreach (var city in countryPositionCity)
-                {
-                    if ((city.CityName + city.OfficeName).Contains(mail.OrgName) ||
-                        mail.OrgName.Contains(city.CityName) ||
-                        mail.OrgName.Contains(city.OfficeName))
-                    {
-                        mail.BelongOfficeName = city.CityName;
-                        mail.CountryPosition = city.CountryPosition;
-                        _longDBContext.OutInfo.Update(mail);
-                    }
-                }
+                cityPosition.CountryPositionByCityCode(mail);
+                _longDBContext.OutInfo.Update(mail);
             }
 
             mails = _longDBContext.OutInfo.Where(x => x.BelongOfficeName == null).ToList();
             foreach (var mail in mails)
             {
-                var city = _longDBContext.CityInfo.Where(x => x.CityCode.Length == 6 && x.CityName.Contains(mail.OrgName)).FirstOrDefault();
-                if (city != null)
-                {
-                    //上一级地区
-                    var parentCityCode = city.CityCode.Substring(0, 4) + "00";
-                    var parentCity = _longDBContext.CityInfo.Where(x => x.CityCode == parentCityCode).FirstOrDefault();
-                    if (parentCity != null)
-                    {
-                        //上一级地区是否为全国格口划分的地区
-                        if (parentCity.CountryPosition != null)
-                        {
-                            mail.BelongOfficeName = parentCity.OfficeName;
-                            mail.CountryPosition = parentCity.CountryPosition;
-                            _longDBContext.OutInfo.Update(mail);
-                        }
-                        //上一级地区是否有所属全国格口的划分
-                        else if (parentCity.BelongCityCode != null)
-                        {
-                            var belongCity = countryPositionCity.Where(x => x.CityCode == parentCity.BelongCityCode).FirstOrDefault();
-                            if (belongCity != null)
-                            {
-                                mail.BelongOfficeName = belongCity.OfficeName;
-                                mail.CountryPosition = belongCity.CountryPosition;
-                                _longDBContext.OutInfo.Update(mail);
-                            }
-                        }
-                    }
-                }
+                cityPosition.CountryPositionByParentCityCode(mail);
+                _longDBContext.OutInfo.Update(mail);
             }
 
             _longDBContext.SaveChanges();

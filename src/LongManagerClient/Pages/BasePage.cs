@@ -1,4 +1,5 @@
-﻿using log4net;
+﻿using Autofac;
+using log4net;
 using LongManagerClient.Core.ClientDataBase;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,7 @@ namespace LongManagerClient.Pages
         }
         protected readonly static ILog _log = LogManager.GetLogger(typeof(BasePage));
         public LongClientDbContext _longDBContext { get; set; }
+        protected readonly static IContainer _container = App.Container;
         public object ExtraData { get; set; }
     }
 }

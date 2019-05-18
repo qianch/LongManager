@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace LongManagerClient.Core.ClientDataBase
 {
+    [Table("CityInfo")]
     public class CityInfo : BaseEntity
     {
         public string CityName { get; set; }

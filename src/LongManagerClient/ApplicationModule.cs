@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using LongManagerClient.Core;
 using LongManagerClient.Core.ClientDataBase;
 using LongManagerClient.Pages;
 using LongManagerClient.Pages.BLS;
@@ -47,6 +48,9 @@ namespace LongManagerClient
             {
                 builder.RegisterInstance(new LongSerialPort(portNames[0])).As<LongSerialPort>().SingleInstance();
             }
+
+            //格口划分方法
+            builder.RegisterType<CityPosition>().As<CityPosition>().PropertiesAutowired();
         }
     }
 }

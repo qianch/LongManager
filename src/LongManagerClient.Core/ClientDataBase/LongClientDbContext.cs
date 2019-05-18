@@ -22,11 +22,11 @@ namespace LongManagerClient.Core.ClientDataBase
         public DbSet<FrameConfig> FrameConfig { get; set; }
         public DbSet<FrameUser> FrameUser { get; set; }
         public DbSet<CarBasicInfo> Car { get; set; }
-        public DbSet<LabelBasicInfo> Label { get; set; }
-        public DbSet<OutInfo> OutInfo { get; set; }
+        public DbSet<LabelBasicInfo> Label { get; set; }      
         public DbSet<InInfo> InInfo { get; set; }
         public DbSet<LoginHistory> LoginHistory { get; set; }
         public DbSet<CityInfo> CityInfo { get; set; }
+        public DbSet<OutInfo> OutInfo { get; set; }
         public DbSet<BLSOutInfo> BLSInfo { get; set; }
     }
 }

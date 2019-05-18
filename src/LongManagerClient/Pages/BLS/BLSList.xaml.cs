@@ -1,4 +1,6 @@
-﻿using LongManagerClient.Core.BSL;
+﻿using Autofac;
+using LongManagerClient.Core;
+using LongManagerClient.Core.BSL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -66,7 +68,23 @@ namespace LongManagerClient.Pages.BLS
 
         private void PositionBtn_Click(object sender, RoutedEventArgs e)
         {
+            var cityPosition = _container.Resolve<CityPosition>();
+            var mails = _longDBContext.BLSInfo.Where(x => x.BelongOfficeName == null).ToList();
+            foreach (var mail in mails)
+            {
+                cityPosition.CountryPositionByCityCode(mail);
+                _longDBContext.BLSInfo.Update(mail);
+            }
 
+            mails = _longDBContext.BLSInfo.Where(x => x.BelongOfficeName == null).ToList();
+            foreach (var mail in mails)
+            {
+                cityPosition.CountryPositionByParentCityCode(mail);
+                _longDBContext.BLSInfo.Update(mail);
+            }
+
+            _longDBContext.SaveChanges();
+            System.Windows.MessageBox.Show("全国格口划分完成", "提示", MessageBoxButton.OK, MessageBoxImage.Asterisk);
         }
 
         private void BLSExcel_Click(object sender, RoutedEventArgs e)
