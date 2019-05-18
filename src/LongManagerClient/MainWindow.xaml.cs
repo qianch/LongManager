@@ -48,14 +48,13 @@ namespace LongManagerClient
             ShowInTaskbar = true;
             WindowState = WindowState.Maximized;
 
-            _container.Resolve<GlobalCache>().Frame = PageFrame;
-
             //绑定自定义命令
             CommandBindings.Add(new CommandBinding(LongManagerClientCommands.OpenPageCommand, OpenPageCommandBinding));
             CommandBindings.Add(new CommandBinding(LongManagerClientCommands.Exit, Exit));
             CommandBindings.Add(new CommandBinding(LongManagerClientCommands.MenuCommand, MenuCommandBinding));
 
             //默认加载欢迎页面
+            App.Frame = PageFrame;
             PageFrame.NavigationService.Navigate(_container.ResolveNamed<BasePage>("Index"));
 
             //添加timer
@@ -91,7 +90,7 @@ namespace LongManagerClient
         private void OpenPageCommandBinding(object sender, ExecutedRoutedEventArgs e)
         {
             var param = e.Parameter.ToString();
-            _container.Resolve<GlobalCache>().Frame.NavigationService.Navigate(_container.ResolveNamed<BasePage>(param));
+            App.Frame.NavigationService.Navigate(_container.ResolveNamed<BasePage>(param));
         }
 
         private void MenuCommandBinding(object sender, ExecutedRoutedEventArgs e)

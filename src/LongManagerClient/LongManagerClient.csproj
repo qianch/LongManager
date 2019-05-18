@@ -113,7 +113,6 @@
     <Compile Include="Controls\LongPager.xaml.cs">
       <DependentUpon>LongPager.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GlobalCache.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

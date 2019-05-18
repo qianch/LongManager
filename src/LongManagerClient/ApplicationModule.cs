@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using log4net;
 using LongManagerClient.Core;
 using LongManagerClient.Core.ClientDataBase;
 using LongManagerClient.Pages;
@@ -18,6 +19,7 @@ using System.Collections.Generic;
 using System.IO.Ports;
 using System.Linq;
 using System.Text;
+using System.Windows.Controls;
 
 namespace LongManagerClient
 {
@@ -41,7 +43,7 @@ namespace LongManagerClient
             builder.RegisterType<InSearch>().As<BasePage>().Named<BasePage>("InSearch").SingleInstance().PropertiesAutowired();
 
             //当前登录用户
-            builder.RegisterType<FrameUser>().As<FrameUser>().Named<FrameUser>("CurrentUser").SingleInstance();
+            builder.RegisterInstance(new FrameUser()).As<FrameUser>().Named<FrameUser>("CurrentUser").SingleInstance();
 
             string[] portNames = SerialPort.GetPortNames();
             if (portNames.Count() > 0)
@@ -51,6 +53,7 @@ namespace LongManagerClient
 
             //格口划分方法
             builder.RegisterType<CityPosition>().As<CityPosition>().PropertiesAutowired();
+            builder.RegisterInstance(LogManager.GetLogger(typeof(App))).As<ILog>();
         }
     }
 }

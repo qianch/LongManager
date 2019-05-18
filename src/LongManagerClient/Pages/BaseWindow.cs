@@ -12,11 +12,9 @@ using System.Windows.Media.Imaging;
 namespace LongManagerClient.Pages
 {
     public class BaseWindow : Window
-    {
-        protected readonly static ILog _log = LogManager.GetLogger(typeof(BaseWindow));
-        protected LongClientDbContext _longDBContext = new LongClientDbContext();
+    {   
+        public LongClientDbContext _longDBContext = new LongClientDbContext();
         protected readonly static IContainer _container = App.Container;
-
         public object ExtraData { get; set; }
 
         public BaseWindow()

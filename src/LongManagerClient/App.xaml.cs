@@ -16,6 +16,7 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace LongManagerClient
 {
@@ -26,6 +27,7 @@ namespace LongManagerClient
     {
         private ILog _log = LogManager.GetLogger(typeof(App));
         public static IContainer Container { get; private set; }
+        public static Frame Frame { get; set; }
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
@@ -50,7 +52,6 @@ namespace LongManagerClient
             var builder = new ContainerBuilder();
             //builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).PropertiesAutowired();
             builder.RegisterModule(new ApplicationModule());
-            builder.RegisterInstance(new GlobalCache()).As<GlobalCache>().SingleInstance();
             Container = builder.Build();
         }
 
