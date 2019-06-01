@@ -73,6 +73,7 @@ namespace LongManagerClient.Pages.Out
                 cityPosition.CountryPositionByCityCode(mail);
                 _longDBContext.OutInfo.Update(mail);
             }
+            _longDBContext.SaveChanges();
 
             mails = _longDBContext.OutInfo.Where(x => x.BelongOfficeName == null).ToList();
             foreach (var mail in mails)
