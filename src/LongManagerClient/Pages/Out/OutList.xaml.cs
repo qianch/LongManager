@@ -54,8 +54,13 @@ namespace LongManagerClient.Pages.Out
                 mails = mails.Where(x => x.MailNO.Contains(TxtMailNO.Text));
             }
 
+            if (!string.IsNullOrEmpty(TxtAddress.Text))
+            {
+                mails = mails.Where(x => x.Address.Contains(TxtAddress.Text));
+            }
+
             Pager.LongPage.AllCount = mails.Count();
-            Pager.LongPage.Search = TxtMailNO.Text;
+            Pager.LongPage.Search = TxtMailNO.Text + TxtAddress;
             Pager.InitButton();
 
             MailDataGrid.ItemsSource = mails
