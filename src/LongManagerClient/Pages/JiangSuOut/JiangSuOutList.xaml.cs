@@ -76,7 +76,7 @@ namespace LongManagerClient.Pages.JiangSuOut
         {
             var cityPosition = _container.Resolve<CityPosition>();
             //长三角地区邮件
-            var mails = _longDBContext.OutInfo.Where(x => x.CountryPosition == "38").ToList();
+            var mails = _longDBContext.OutInfo.Where(x => x.CountryPosition == "38" && string.IsNullOrEmpty(x.JiangSuPosition)).ToList();
             foreach (var mail in mails)
             {
                 cityPosition.JiangSuPositionByCityCode(mail);

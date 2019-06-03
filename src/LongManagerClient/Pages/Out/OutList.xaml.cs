@@ -72,7 +72,7 @@ namespace LongManagerClient.Pages.Out
         private void PositionBtn_Click(object sender, RoutedEventArgs e)
         {
             var cityPosition = _container.Resolve<CityPosition>();
-            var mails = _longDBContext.OutInfo.Where(x => x.BelongOfficeName == null).ToList();
+            var mails = _longDBContext.OutInfo.Where(x => string.IsNullOrEmpty(x.CountryPosition)).ToList();
             foreach (var mail in mails)
             {
                 cityPosition.CountryPositionByCityCode(mail);
@@ -80,7 +80,7 @@ namespace LongManagerClient.Pages.Out
             }
             _longDBContext.SaveChanges();
 
-            mails = _longDBContext.OutInfo.Where(x => x.BelongOfficeName == null).ToList();
+            mails = _longDBContext.OutInfo.Where(x => string.IsNullOrEmpty(x.CountryPosition)).ToList();
             foreach (var mail in mails)
             {
                 cityPosition.CountryPositionByParentCityCode(mail);
