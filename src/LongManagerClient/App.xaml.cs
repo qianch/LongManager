@@ -46,7 +46,7 @@ namespace LongManagerClient
             CefSharpSettings.LegacyJavascriptBindingEnabled = true;
 
             //quartz
-            new PushTask().Run().GetAwaiter().GetResult();
+            //new PushTask().Run().GetAwaiter().GetResult();
 
             //autofac
             var builder = new ContainerBuilder();

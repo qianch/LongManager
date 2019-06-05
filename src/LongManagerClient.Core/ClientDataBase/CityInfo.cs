@@ -9,6 +9,7 @@ namespace LongManagerClient.Core.ClientDataBase
     public class CityInfo : BaseEntity
     {
         public string CityName { get; set; }
+        public string AliasName { get; set; }
         public string CityCode { get; set; }
         public string OfficeName { get; set; }
         public string BelongOfficeName { get; set; }

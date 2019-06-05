@@ -41,14 +41,15 @@ namespace LongManagerClient.Pages.JiangSuOut
 
         private void Pager_PageIndexChange(object sender, EventArgs e)
         {
-            MailDataGrid.ItemsSource = _longDBContext.OutInfo
-                .Where(x => x.CountryPosition == "38")
-                .Skip(Pager.LongPage.PageSize * (Pager.LongPage.PageIndex - 1))
-                .Take(Pager.LongPage.PageSize)
-                .ToList();
+            ListChange();
         }
 
         private void SearchBtn_Click(object sender, RoutedEventArgs e)
+        {
+            ListChange();
+        }
+
+        private void ListChange()
         {
             var mails = _longDBContext.OutInfo.Where(x => x.CountryPosition == "38").AsEnumerable();
             if (!string.IsNullOrEmpty(TxtMailNO.Text))
@@ -58,7 +59,8 @@ namespace LongManagerClient.Pages.JiangSuOut
 
             if (!string.IsNullOrEmpty(TxtAddress.Text))
             {
-                mails = mails.Where(x => x.Address.Contains(TxtAddress.Text));
+                mails = mails.Where(x => x.Address.Contains(TxtAddress.Text) ||
+                                         x.OrgName.Contains(TxtAddress.Text));
             }
 
             Pager.LongPage.AllCount = mails.Count();

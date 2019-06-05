@@ -40,13 +40,15 @@ namespace LongManagerClient.Pages.Out
 
         private void Pager_PageIndexChange(object sender, EventArgs e)
         {
-            MailDataGrid.ItemsSource = _longDBContext.OutInfo
-                .Skip(Pager.LongPage.PageSize * (Pager.LongPage.PageIndex - 1))
-                .Take(Pager.LongPage.PageSize)
-                .ToList();
+            ListChange();
         }
 
         private void SearchBtn_Click(object sender, RoutedEventArgs e)
+        {
+            ListChange();
+        }
+
+        private void ListChange()
         {
             var mails = _longDBContext.OutInfo.AsEnumerable();
             if (!string.IsNullOrEmpty(TxtMailNO.Text))
@@ -56,7 +58,8 @@ namespace LongManagerClient.Pages.Out
 
             if (!string.IsNullOrEmpty(TxtAddress.Text))
             {
-                mails = mails.Where(x => x.Address.Contains(TxtAddress.Text));
+                mails = mails.Where(x => x.Address.Contains(TxtAddress.Text) ||
+                                         x.OrgName.Contains(TxtAddress.Text));
             }
 
             Pager.LongPage.AllCount = mails.Count();
@@ -86,8 +89,8 @@ namespace LongManagerClient.Pages.Out
                 cityPosition.CountryPositionByParentCityCode(mail);
                 _longDBContext.OutInfo.Update(mail);
             }
-
             _longDBContext.SaveChanges();
+
             MessageBox.Show("全国格口划分完成", "提示", MessageBoxButton.OK, MessageBoxImage.Asterisk);
         }
     }

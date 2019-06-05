@@ -29,7 +29,7 @@ namespace LongManagerClient.Core
         {
             foreach (var city in _countryPositionCity)
             {
-                if ((city.CityName + city.OfficeName).Contains(mail.OrgName) ||
+                if ((city.CityName + city.OfficeName + city.AliasName).Contains(mail.OrgName) ||
                     mail.OrgName.Contains(city.CityName) ||
                     mail.OrgName.Contains(city.OfficeName))
                 {
@@ -45,9 +45,21 @@ namespace LongManagerClient.Core
         /// <param name="mail"></param>
         public void CountryPositionByParentCityCode(BaseOut mail)
         {
-            var city = _dbContext.CityInfo.Where(x => x.CityCode.Length == 6 && x.CityName.Contains(mail.OrgName)).FirstOrDefault();
+            var city = _dbContext.CityInfo.Where(x => x.CityCode.Length == 6 && (x.CityName + (string.IsNullOrEmpty(x.AliasName) ? "" : x.AliasName)).Contains(mail.OrgName)).FirstOrDefault();
             if (city != null)
             {
+                //本级地区
+                if (city.BelongCityCode != null)
+                {
+                    var belongCity = _countryPositionCity.Where(x => x.CityCode == city.BelongCityCode).FirstOrDefault();
+                    if (belongCity != null)
+                    {
+                        mail.BelongOfficeName = belongCity.OfficeName;
+                        mail.CountryPosition = belongCity.CountryPosition;
+                        return;
+                    }
+                }
+
                 //上一级地区
                 var parentCityCode = city.CityCode.Substring(0, 4) + "00";
                 var parentCity = _dbContext.CityInfo.Where(x => x.CityCode == parentCityCode).FirstOrDefault();
