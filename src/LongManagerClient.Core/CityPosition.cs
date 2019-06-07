@@ -48,7 +48,7 @@ namespace LongManagerClient.Core
             var city = _dbContext.CityInfo.Where(x => x.CityCode.Length == 6 && (x.CityName + (string.IsNullOrEmpty(x.AliasName) ? "" : x.AliasName)).Contains(mail.OrgName)).FirstOrDefault();
             if (city != null)
             {
-                //本级地区
+                //本级地区是否有属于全国格口的划分
                 if (city.BelongCityCode != null)
                 {
                     var belongCity = _countryPositionCity.Where(x => x.CityCode == city.BelongCityCode).FirstOrDefault();
