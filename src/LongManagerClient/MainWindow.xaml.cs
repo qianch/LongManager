@@ -13,8 +13,6 @@ using LongManagerClient.Pages.JiangSuOut;
 using LongManagerClient.Pages.Label;
 using LongManagerClient.Pages.Out;
 using LongManagerClient.Pages.User;
-using Quartz;
-using Quartz.Impl;
 using System;
 using System.Collections.Generic;
 using System.Linq;

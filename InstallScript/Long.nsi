@@ -274,7 +274,6 @@ Section "MainSection" SEC01
   File "..\src\LongManagerClient\bin\x86\Debug\natives_blob.bin"
   File "..\src\LongManagerClient\bin\x86\Debug\netstandard.dll"
   File "..\src\LongManagerClient\bin\x86\Debug\Newtonsoft.Json.dll"
-  File "..\src\LongManagerClient\bin\x86\Debug\Quartz.dll"
   File "..\src\LongManagerClient\bin\x86\Debug\EPPlus.dll"
   File "..\src\LongManagerClient\bin\x86\Debug\Autofac.dll"
   File "..\src\LongManagerClient\bin\x86\Debug\README.txt"
