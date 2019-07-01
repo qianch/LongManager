@@ -24,11 +24,11 @@ namespace LongManagerClient.Pages.Out
     /// </summary>
     public partial class OutSearch : BasePage
     {
-        private string _login = "https://10.3.131.164/cas/login";
-        private string _outMail = "https://10.3.131.164/pickup-web/a/pickup/waybillquery/main";
-        private string _ajax = "https://10.3.131.164/pickup-web/a/pickup/waybillquery/querybase";
-        private int _lastPage = 300;
-        private string _today = DateTime.Now.ToString("yyyy-MM-dd");
+        private const string _login = "https://10.3.131.164/cas/login";
+        private const string _outMail = "https://10.3.131.164/pickup-web/a/pickup/waybillquery/main";
+        private const string _ajax = "https://10.3.131.164/pickup-web/a/pickup/waybillquery/querybase";
+        private const int _lastPage = 300;
+        private readonly string _today = DateTime.Now.ToString("yyyy-MM-dd");
 
         public OutSearch()
         {
@@ -43,7 +43,7 @@ namespace LongManagerClient.Pages.Out
             Browser.Address = _login;
             Browser.FrameLoadEnd += Browser_FrameLoadEnd;
             Browser.MenuHandler = new LongCEFMenuHandler();
-            Browser.IsEnabled = false;
+            //Browser.IsEnabled = false;
         }
 
         private void Browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e)
@@ -55,10 +55,10 @@ namespace LongManagerClient.Pages.Out
                 if( '{e.Url}' == '{_login}'){{
                    var userName = document.getElementById('username');
                    if(userName != null){{
-                      userName.value='21566400admin';
-                      var password = document.getElementById('password');
-                      password.value='xyd123456';
-                      document.getElementById('login').click();
+                      //userName.value='21566400admin';
+                      //var password = document.getElementById('password');
+                      //password.value='xyd123456';
+                      //document.getElementById('login').click();
                    }}else{{
                       window.location.href='{_outMail}';
                    }};

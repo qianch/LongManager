@@ -97,7 +97,7 @@ namespace LongManagerClient
             switch (param)
             {
                 case "About":
-                    MessageBox.Show("龙翔物流管理系统 1.0，技术支持：qianchenchn@foxmail.com", "版权信息", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("翔龙物流科技管理系统 1.0，技术支持：qianchenchn@foxmail.com", "版权信息", MessageBoxButton.OK, MessageBoxImage.Information);
                     break;
                 default:
                     break;

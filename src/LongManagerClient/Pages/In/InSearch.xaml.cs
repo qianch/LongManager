@@ -24,11 +24,11 @@ namespace LongManagerClient.Pages.In
     /// </summary>
     public partial class InSearch : BasePage
     {
-        private string _login = "https://10.3.131.164/cas/login";
-        private string _inMail = "https://10.3.131.164/pcsnct-web/a/pcs/mailpretreatment/list";
-        private int _lastPage = 300;
+        private const string _login = "https://10.3.131.164/cas/login";
+        private const string _inMail = "https://10.3.131.164/pcsnct-web/a/pcs/mailpretreatment/list";
+        private const int _lastPage = 300;
+        private readonly string _today = DateTime.Now.ToString("yyyy-MM-dd");
         private int _currentPage = 0;
-        private string _today = DateTime.Now.ToString("yyyy-MM-dd");
 
         public InSearch()
         {
@@ -43,6 +43,7 @@ namespace LongManagerClient.Pages.In
             Browser.Address = _login;
             Browser.FrameLoadEnd += Browser_FrameLoadEnd;
             Browser.MenuHandler = new LongCEFMenuHandler();
+            //Browser.IsEnabled = false;
         }
 
         private void Browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e)
@@ -59,10 +60,10 @@ namespace LongManagerClient.Pages.In
                 if( '{e.Url}' == '{_login}'){{
                    var userName = document.getElementById('username');
                    if(userName != null){{
-                      userName.value='21560019admin';
-                      var password = document.getElementById('password');
-                      password.value='zjg123456';
-                      document.getElementById('login').click();
+                      //userName.value='21560019admin';
+                      //var password = document.getElementById('password');
+                      //password.value='zjg123456';
+                      //document.getElementById('login').click();
                    }}else{{
                       window.location.href='{_inMail}';
                    }};
