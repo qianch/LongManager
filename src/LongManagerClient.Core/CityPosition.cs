@@ -29,7 +29,8 @@ namespace LongManagerClient.Core
         {
             foreach (var city in _countryPositionCity)
             {
-                if ((city.CityName + city.OfficeName + city.AliasName).Contains(mail.OrgName) ||
+                var names = city.CityName + city.OfficeName + city.AliasName;
+                if (names.Contains(mail.OrgName) ||
                     mail.OrgName.Contains(city.CityName) ||
                     mail.OrgName.Contains(city.OfficeName))
                 {
