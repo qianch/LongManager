@@ -65,6 +65,16 @@ namespace LongManagerClient.Pages.In
 
         private void SynBtn_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                AutoPickDbContext.Database.CanConnect();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("无法连接到分拣机数据库", "提示", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
             var InInfos = LongDbContext.InInfo.Where(x => x.IsPush != 1).ToList();
 
             foreach (var info in InInfos)
@@ -82,7 +92,7 @@ namespace LongManagerClient.Pages.In
 
             AutoPickDbContext.SaveChanges();
             LongDbContext.SaveChanges();
-           
+
             MessageBox.Show("同步成功", "提示", MessageBoxButton.OK, MessageBoxImage.Asterisk);
         }
     }
