@@ -2,6 +2,7 @@
 using log4net;
 using LongManagerClient.Core;
 using LongManagerClient.Core.ClientDataBase;
+using LongManagerClient.Core.ServerDataBase;
 using LongManagerClient.Pages;
 using LongManagerClient.Pages.BLS;
 using LongManagerClient.Pages.Car;
@@ -28,6 +29,7 @@ namespace LongManagerClient
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<LongClientDbContext>().As<LongClientDbContext>().InstancePerDependency();
+            builder.RegisterType<AutoPickDbContext>().As<AutoPickDbContext>().InstancePerLifetimeScope();
             //注册BasePage
             builder.RegisterType<Index>().As<BasePage>().Named<BasePage>("Index").SingleInstance().PropertiesAutowired();
             builder.RegisterType<Welcome>().As<BasePage>().Named<BasePage>("Welcome").SingleInstance().PropertiesAutowired();

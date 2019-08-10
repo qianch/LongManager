@@ -31,9 +31,9 @@ namespace LongManagerClient.Pages.Out
 
         private void BasePage_Loaded(object sender, RoutedEventArgs e)
         {
-            Pager.LongPage.AllCount = _longDBContext.OutInfo.Count();
+            Pager.LongPage.AllCount = LongDbContext.OutInfo.Count();
             Pager.InitButton();
-            MailDataGrid.ItemsSource = _longDBContext.OutInfo
+            MailDataGrid.ItemsSource = LongDbContext.OutInfo
                 .Take(Pager.LongPage.PageSize)
                 .ToList();
         }
@@ -50,7 +50,7 @@ namespace LongManagerClient.Pages.Out
 
         private void ListChange()
         {
-            var mails = _longDBContext.OutInfo.AsEnumerable();
+            var mails = LongDbContext.OutInfo.AsEnumerable();
             if (!string.IsNullOrEmpty(TxtMailNO.Text))
             {
                 mails = mails.Where(x => x.MailNO.Contains(TxtMailNO.Text));
@@ -75,21 +75,21 @@ namespace LongManagerClient.Pages.Out
         private void PositionBtn_Click(object sender, RoutedEventArgs e)
         {
             var cityPosition = _container.Resolve<CityPosition>();
-            var mails = _longDBContext.OutInfo.Where(x => string.IsNullOrEmpty(x.CountryPosition)).ToList();
+            var mails = LongDbContext.OutInfo.Where(x => string.IsNullOrEmpty(x.CountryPosition)).ToList();
             foreach (var mail in mails)
             {
                 cityPosition.CountryPositionByCityCode(mail);
-                _longDBContext.OutInfo.Update(mail);
+                LongDbContext.OutInfo.Update(mail);
             }
-            _longDBContext.SaveChanges();
+            LongDbContext.SaveChanges();
 
-            mails = _longDBContext.OutInfo.Where(x => string.IsNullOrEmpty(x.CountryPosition)).ToList();
+            mails = LongDbContext.OutInfo.Where(x => string.IsNullOrEmpty(x.CountryPosition)).ToList();
             foreach (var mail in mails)
             {
                 cityPosition.CountryPositionByParentCityCode(mail);
-                _longDBContext.OutInfo.Update(mail);
+                LongDbContext.OutInfo.Update(mail);
             }
-            _longDBContext.SaveChanges();
+            LongDbContext.SaveChanges();
 
             MessageBox.Show("全国格口划分完成", "提示", MessageBoxButton.OK, MessageBoxImage.Asterisk);
         }

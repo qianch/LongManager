@@ -29,16 +29,16 @@ namespace LongManagerClient.Pages.Label
 
         private void BasePage_Loaded(object sender, RoutedEventArgs e)
         {
-            Pager.LongPage.AllCount = _longDBContext.Label.Count();
+            Pager.LongPage.AllCount = LongDbContext.Label.Count();
             Pager.InitButton();
-            LabelDataGrid.ItemsSource = _longDBContext.Label
+            LabelDataGrid.ItemsSource = LongDbContext.Label
                 .Take(Pager.LongPage.PageSize)
                 .ToList();
         }
 
         private void Pager_PageIndexChange(object sender, EventArgs e)
         {
-            LabelDataGrid.ItemsSource = _longDBContext.Label
+            LabelDataGrid.ItemsSource = LongDbContext.Label
                 .Skip(Pager.LongPage.PageSize * (Pager.LongPage.PageIndex - 1))
                 .Take(Pager.LongPage.PageSize)
                 .ToList();

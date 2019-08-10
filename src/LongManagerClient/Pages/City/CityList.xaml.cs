@@ -29,16 +29,16 @@ namespace LongManagerClient.Pages.City
 
         private void BasePage_Loaded(object sender, RoutedEventArgs e)
         {
-            Pager.LongPage.AllCount = _longDBContext.CityInfo.Count();
+            Pager.LongPage.AllCount = LongDbContext.CityInfo.Count();
             Pager.InitButton();
-            CityDataGrid.ItemsSource = _longDBContext.CityInfo
+            CityDataGrid.ItemsSource = LongDbContext.CityInfo
                 .Take(Pager.LongPage.PageSize)
                 .ToList();
         }
 
         private void Pager_PageIndexChange(object sender, EventArgs e)
         {
-            CityDataGrid.ItemsSource = _longDBContext.CityInfo
+            CityDataGrid.ItemsSource = LongDbContext.CityInfo
                 .Skip(Pager.LongPage.PageSize * (Pager.LongPage.PageIndex - 1))
                 .Take(Pager.LongPage.PageSize)
                 .ToList();
@@ -46,7 +46,7 @@ namespace LongManagerClient.Pages.City
 
         private void SearchBtn_Click(object sender, RoutedEventArgs e)
         {
-            var citys = _longDBContext.CityInfo.AsEnumerable();
+            var citys = LongDbContext.CityInfo.AsEnumerable();
             if (!string.IsNullOrEmpty(TxtCityName.Text))
             {
                 citys = citys.Where(x => x.CityName.Contains(TxtCityName.Text));

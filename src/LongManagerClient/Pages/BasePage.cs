@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using log4net;
 using LongManagerClient.Core.ClientDataBase;
+using LongManagerClient.Core.ServerDataBase;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,8 @@ namespace LongManagerClient.Pages
 
         }
         public ILog _log { get; set; }
-        public LongClientDbContext _longDBContext { get; set; }
+        public LongClientDbContext LongDbContext { get; set; }
+        public AutoPickDbContext AutoPickDbContext { get; set; }
         protected readonly static IContainer _container = App.Container;
         public object ExtraData { get; set; }
     }

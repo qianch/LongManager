@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LongManagerClient.Core.ServerDataBase;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,16 +30,16 @@ namespace LongManagerClient.Pages.In
 
         private void BasePage_Loaded(object sender, RoutedEventArgs e)
         {
-            Pager.LongPage.AllCount = _longDBContext.InInfo.Count();
+            Pager.LongPage.AllCount = LongDbContext.InInfo.Count();
             Pager.InitButton();
-            MailDataGrid.ItemsSource = _longDBContext.InInfo
+            MailDataGrid.ItemsSource = LongDbContext.InInfo
                 .Take(Pager.LongPage.PageSize)
                 .ToList();
         }
 
         private void Pager_PageIndexChange(object sender, EventArgs e)
         {
-            MailDataGrid.ItemsSource = _longDBContext.InInfo
+            MailDataGrid.ItemsSource = LongDbContext.InInfo
                 .Skip(Pager.LongPage.PageSize * (Pager.LongPage.PageIndex - 1))
                 .Take(Pager.LongPage.PageSize)
                 .ToList();
@@ -46,7 +47,7 @@ namespace LongManagerClient.Pages.In
 
         private void SearchBtn_Click(object sender, RoutedEventArgs e)
         {
-            var mails = _longDBContext.InInfo.AsEnumerable();
+            var mails = LongDbContext.InInfo.AsEnumerable();
             if (!string.IsNullOrEmpty(TxtMailNO.Text))
             {
                 mails = mails.Where(x => x.MailNO.Contains(TxtMailNO.Text));
@@ -60,6 +61,29 @@ namespace LongManagerClient.Pages.In
                 .Skip(Pager.LongPage.PageSize * (Pager.LongPage.PageIndex - 1))
                 .Take(Pager.LongPage.PageSize)
                 .ToList();
+        }
+
+        private void SynBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var InInfos = LongDbContext.InInfo.Where(x => x.IsPush != 1).ToList();
+
+            foreach (var info in InInfos)
+            {
+                var entryBill = new EntryBill
+                {
+                    BarCode = info.MailNO,
+                    DestAddress = info.Address
+                };
+                AutoPickDbContext.EntryBill.Add(entryBill);
+
+                info.IsPush = 1;
+                LongDbContext.InInfo.Update(info);
+            }
+
+            AutoPickDbContext.SaveChanges();
+            LongDbContext.SaveChanges();
+           
+            MessageBox.Show("同步成功", "提示", MessageBoxButton.OK, MessageBoxImage.Asterisk);
         }
     }
 }

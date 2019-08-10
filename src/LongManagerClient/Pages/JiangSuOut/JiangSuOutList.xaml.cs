@@ -31,9 +31,9 @@ namespace LongManagerClient.Pages.JiangSuOut
 
         private void BasePage_Loaded(object sender, RoutedEventArgs e)
         {
-            Pager.LongPage.AllCount = _longDBContext.OutInfo.Where(x => x.CountryPosition == "38").Count();
+            Pager.LongPage.AllCount = LongDbContext.OutInfo.Where(x => x.CountryPosition == "38").Count();
             Pager.InitButton();
-            MailDataGrid.ItemsSource = _longDBContext.OutInfo
+            MailDataGrid.ItemsSource = LongDbContext.OutInfo
                 .Where(x => x.CountryPosition == "38")
                 .Take(Pager.LongPage.PageSize)
                 .ToList();
@@ -51,7 +51,7 @@ namespace LongManagerClient.Pages.JiangSuOut
 
         private void ListChange()
         {
-            var mails = _longDBContext.OutInfo.Where(x => x.CountryPosition == "38").AsEnumerable();
+            var mails = LongDbContext.OutInfo.Where(x => x.CountryPosition == "38").AsEnumerable();
             if (!string.IsNullOrEmpty(TxtMailNO.Text))
             {
                 mails = mails.Where(x => x.MailNO.Contains(TxtMailNO.Text));
@@ -78,13 +78,13 @@ namespace LongManagerClient.Pages.JiangSuOut
         {
             var cityPosition = _container.Resolve<CityPosition>();
             //长三角地区邮件
-            var mails = _longDBContext.OutInfo.Where(x => x.CountryPosition == "38" && string.IsNullOrEmpty(x.JiangSuPosition)).ToList();
+            var mails = LongDbContext.OutInfo.Where(x => x.CountryPosition == "38" && string.IsNullOrEmpty(x.JiangSuPosition)).ToList();
             foreach (var mail in mails)
             {
                 cityPosition.JiangSuPositionByCityCode(mail);
-                _longDBContext.OutInfo.Update(mail);
+                LongDbContext.OutInfo.Update(mail);
             }
-            _longDBContext.SaveChanges();
+            LongDbContext.SaveChanges();
             MessageBox.Show("长三角格口划分完成", "提示", MessageBoxButton.OK, MessageBoxImage.Asterisk);
         }
     }
