@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using LongManagerClient.Core;
+using LongManagerClient.Core.ServerDataBase;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -86,6 +87,39 @@ namespace LongManagerClient.Pages.JiangSuOut
             }
             LongDbContext.SaveChanges();
             MessageBox.Show("长三角格口划分完成", "提示", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+        }
+
+        private void SynBtn_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                AutoPickDbContext.Database.CanConnect();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("无法连接到分拣机数据库", "提示", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            var outInfos = LongDbContext.OutInfo.Where(x => x.IsPush != 1).ToList();
+
+            foreach (var outInfo in outInfos)
+            {
+                var billExport = new BillExport
+                {
+                    BarCode = outInfo.MailNO,
+                    DestAddress = outInfo.Address,
+                    BinCode = outInfo.JiangSuPosition
+                };
+
+                outInfo.IsPush = 1;
+                LongDbContext.OutInfo.Update(outInfo);
+            }
+
+            AutoPickDbContext.SaveChanges();
+            LongDbContext.SaveChanges();
+
+            MessageBox.Show("同步成功", "提示", MessageBoxButton.OK, MessageBoxImage.Asterisk);
         }
     }
 }

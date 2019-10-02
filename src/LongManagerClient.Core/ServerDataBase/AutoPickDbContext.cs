@@ -19,5 +19,6 @@ namespace LongManagerClient.Core.ServerDataBase
         }
 
         public DbSet<EntryBill> EntryBill { get; set; }
+        public DbSet<BillExport> Export { get; set; }
     }
 }
