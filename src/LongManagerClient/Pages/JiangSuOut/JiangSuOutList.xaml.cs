@@ -109,7 +109,8 @@ namespace LongManagerClient.Pages.JiangSuOut
                 {
                     BarCode = outInfo.MailNO,
                     DestAddress = outInfo.Address,
-                    BinCode = outInfo.JiangSuPosition
+                    BinCode = outInfo.JiangSuPosition,
+                    CityName = outInfo.OrgName
                 };
 
                 outInfo.IsPush = 1;

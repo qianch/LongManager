@@ -13,5 +13,6 @@ namespace LongManagerClient.Core.ServerDataBase
         public string BarCode { get; set; }
         public string DestAddress { get; set; }
         public string BinCode { get; set; }
+        public string CityName { get; set; }
     }
 }
