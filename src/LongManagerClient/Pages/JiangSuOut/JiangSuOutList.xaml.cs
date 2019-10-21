@@ -101,7 +101,7 @@ namespace LongManagerClient.Pages.JiangSuOut
                 return;
             }
 
-            var outInfos = LongDbContext.OutInfo.Where(x => x.IsPush != 1).ToList();
+            var outInfos = LongDbContext.OutInfo.Where(x => x.IsPush != 1 && x.JiangSuPosition != null).ToList();
 
             foreach (var outInfo in outInfos)
             {
@@ -109,11 +109,12 @@ namespace LongManagerClient.Pages.JiangSuOut
                 {
                     BarCode = outInfo.MailNO,
                     DestAddress = outInfo.Address,
-                    BinCode = outInfo.JiangSuPosition,
+                    BinCode = "10" + outInfo.JiangSuPosition.PadLeft(2, '0'),
                     CityName = outInfo.OrgName
                 };
 
                 outInfo.IsPush = 1;
+                AutoPickDbContext.BillExport.Add(billExport);
                 LongDbContext.OutInfo.Update(outInfo);
             }
 
