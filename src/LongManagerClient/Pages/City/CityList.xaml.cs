@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.EntityFrameworkCore;
 
 namespace LongManagerClient.Pages.City
 {
@@ -25,6 +26,7 @@ namespace LongManagerClient.Pages.City
             InitializeComponent();
 
             Pager.PageIndexChange += Pager_PageIndexChange;
+            refresh = Search;
         }
 
         private void BasePage_Loaded(object sender, RoutedEventArgs e)
@@ -46,7 +48,12 @@ namespace LongManagerClient.Pages.City
 
         private void SearchBtn_Click(object sender, RoutedEventArgs e)
         {
-            var citys = LongDbContext.CityInfo.AsEnumerable();
+            Search();
+        }
+
+        protected override void Search()
+        {
+            var citys = LongDbContext.CityInfo.AsNoTracking().AsEnumerable();
             if (!string.IsNullOrEmpty(TxtCityName.Text))
             {
                 citys = citys.Where(x => x.CityName.Contains(TxtCityName.Text));
@@ -60,6 +67,16 @@ namespace LongManagerClient.Pages.City
                 .Skip(Pager.LongPage.PageSize * (Pager.LongPage.PageIndex - 1))
                 .Take(Pager.LongPage.PageSize)
                 .ToList();
+        }
+
+        private void EditBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var editButton = sender as Button;
+            var window = new CityEdit
+            {
+                ExtraData = editButton.Tag,
+            };
+            window.ShowDialog();
         }
     }
 }

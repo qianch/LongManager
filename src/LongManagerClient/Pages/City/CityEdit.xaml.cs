@@ -1,5 +1,4 @@
 ﻿using Autofac;
-using LongManagerClient.Core;
 using LongManagerClient.Core.ClientDataBase;
 using System;
 using System.Collections.Generic;
@@ -15,14 +14,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace LongManagerClient.Pages.User
+namespace LongManagerClient.Pages.City
 {
     /// <summary>
-    /// UserEdit1.xaml 的交互逻辑
+    /// CityEdit.xaml 的交互逻辑
     /// </summary>
-    public partial class UserEdit : BaseWindow
+    public partial class CityEdit : BaseWindow
     {
-        public UserEdit()
+        public CityEdit()
         {
             InitializeComponent();
         }
@@ -30,15 +29,15 @@ namespace LongManagerClient.Pages.User
         private void BaseWindow_Loaded(object sender, RoutedEventArgs e)
         {
             var key = ExtraData as string;
-            var frameUser = _longDBContext.FrameUser.Where(x => x.RowGuid == key).FirstOrDefault();
-            DataContext = frameUser;
+            var cityInfo = _longDBContext.CityInfo.Where(x => x.RowGuid == key).FirstOrDefault();
+            DataContext = cityInfo;
         }
 
         private void SaveBtn_Click(object sender, RoutedEventArgs e)
         {
-            _longDBContext.FrameUser.Update(DataContext as FrameUser);
+            _longDBContext.CityInfo.Update(DataContext as CityInfo);
             _longDBContext.SaveChanges();
-            _container.ResolveNamed<BasePage>("UserList").refresh();
+            _container.ResolveNamed<BasePage>("CityList").refresh();
             MessageBox.Show("保存成功", "提示", MessageBoxButton.OK, MessageBoxImage.Asterisk);
         }
     }

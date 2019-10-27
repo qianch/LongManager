@@ -45,6 +45,11 @@ namespace LongManagerClient.Pages
 
         }
 
+        protected override void Search() 
+        {
+
+        }
+
         private void CallBrowser_Click(object sender, RoutedEventArgs e)
         {
             Browser.ExecuteScriptAsync("browserAlert", "browserAlert");

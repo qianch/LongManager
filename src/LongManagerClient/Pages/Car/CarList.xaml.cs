@@ -49,5 +49,9 @@ namespace LongManagerClient.Pages.Car
             };
             window.ShowDialog();
         }
+
+        protected override void Search() 
+        {
+        }
     }
 }

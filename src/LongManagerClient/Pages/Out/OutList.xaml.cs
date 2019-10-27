@@ -48,6 +48,11 @@ namespace LongManagerClient.Pages.Out
             ListChange();
         }
 
+        protected override void Search()
+        {
+            ListChange();
+        }
+
         private void ListChange()
         {
             var mails = LongDbContext.OutInfo.AsEnumerable();

@@ -43,5 +43,9 @@ namespace LongManagerClient.Pages.Label
                 .Take(Pager.LongPage.PageSize)
                 .ToList();
         }
+
+        protected override void Search()
+        {
+        }
     }
 }

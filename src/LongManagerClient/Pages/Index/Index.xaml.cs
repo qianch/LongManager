@@ -28,5 +28,9 @@ namespace LongManagerClient.Pages.Index
             Browser.Address = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Htmls/pages/index.html");
             Browser.MenuHandler = new LongCEFMenuHandler();
         }
+
+        protected override void Search() 
+        {
+        }
     }
 }

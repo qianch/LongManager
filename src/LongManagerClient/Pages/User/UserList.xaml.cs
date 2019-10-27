@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.EntityFrameworkCore;
 
 namespace LongManagerClient.Pages.User
 {
@@ -57,7 +58,12 @@ namespace LongManagerClient.Pages.User
 
         private void SearchBtn_Click(object sender, RoutedEventArgs e)
         {
-            var frameUsers = LongDbContext.FrameUser.AsEnumerable();
+            Search();
+        }
+
+        protected override void Search() 
+        {
+            var frameUsers = LongDbContext.FrameUser.AsNoTracking().AsEnumerable();
             if (!string.IsNullOrEmpty(TxtUserName.Text))
             {
                 frameUsers = frameUsers.Where(x => x.UserName.Contains(TxtUserName.Text));

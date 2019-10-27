@@ -47,6 +47,11 @@ namespace LongManagerClient.Pages.In
 
         private void SearchBtn_Click(object sender, RoutedEventArgs e)
         {
+            Search();
+        }
+
+        protected override void Search() 
+        {
             var mails = LongDbContext.InInfo.AsEnumerable();
             if (!string.IsNullOrEmpty(TxtMailNO.Text))
             {

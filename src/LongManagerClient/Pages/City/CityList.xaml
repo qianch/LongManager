@@ -29,6 +29,16 @@
                 <DataGridTextColumn Binding="{Binding BelongOfficeName}" Header="所属邮局名称"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding CountryPosition}" Header="全国格口划分"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding JiangSuPosition}" Header="长三角格口划分"></DataGridTextColumn>
+                <DataGridTemplateColumn Header="修改">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button x:Name="EditBtn" Tag="{Binding RowGuid}" Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                                    ToolTip="修改" Click="EditBtn_Click">
+                                <materialDesign:PackIcon Kind="Edit" Height="24" Width="24"/>
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
         <WrapPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left">

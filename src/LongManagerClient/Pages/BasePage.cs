@@ -12,16 +12,20 @@ using System.Windows.Controls;
 
 namespace LongManagerClient.Pages
 {
-    public class BasePage : Page
+    public abstract class BasePage : Page
     {
         public BasePage()
         {
-
+            refresh = Search;
         }
         public ILog _log { get; set; }
         public LongClientDbContext LongDbContext { get; set; }
         public AutoPickDbContext AutoPickDbContext { get; set; }
         protected readonly static IContainer _container = App.Container;
         public object ExtraData { get; set; }
+
+        public delegate void Refresh();
+        public Refresh refresh;
+        protected abstract void Search();
     }
 }
