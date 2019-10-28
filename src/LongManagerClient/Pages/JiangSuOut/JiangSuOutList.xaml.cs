@@ -50,11 +50,6 @@ namespace LongManagerClient.Pages.JiangSuOut
             ListChange();
         }
 
-        protected override void Search() 
-        {
-            ListChange();
-        }
-
         private void ListChange()
         {
             var mails = LongDbContext.OutInfo.Where(x => x.CountryPosition == "38").AsEnumerable();

@@ -38,7 +38,7 @@ namespace LongManagerClient.Pages.User
         {
             _longDBContext.FrameUser.Update(DataContext as FrameUser);
             _longDBContext.SaveChanges();
-            _container.ResolveNamed<BasePage>("UserList").refresh();
+            CallBack?.Invoke();
             MessageBox.Show("保存成功", "提示", MessageBoxButton.OK, MessageBoxImage.Asterisk);
         }
     }

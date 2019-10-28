@@ -53,7 +53,7 @@ namespace LongManagerClient.Pages.BLS
             Search();
         }
 
-        protected override void Search()
+        protected void Search()
         {
             var mails = LongDbContext.BLSInfo.AsEnumerable();
             if (!string.IsNullOrEmpty(TxtMailNO.Text))

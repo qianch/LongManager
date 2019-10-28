@@ -46,10 +46,6 @@ namespace LongManagerClient.Pages.In
             //Browser.IsEnabled = false;
         }
 
-        protected override void Search() 
-        {
-        }
-
         private void Browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e)
         {
             if (e.Frame.IsMain)

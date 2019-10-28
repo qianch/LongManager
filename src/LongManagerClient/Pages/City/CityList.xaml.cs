@@ -26,7 +26,6 @@ namespace LongManagerClient.Pages.City
             InitializeComponent();
 
             Pager.PageIndexChange += Pager_PageIndexChange;
-            refresh = Search;
         }
 
         private void BasePage_Loaded(object sender, RoutedEventArgs e)
@@ -51,7 +50,7 @@ namespace LongManagerClient.Pages.City
             Search();
         }
 
-        protected override void Search()
+        protected void Search()
         {
             var citys = LongDbContext.CityInfo.AsNoTracking().AsEnumerable();
             if (!string.IsNullOrEmpty(TxtCityName.Text))
@@ -76,6 +75,7 @@ namespace LongManagerClient.Pages.City
             {
                 ExtraData = editButton.Tag,
             };
+            window.CallBack = Search;
             window.ShowDialog();
         }
     }

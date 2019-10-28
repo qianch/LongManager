@@ -50,7 +50,7 @@ namespace LongManagerClient.Pages.In
             Search();
         }
 
-        protected override void Search() 
+        protected void Search() 
         {
             var mails = LongDbContext.InInfo.AsEnumerable();
             if (!string.IsNullOrEmpty(TxtMailNO.Text))

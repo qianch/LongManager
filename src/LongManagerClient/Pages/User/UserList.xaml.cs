@@ -53,6 +53,7 @@ namespace LongManagerClient.Pages.User
             {
                 ExtraData = editButton.Tag,
             };
+            window.CallBack = Search;
             window.ShowDialog();
         }
 
@@ -61,7 +62,7 @@ namespace LongManagerClient.Pages.User
             Search();
         }
 
-        protected override void Search() 
+        protected void Search()
         {
             var frameUsers = LongDbContext.FrameUser.AsNoTracking().AsEnumerable();
             if (!string.IsNullOrEmpty(TxtUserName.Text))

@@ -37,7 +37,7 @@ namespace LongManagerClient.Pages.City
         {
             _longDBContext.CityInfo.Update(DataContext as CityInfo);
             _longDBContext.SaveChanges();
-            _container.ResolveNamed<BasePage>("CityList").refresh();
+            CallBack?.Invoke();
             MessageBox.Show("保存成功", "提示", MessageBoxButton.OK, MessageBoxImage.Asterisk);
         }
     }
