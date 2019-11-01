@@ -12,7 +12,7 @@ using System.Windows.Controls;
 
 namespace LongManagerClient.Pages
 {
-    public abstract class BasePage : Page
+    public class BasePage : Page
     {
         public BasePage(){}
         public ILog _log { get; set; }
