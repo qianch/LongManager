@@ -24,8 +24,8 @@ namespace LongManagerClient.Pages.In
     /// </summary>
     public partial class InSearch : BasePage
     {
-        private const string _login = "https://10.3.131.164/cas/login";
-        private const string _inMail = "https://10.3.131.164/pcsnct-web/a/pcs/mailpretreatment/list";
+        private string _login = "";
+        private string _inMail = "";
         private const int _lastPage = 300;
         private readonly string _today = DateTime.Now.ToString("yyyy-MM-dd");
         private int _currentPage = 0;
@@ -44,6 +44,13 @@ namespace LongManagerClient.Pages.In
             Browser.FrameLoadEnd += Browser_FrameLoadEnd;
             Browser.MenuHandler = new LongCEFMenuHandler();
             //Browser.IsEnabled = false;
+        }
+
+        private void BasePage_Loaded(object sender, RoutedEventArgs e)
+        {
+            string newUrl = LongDbContext.FrameConfig.Where(x => x.ConfigName == "NewUrl").First().ConfigValue;
+            _login = $"https://{newUrl}/cas/login";
+            _inMail = $"https://{newUrl}/pcsnct-web/a/pcs/mailpretreatment/list";
         }
 
         private void Browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e)
@@ -117,6 +124,11 @@ namespace LongManagerClient.Pages.In
                 }}";
                 Browser.ExecuteScriptAsync(script);
             }
+        }
+
+        private void GoLogin_Click(object sender, RoutedEventArgs e)
+        {
+            Browser.ExecuteScriptAsync($"window.location.href='{_login}';");
         }
     }
 }

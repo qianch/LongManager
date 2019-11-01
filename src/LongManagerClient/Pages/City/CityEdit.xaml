@@ -21,6 +21,22 @@
                 <TextBlock Text="{Binding CityName}" Width="100"></TextBlock>
             </WrapPanel>
             <WrapPanel Margin="10">
+                <TextBlock Text="邮局名称：" Width="100"></TextBlock>
+                <TextBox x:Name="OfficeNameTextBox" materialDesign:HintAssist.Hint="邮局名称">
+                    <TextBox.Text>
+                        <Binding Path="OfficeName"></Binding>
+                    </TextBox.Text>
+                </TextBox>
+            </WrapPanel>
+            <WrapPanel Margin="10">
+                <TextBlock Text="所属邮局名称：" Width="100"></TextBlock>
+                <TextBox x:Name="BelongOfficeNameTextBox" materialDesign:HintAssist.Hint="所属邮局名称">
+                    <TextBox.Text>
+                        <Binding Path="BelongOfficeName"></Binding>
+                    </TextBox.Text>
+                </TextBox>
+            </WrapPanel>
+            <WrapPanel Margin="10">
                 <TextBlock Text="全国格口号：" Width="100"></TextBlock>
                 <TextBox x:Name="CountryPositionTextBox" materialDesign:HintAssist.Hint="全国格口号">
                     <TextBox.Text>

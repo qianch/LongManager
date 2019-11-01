@@ -36,6 +36,7 @@ namespace LongManagerClient.Pages.JiangSuOut
             Pager.InitButton();
             MailDataGrid.ItemsSource = LongDbContext.OutInfo
                 .Where(x => x.CountryPosition == "38")
+                .OrderByDescending(x=>x.PostDate)
                 .Take(Pager.LongPage.PageSize)
                 .ToList();
         }
@@ -70,6 +71,7 @@ namespace LongManagerClient.Pages.JiangSuOut
 
             MailDataGrid.ItemsSource = mails
                 .Where(x => x.CountryPosition == "38")
+                .OrderByDescending(x=>x.PostDate)
                 .Skip(Pager.LongPage.PageSize * (Pager.LongPage.PageIndex - 1))
                 .Take(Pager.LongPage.PageSize)
                 .ToList();
@@ -114,7 +116,16 @@ namespace LongManagerClient.Pages.JiangSuOut
                 };
 
                 outInfo.IsPush = 1;
-                AutoPickDbContext.BillExport.Add(billExport);
+                var serverbillExports = AutoPickDbContext.BillExport.ToList();
+                int count = serverbillExports.Where(x => x.BarCode == billExport.BarCode).Count();
+                if (count == 0)
+                {
+                    AutoPickDbContext.BillExport.Add(billExport);
+                }
+                else
+                {
+                    AutoPickDbContext.BillExport.Update(billExport);
+                }
                 LongDbContext.OutInfo.Update(outInfo);
             }
 

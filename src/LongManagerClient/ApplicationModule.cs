@@ -7,6 +7,7 @@ using LongManagerClient.Pages;
 using LongManagerClient.Pages.BLS;
 using LongManagerClient.Pages.Car;
 using LongManagerClient.Pages.City;
+using LongManagerClient.Pages.Config;
 using LongManagerClient.Pages.In;
 using LongManagerClient.Pages.Index;
 using LongManagerClient.Pages.JiangSuOut;
@@ -43,6 +44,7 @@ namespace LongManagerClient
             builder.RegisterType<OutSearch>().As<BasePage>().Named<BasePage>("OutSearch").SingleInstance().PropertiesAutowired();
             builder.RegisterType<InList>().As<BasePage>().Named<BasePage>("InList").SingleInstance().PropertiesAutowired();
             builder.RegisterType<InSearch>().As<BasePage>().Named<BasePage>("InSearch").SingleInstance().PropertiesAutowired();
+            builder.RegisterType<ConfigList>().As<BasePage>().Named<BasePage>("ConfigList").SingleInstance().PropertiesAutowired();
 
             //当前登录用户
             builder.RegisterInstance(new FrameUser()).As<FrameUser>().Named<FrameUser>("CurrentUser").SingleInstance();

@@ -24,9 +24,9 @@ namespace LongManagerClient.Pages.Out
     /// </summary>
     public partial class OutSearch : BasePage
     {
-        private const string _login = "https://10.3.131.164/cas/login";
-        private const string _outMail = "https://10.3.131.164/pickup-web/a/pickup/waybillquery/main";
-        private const string _ajax = "https://10.3.131.164/pickup-web/a/pickup/waybillquery/querybase";
+        private string _login = "";
+        private string _outMail = "";
+        private string _ajax = "";
         private const int _lastPage = 300;
         private readonly string _today = DateTime.Now.ToString("yyyy-MM-dd");
 
@@ -44,6 +44,14 @@ namespace LongManagerClient.Pages.Out
             Browser.FrameLoadEnd += Browser_FrameLoadEnd;
             Browser.MenuHandler = new LongCEFMenuHandler();
             //Browser.IsEnabled = false;
+        }
+
+        private void BasePage_Loaded(object sender, RoutedEventArgs e)
+        {
+            string newUrl = LongDbContext.FrameConfig.Where(x => x.ConfigName == "NewUrl").First().ConfigValue;
+            _login = $"https://{newUrl}/cas/login";
+            _outMail = $"https://{newUrl}/pickup-web/a/pickup/waybillquery/main";
+            _ajax = $"https://{newUrl}/pickup-web/a/pickup/waybillquery/querybase";
         }
 
         private void Browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e)
@@ -119,6 +127,11 @@ namespace LongManagerClient.Pages.Out
                 }}";
                 Browser.ExecuteScriptAsync(script);
             }
+        }
+
+        private void GoLogin_Click(object sender, RoutedEventArgs e)
+        {
+            Browser.ExecuteScriptAsync($"window.location.href='{_login}';");
         }
     }
 }

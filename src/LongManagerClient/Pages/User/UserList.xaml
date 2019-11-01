@@ -10,7 +10,7 @@
       xmlns:controls="clr-namespace:LongManagerClient.Controls"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="UserList" 
+      Title="用户列表" 
       Loaded="BasePage_Loaded">
     <Grid Margin="10">
         <Grid.RowDefinitions>

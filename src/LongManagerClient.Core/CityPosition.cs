@@ -29,10 +29,11 @@ namespace LongManagerClient.Core
         {
             foreach (var city in _countryPositionCity)
             {
-                var names = city.CityName + city.OfficeName + city.AliasName;
+                var officeName = city.OfficeName ?? city.CityName;
+                var names = city.CityName + officeName + city.AliasName;
                 if (names.Contains(mail.OrgName) ||
                     mail.OrgName.Contains(city.CityName) ||
-                    mail.OrgName.Contains(city.OfficeName))
+                    mail.OrgName.Contains(officeName))
                 {
                     mail.BelongOfficeName = city.CityName;
                     mail.CountryPosition = city.CountryPosition;
@@ -90,7 +91,7 @@ namespace LongManagerClient.Core
         {
             foreach (var city in _jiangsuPositionCity)
             {
-                if (mail.BelongOfficeName.Contains(city.OfficeName))
+                if (mail.BelongOfficeName.Contains(city.OfficeName??city.CityName))
                 {
                     mail.JiangSuPosition = city.JiangSuPosition;
                 }

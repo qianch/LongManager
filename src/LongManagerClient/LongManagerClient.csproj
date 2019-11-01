@@ -141,6 +141,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\Config\ConfigEdit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Config\ConfigList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\In\InList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -207,6 +215,12 @@
     </Compile>
     <Compile Include="Pages\City\CityList.xaml.cs">
       <DependentUpon>CityList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Config\ConfigEdit.xaml.cs">
+      <DependentUpon>ConfigEdit.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Config\ConfigList.xaml.cs">
+      <DependentUpon>ConfigList.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\In\InList.xaml.cs">
       <DependentUpon>InList.xaml</DependentUpon>

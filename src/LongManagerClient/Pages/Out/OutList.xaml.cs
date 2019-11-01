@@ -34,6 +34,7 @@ namespace LongManagerClient.Pages.Out
             Pager.LongPage.AllCount = LongDbContext.OutInfo.Count();
             Pager.InitButton();
             MailDataGrid.ItemsSource = LongDbContext.OutInfo
+                .OrderByDescending(x=>x.PostDate)
                 .Take(Pager.LongPage.PageSize)
                 .ToList();
         }
@@ -67,6 +68,7 @@ namespace LongManagerClient.Pages.Out
             Pager.InitButton();
 
             MailDataGrid.ItemsSource = mails
+                .OrderByDescending(x=>x.PostDate)
                 .Skip(Pager.LongPage.PageSize * (Pager.LongPage.PageIndex - 1))
                 .Take(Pager.LongPage.PageSize)
                 .ToList();

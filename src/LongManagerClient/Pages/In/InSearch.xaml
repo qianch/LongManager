@@ -9,13 +9,15 @@
       xmlns:wpf="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="InSearch">
+      Title="InSearch" Loaded="BasePage_Loaded">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <WrapPanel Grid.Row="0" Margin="24 0 0 0" VerticalAlignment="Center"></WrapPanel>
+        <WrapPanel Grid.Row="0" Margin="24 0 0 0" VerticalAlignment="Center">
+            <Button x:Name="GoLogin" Margin="10" Content="返回登陆页"  Click="GoLogin_Click"></Button>
+        </WrapPanel>
         <DockPanel Grid.Row="1">
             <wpf:ChromiumWebBrowser x:Name="Browser"></wpf:ChromiumWebBrowser>
         </DockPanel>
