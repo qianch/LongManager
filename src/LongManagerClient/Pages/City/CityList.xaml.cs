@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using LongManagerClient.Core.ClientDataBase;
 using Microsoft.EntityFrameworkCore;
 
 namespace LongManagerClient.Pages.City
@@ -32,17 +33,25 @@ namespace LongManagerClient.Pages.City
         {
             Pager.LongPage.AllCount = LongDbContext.CityInfo.Count();
             Pager.InitButton();
-            CityDataGrid.ItemsSource = LongDbContext.CityInfo
+            var citys = LongDbContext.CityInfo.AsNoTracking()
                 .Take(Pager.LongPage.PageSize)
                 .ToList();
+            ExtraInfo(citys);
+            CityDataGrid.ItemsSource = citys;
         }
 
         private void Pager_PageIndexChange(object sender, EventArgs e)
         {
-            CityDataGrid.ItemsSource = LongDbContext.CityInfo
-                .Skip(Pager.LongPage.PageSize * (Pager.LongPage.PageIndex - 1))
+            var citys = LongDbContext.CityInfo.AsNoTracking();
+            if (!string.IsNullOrEmpty(TxtCityName.Text)) 
+            {
+                citys = citys.Where(x => x.CityName.Contains(TxtCityName.Text));
+            }
+            var cityList = citys.Skip(Pager.LongPage.PageSize * (Pager.LongPage.PageIndex - 1))
                 .Take(Pager.LongPage.PageSize)
                 .ToList();
+            ExtraInfo(cityList);
+            CityDataGrid.ItemsSource = cityList;
         }
 
         private void SearchBtn_Click(object sender, RoutedEventArgs e)
@@ -62,10 +71,12 @@ namespace LongManagerClient.Pages.City
             Pager.LongPage.Search = TxtCityName.Text;
             Pager.InitButton();
 
-            CityDataGrid.ItemsSource = citys
+            var cityList = citys
                 .Skip(Pager.LongPage.PageSize * (Pager.LongPage.PageIndex - 1))
                 .Take(Pager.LongPage.PageSize)
                 .ToList();
+            ExtraInfo(cityList);
+            CityDataGrid.ItemsSource = cityList;
         }
 
         private void EditBtn_Click(object sender, RoutedEventArgs e)
@@ -77,6 +88,16 @@ namespace LongManagerClient.Pages.City
             };
             window.CallBack = Search;
             window.ShowDialog();
+        }
+
+        private void ExtraInfo(List<CityInfo> citys)
+        {
+            foreach (var city in citys)
+            {
+                var cityCode = city.CityCode.Substring(0, 4) + "00";
+                var cityInfo = LongDbContext.CityInfo.Where(x => x.CityCode == cityCode).First();
+                city.CityName = cityInfo.CityName + city.CityName;
+            }
         }
     }
 }

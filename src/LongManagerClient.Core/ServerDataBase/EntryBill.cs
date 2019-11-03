@@ -12,5 +12,6 @@ namespace LongManagerClient.Core.ServerDataBase
         [Key]
         public string BarCode { get; set; }
         public string DestAddress { get; set; }
+        public string PresortPost { get; set; }
     }
 }

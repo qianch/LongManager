@@ -19,7 +19,7 @@
         </Grid.RowDefinitions>
         <WrapPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left">
             <TextBox x:Name="TxtCityName" materialDesign:HintAssist.Hint="地区名称" Width="200" Margin="10"></TextBox>
-            <Button x:Name="SearchBtn" Content="搜索" Click="SearchBtn_Click"></Button>
+            <Button x:Name="SearchBtn" Content="搜索" IsDefault="True" Click="SearchBtn_Click"></Button>
         </WrapPanel>
         <DataGrid x:Name="CityDataGrid" Grid.Row="1" HorizontalAlignment="Stretch" IsReadOnly="True" AutoGenerateColumns="False"
                    CanUserAddRows="False" CanUserDeleteRows="False">

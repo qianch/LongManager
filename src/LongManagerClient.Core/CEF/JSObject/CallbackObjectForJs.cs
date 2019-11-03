@@ -18,17 +18,16 @@ namespace LongManagerClient.Core.CEF.JSObject
             MessageBox.Show(msg, "提示", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
-        public void saveOutInfo(string result)
+        public void saveOutInfo(string detailInfo)
         {
-            var data = JsonConvert.DeserializeObject<Dictionary<string, object>>(result);
-            var details = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(data["detail"].ToString());
+            var details = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(detailInfo);
             foreach (var detail in details)
             {
-                var mailNO = detail["waybillNo"].ToString();
-                var receiverArriveOrgName = detail["receiverArriveOrgName"].ToString();
-                var receiverAddr = detail["receiverAddr"].ToString();
-                var receiverLinker = detail["receiverLinker"].ToString();
-                var bizOccurDate = detail["bizOccurDate"].ToString();
+                var mailNO = detail.ContainsKey("waybillNo") ? detail["waybillNo"].ToString() : "";
+                var receiverArriveOrgName = detail.ContainsKey("receiverArriveOrgName") ? detail["receiverArriveOrgName"].ToString() : "";
+                var receiverAddr = detail.ContainsKey("receiverAddr") ? detail["receiverAddr"].ToString() : "";
+                var receiverLinker = detail.ContainsKey("receiverLinker") ? detail["receiverLinker"].ToString() : "";
+                var bizOccurDate = detail.ContainsKey("bizOccurDate") ? detail["bizOccurDate"].ToString() : DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                 var count = _longDBContext.OutInfo.Where(x => x.MailNO == mailNO).ToList().Count();
                 if (count == 0)
                 {
@@ -59,7 +58,7 @@ namespace LongManagerClient.Core.CEF.JSObject
                     MailNO = mailNO,
                     Address = address,
                     OrgName = orgName,
-                    Consignee = consignee,
+                    //Consignee = consignee,
                     AddDate = DateTime.Now
                 };
                 _longDBContext.InInfo.Add(mail);

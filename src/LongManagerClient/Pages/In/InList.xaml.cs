@@ -33,6 +33,7 @@ namespace LongManagerClient.Pages.In
             Pager.LongPage.AllCount = LongDbContext.InInfo.Count();
             Pager.InitButton();
             MailDataGrid.ItemsSource = LongDbContext.InInfo
+                .OrderByDescending(x => x.AddDate)
                 .Take(Pager.LongPage.PageSize)
                 .ToList();
         }
@@ -40,6 +41,7 @@ namespace LongManagerClient.Pages.In
         private void Pager_PageIndexChange(object sender, EventArgs e)
         {
             MailDataGrid.ItemsSource = LongDbContext.InInfo
+                .OrderByDescending(x => x.AddDate)
                 .Skip(Pager.LongPage.PageSize * (Pager.LongPage.PageIndex - 1))
                 .Take(Pager.LongPage.PageSize)
                 .ToList();
@@ -50,7 +52,7 @@ namespace LongManagerClient.Pages.In
             Search();
         }
 
-        protected void Search() 
+        protected void Search()
         {
             var mails = LongDbContext.InInfo.AsEnumerable();
             if (!string.IsNullOrEmpty(TxtMailNO.Text))
@@ -63,6 +65,7 @@ namespace LongManagerClient.Pages.In
             Pager.InitButton();
 
             MailDataGrid.ItemsSource = mails
+                .OrderByDescending(x => x.AddDate)
                 .Skip(Pager.LongPage.PageSize * (Pager.LongPage.PageIndex - 1))
                 .Take(Pager.LongPage.PageSize)
                 .ToList();
@@ -81,15 +84,26 @@ namespace LongManagerClient.Pages.In
             }
 
             var InInfos = LongDbContext.InInfo.Where(x => x.IsPush != 1).ToList();
-
+            var serverEntryBills = AutoPickDbContext.EntryBill.ToList();
             foreach (var info in InInfos)
             {
                 var entryBill = new EntryBill
                 {
                     BarCode = info.MailNO,
-                    DestAddress = info.Address
+                    DestAddress = info.Address,
+                    PresortPost = info.OrgName
                 };
-                AutoPickDbContext.EntryBill.Add(entryBill);
+
+                int count = serverEntryBills.Where(x => x.BarCode == entryBill.BarCode).Count();
+                if (count == 0)
+                {
+                    AutoPickDbContext.EntryBill.Add(entryBill);
+                }
+                else
+                {
+                    AutoPickDbContext.EntryBill.Update(entryBill);
+                }
+
 
                 info.IsPush = 1;
                 LongDbContext.InInfo.Update(info);

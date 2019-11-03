@@ -25,9 +25,10 @@ namespace LongManagerClient.Pages.Out
     public partial class OutSearch : BasePage
     {
         private string _login = "";
+        private string _logout = "";
         private string _outMail = "";
         private string _ajax = "";
-        private const int _lastPage = 300;
+        private const int _lastPage = 500;
         private readonly string _today = DateTime.Now.ToString("yyyy-MM-dd");
 
         public OutSearch()
@@ -40,7 +41,7 @@ namespace LongManagerClient.Pages.Out
                 MethodInterceptor = new MethodInterceptorLogger()
             };
             Browser.RegisterJsObject("jsObject", new CallbackObjectForJs(), bindingOptions);
-            Browser.Address = _login;
+
             Browser.FrameLoadEnd += Browser_FrameLoadEnd;
             Browser.MenuHandler = new LongCEFMenuHandler();
             //Browser.IsEnabled = false;
@@ -50,8 +51,13 @@ namespace LongManagerClient.Pages.Out
         {
             string newUrl = LongDbContext.FrameConfig.Where(x => x.ConfigName == "NewUrl").First().ConfigValue;
             _login = $"https://{newUrl}/cas/login";
+            _logout = $"https://{newUrl}/cas/logout";
             _outMail = $"https://{newUrl}/pickup-web/a/pickup/waybillquery/main";
             _ajax = $"https://{newUrl}/pickup-web/a/pickup/waybillquery/querybase";
+            if (!Browser.IsBrowserInitialized)
+            {
+                Browser.Address = _login;
+            }
         }
 
         private void Browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e)
@@ -60,7 +66,7 @@ namespace LongManagerClient.Pages.Out
             {
                 var script = $@"
                 //登录
-                if( '{e.Url}' == '{_login}'){{
+                if( '{e.Url}'.indexOf('{_login}') > -1 ){{
                    var userName = document.getElementById('username');
                    if(userName != null){{
                       //userName.value='21566400admin';
@@ -121,7 +127,15 @@ namespace LongManagerClient.Pages.Out
                         if(result.resCode == '0001'){{
                            return;
                         }}
-                        jsObject.saveOutInfo(JSON.stringify(result));
+                        
+                        //有数据保存，没有数据回到登录页
+                        if(result.detail.length > 0){{
+                           jsObject.saveOutInfo(JSON.stringify(result.detail));
+                        }}
+                        else{{
+                           alert('本次抓取已经结束，即将返回登陆页');
+                           window.location.href='{_logout}?serviceurl={_login}';
+                        }}
                      }}
                    }});
                 }}";
@@ -131,7 +145,7 @@ namespace LongManagerClient.Pages.Out
 
         private void GoLogin_Click(object sender, RoutedEventArgs e)
         {
-            Browser.ExecuteScriptAsync($"window.location.href='{_login}';");
+            Browser.ExecuteScriptAsync($"window.location.href='{_logout}?serviceurl={_login}';");
         }
     }
 }
