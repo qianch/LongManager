@@ -26,6 +26,7 @@
                    CanUserAddRows="False" CanUserDeleteRows="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding MailNO}" Header="邮件条码"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding AddDate}" Header="邮寄时间"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding Address}" Header="邮件地址"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding OrgName}" Header="投递局"></DataGridTextColumn>
             </DataGrid.Columns>
