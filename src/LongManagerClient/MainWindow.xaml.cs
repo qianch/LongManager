@@ -63,6 +63,11 @@ namespace LongManagerClient
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
+            var systemNameConfig = _longDBContext.FrameConfig.Where(x => x.ConfigName == "SystemName").FirstOrDefault();
+            if (systemNameConfig != null) 
+            {
+                Title = systemNameConfig.ConfigValue;
+            }
             //加载登录页面
             var login = new Login
             {
