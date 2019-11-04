@@ -95,8 +95,11 @@ namespace LongManagerClient.Pages.City
             foreach (var city in citys)
             {
                 var cityCode = city.CityCode.Substring(0, 4) + "00";
-                var cityInfo = LongDbContext.CityInfo.Where(x => x.CityCode == cityCode).First();
-                city.CityName = cityInfo.CityName + city.CityName;
+                var cityInfo = LongDbContext.CityInfo.Where(x => x.CityCode == cityCode).FirstOrDefault();
+                if (cityInfo != null) 
+                {
+                    city.CityName = cityInfo.CityName + city.CityName;
+                }
             }
         }
     }

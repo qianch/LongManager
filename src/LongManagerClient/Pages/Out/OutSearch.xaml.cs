@@ -29,7 +29,9 @@ namespace LongManagerClient.Pages.Out
         private string _outMail = "";
         private string _ajax = "";
         private const int _lastPage = 500;
+        private const int _pageSize = 50;
         private readonly string _today = DateTime.Now.ToString("yyyy-MM-dd");
+        private bool _flag = true;
 
         public OutSearch()
         {
@@ -62,6 +64,12 @@ namespace LongManagerClient.Pages.Out
 
         private void Browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e)
         {
+            if (_flag)
+            {
+                Browser.ShowDevTools();
+                _flag = false;
+            }
+
             if (e.Frame.IsMain)
             {
                 var script = $@"
@@ -80,7 +88,7 @@ namespace LongManagerClient.Pages.Out
 
                 if( '{e.Url}' == '{_outMail}'){{
                    for(var i=0;i<{_lastPage};i++){{
-                      getOutInfo(i,10);
+                      getOutInfo(i,{_pageSize});
                    }}
                 }}
                 
@@ -128,13 +136,8 @@ namespace LongManagerClient.Pages.Out
                            return;
                         }}
                         
-                        //有数据保存，没有数据回到登录页
                         if(result.detail.length > 0){{
                            jsObject.saveOutInfo(JSON.stringify(result.detail));
-                        }}
-                        else{{
-                           alert('本次抓取已经结束，即将返回登陆页');
-                           window.location.href='{_logout}?serviceurl={_login}';
                         }}
                      }}
                    }});
@@ -145,7 +148,7 @@ namespace LongManagerClient.Pages.Out
 
         private void GoLogin_Click(object sender, RoutedEventArgs e)
         {
-            Browser.ExecuteScriptAsync($"window.location.href='{_logout}?serviceurl={_login}';");
+            Browser.ExecuteScriptAsync($"alert('返回登陆页面');window.location.href='{_logout}?serviceurl={_login}';");
         }
     }
 }

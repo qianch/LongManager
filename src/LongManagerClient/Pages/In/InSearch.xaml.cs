@@ -28,8 +28,10 @@ namespace LongManagerClient.Pages.In
         private string _logout = "";
         private string _inMail = "";
         private const int _lastPage = 500;
+        private const int _pageSize = 50;
         private readonly string _today = DateTime.Now.ToString("yyyy-MM-dd");
         private int _currentPage = 0;
+        private bool _flag = true;
 
         public InSearch()
         {
@@ -62,6 +64,12 @@ namespace LongManagerClient.Pages.In
 
         private void Browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e)
         {
+            if (_flag) 
+            {
+                Browser.ShowDevTools();
+                _flag = false;
+            }
+
             if (e.Frame.IsMain)
             {
                 if (e.Url.ToString() == _inMail + "cx" && _currentPage <= _lastPage)
@@ -103,7 +111,7 @@ namespace LongManagerClient.Pages.In
                 }}
                 
                 if('{e.Url}' == '{_inMail}'+'cx'){{         
-                   page({_currentPage},10,'');
+                   page({_currentPage},{_pageSize},'');
                    var tables = document.getElementsByTagName('table');
                    if(tables != null && tables.length > 0 ){{
                        var addressTable = tables[2];
@@ -130,10 +138,6 @@ namespace LongManagerClient.Pages.In
                                jsObject.saveInAddress(mailNO,address,orgName,consignee);
                            }}
                        }}
-                       else{{
-                           alert('本次抓取已经结束，即将返回登陆页');
-                           window.location.href='{_logout}?serviceurl={_login}';
-                       }}
                    }}
                 }}";
                 Browser.ExecuteScriptAsync(script);
@@ -142,7 +146,7 @@ namespace LongManagerClient.Pages.In
 
         private void GoLogin_Click(object sender, RoutedEventArgs e)
         {
-            Browser.ExecuteScriptAsync($"window.location.href='{_logout}?serviceurl={_login}';");
+            Browser.ExecuteScriptAsync($"alert('返回登陆页面');window.location.href='{_logout}?serviceurl={_login}';");
         }
     }
 }
