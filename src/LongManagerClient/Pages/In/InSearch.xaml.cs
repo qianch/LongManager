@@ -135,7 +135,7 @@ namespace LongManagerClient.Pages.In
                                var address = rows[i].cells[4].innerHTML;
                                var orgName = rows[i].cells[5].innerHTML;
                                var consignee = rows[i].cells[9].innerHTML;
-                               jsObject.saveInAddress(mailNO,address,orgName,consignee);
+                               jsObject.saveInAddress(mailNO,address,orgName,consignee,{_date});
                            }}
                        }}
                    }}
