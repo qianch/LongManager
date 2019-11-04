@@ -58,7 +58,7 @@ namespace LongManagerClient.Core.CEF.JSObject
                     MailNO = mailNO,
                     Address = address,
                     OrgName = orgName,
-                    //Consignee = consignee,
+                    Consignee = "",
                     AddDate = DateTime.Now
                 };
                 _longDBContext.InInfo.Add(mail);

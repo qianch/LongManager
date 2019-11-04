@@ -29,7 +29,7 @@ namespace LongManagerClient.Pages.In
         private string _inMail = "";
         private const int _lastPage = 500;
         private const int _pageSize = 50;
-        private readonly string _today = DateTime.Now.ToString("yyyy-MM-dd");
+        private string _date = DateTime.Now.ToString("yyyy-MM-dd");
         private int _currentPage = 0;
         private bool _flag = true;
 
@@ -64,7 +64,7 @@ namespace LongManagerClient.Pages.In
 
         private void Browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e)
         {
-            if (_flag) 
+            if (_flag)
             {
                 Browser.ShowDevTools();
                 _flag = false;
@@ -105,7 +105,7 @@ namespace LongManagerClient.Pages.In
                    $('#handleFlag').select2('data',dataSource2);
 
                    //查询时间
-                   //$('#postStartTime').val('{_today}');         
+                   //$('#postStartTime').val('{_date}');         
 
                    seachSubmit();
                 }}
@@ -147,6 +147,11 @@ namespace LongManagerClient.Pages.In
         private void GoLogin_Click(object sender, RoutedEventArgs e)
         {
             Browser.ExecuteScriptAsync($"alert('返回登陆页面');window.location.href='{_logout}?serviceurl={_login}';");
+        }
+
+        private void SelectDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            _date = SelectDate.SelectedDate.Value.ToString("yyyy-MM-dd");
         }
     }
 }

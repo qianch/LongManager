@@ -17,6 +17,8 @@
         </Grid.RowDefinitions>
         <WrapPanel Grid.Row="0" Margin="24 0 0 0" VerticalAlignment="Center">
             <Button x:Name="GoLogin" Margin="10" Content="返回登陆页"  Click="GoLogin_Click"></Button>
+            <TextBlock Margin="15" Text="请选择抓取日期：" Width="100"></TextBlock>
+            <DatePicker x:Name="SelectDate" Margin="10" Width="200" SelectedDateChanged="SelectDate_SelectedDateChanged"></DatePicker>
         </WrapPanel>
         <DockPanel Grid.Row="1">
             <wpf:ChromiumWebBrowser x:Name="Browser"></wpf:ChromiumWebBrowser>
