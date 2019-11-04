@@ -105,7 +105,7 @@ namespace LongManagerClient.Pages.In
                    $('#handleFlag').select2('data',dataSource2);
 
                    //查询时间
-                   //$('#postStartTime').val('{_date}');         
+                   $('#postStartTime').val('{_date}');         
 
                    seachSubmit();
                 }}
