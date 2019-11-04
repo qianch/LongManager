@@ -1,6 +1,7 @@
 ﻿using CefSharp;
 using LongManagerClient.CEF;
 using LongManagerClient.Core.CEF.JSObject;
+using LongManagerClient.Core.ClientDataBase;
 using LongManagerClient.ModelBinding;
 using System;
 using System.Collections.Generic;
@@ -31,7 +32,7 @@ namespace LongManagerClient.Pages.In
         private const int _pageSize = 100;
         private string _date = DateTime.Now.ToString("yyyy-MM-dd");
         private int _currentPage = 0;
-        private bool _flag = true;
+        private bool _flag = false;
 
         public InSearch()
         {
@@ -51,7 +52,16 @@ namespace LongManagerClient.Pages.In
 
         private void BasePage_Loaded(object sender, RoutedEventArgs e)
         {
-            string newUrl = LongDbContext.FrameConfig.Where(x => x.ConfigName == "NewUrl").First().ConfigValue;
+            var newUrlCongfig = LongDbContext.FrameConfig.Where(x => x.ConfigName == "NewUrl").FirstOrDefault() ?? new FrameConfig();
+            string newUrl = newUrlCongfig.ConfigValue;
+
+            var showDevToolsConfig = LongDbContext.FrameConfig.Where(x => x.ConfigName == "ShowDevTools").FirstOrDefault() ?? new FrameConfig();
+            var enable = "1";
+            if (showDevToolsConfig.ConfigValue == enable) 
+            {
+                _flag = true;
+            }
+
             _login = $"https://{newUrl}/cas/login";
             _inMail = $"https://{newUrl}/pcsnct-web/a/pcs/mailpretreatment/list";
             _logout = $"https://{newUrl}/cas/logout";

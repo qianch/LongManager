@@ -1,6 +1,7 @@
 ﻿using CefSharp;
 using LongManagerClient.CEF;
 using LongManagerClient.Core.CEF.JSObject;
+using LongManagerClient.Core.ClientDataBase;
 using LongManagerClient.ModelBinding;
 using System;
 using System.Collections.Generic;
@@ -31,7 +32,7 @@ namespace LongManagerClient.Pages.Out
         private const int _lastPage = 500;
         private const int _pageSize = 50;
         private readonly string _today = DateTime.Now.ToString("yyyy-MM-dd");
-        private bool _flag = true;
+        private bool _flag = false;
 
         public OutSearch()
         {
@@ -52,6 +53,14 @@ namespace LongManagerClient.Pages.Out
         private void BasePage_Loaded(object sender, RoutedEventArgs e)
         {
             string newUrl = LongDbContext.FrameConfig.Where(x => x.ConfigName == "NewUrl").First().ConfigValue;
+
+            var showDevToolsConfig = LongDbContext.FrameConfig.Where(x => x.ConfigName == "ShowDevTools").FirstOrDefault() ?? new FrameConfig();
+            var enable = "1";
+            if (showDevToolsConfig.ConfigValue == enable)
+            {
+                _flag = true;
+            }
+
             _login = $"https://{newUrl}/cas/login";
             _logout = $"https://{newUrl}/cas/logout";
             _outMail = $"https://{newUrl}/pickup-web/a/pickup/waybillquery/main";

@@ -37,6 +37,7 @@ namespace LongManagerClient
     public partial class MainWindow : BaseWindow
     {
         private DispatcherTimer _showTimer = new DispatcherTimer();
+        private FrameConfig _systemNameConfig = new FrameConfig();
         public MainWindow()
         {
             InitializeComponent();
@@ -63,11 +64,9 @@ namespace LongManagerClient
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            var systemNameConfig = _longDBContext.FrameConfig.Where(x => x.ConfigName == "SystemName").FirstOrDefault();
-            if (systemNameConfig != null) 
-            {
-                Title = systemNameConfig.ConfigValue;
-            }
+            _systemNameConfig = _longDBContext.FrameConfig.Where(x => x.ConfigName == "SystemName").FirstOrDefault() ?? new FrameConfig();
+            Title = _systemNameConfig.ConfigValue;
+
             //加载登录页面
             var login = new Login
             {
@@ -102,7 +101,7 @@ namespace LongManagerClient
             switch (param)
             {
                 case "About":
-                    MessageBox.Show("翔龙物流科技管理系统 1.0，技术支持：qianchenchn@foxmail.com", "版权信息", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show($"{_systemNameConfig.ConfigValue}，技术支持：qianchenchn@foxmail.com", "版权信息", MessageBoxButton.OK, MessageBoxImage.Information);
                     break;
                 default:
                     break;
