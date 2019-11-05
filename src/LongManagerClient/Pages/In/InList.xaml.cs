@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.EntityFrameworkCore;
 
 namespace LongManagerClient.Pages.In
 {
@@ -55,7 +56,7 @@ namespace LongManagerClient.Pages.In
 
         protected void Search()
         {
-            var mails = LongDbContext.InInfo.AsEnumerable();
+            var mails = LongDbContext.InInfo.AsNoTracking().AsEnumerable();
             if (!string.IsNullOrEmpty(TxtMailNO.Text))
             {
                 mails = mails.Where(x => x.MailNO.Contains(TxtMailNO.Text));
@@ -122,6 +123,52 @@ namespace LongManagerClient.Pages.In
             }
 
             MessageBox.Show("同步成功", "提示", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+        }
+
+        private void SyncBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var syncButton = sender as Button;
+            var rowGuid = syncButton.Tag as string;
+            var info = LongDbContext.InInfo.Where(x => x.RowGuid == rowGuid).First();
+
+            try
+            {
+                AutoPickDbContext.Database.CanConnect();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("无法连接到分拣机数据库", "提示", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            var entryBill = new EntryBill
+            {
+                BarCode = info.MailNO,
+                DestAddress = info.Address,
+                PresortPost = info.OrgName
+            };
+
+            var serverEntryBills = AutoPickDbContext.EntryBill.ToList();
+            int count = serverEntryBills.Where(x => x.BarCode == entryBill.BarCode).Count();
+
+            if (count == 0)
+            {
+                AutoPickDbContext.EntryBill.Add(entryBill);
+            }
+            else
+            {
+                AutoPickDbContext.EntryBill.Update(entryBill);
+            }
+
+
+            info.IsPush = 1;
+            LongDbContext.InInfo.Update(info);
+
+            AutoPickDbContext.SaveChanges();
+            LongDbContext.SaveChanges();
+            Search();
+
+            MessageBox.Show("同步单个成功", "提示", MessageBoxButton.OK, MessageBoxImage.Asterisk);
         }
     }
 }

@@ -8,9 +8,13 @@
       xmlns:local="clr-namespace:LongManagerClient.Pages.In"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:controls="clr-namespace:LongManagerClient.Controls"
+      xmlns:converter="clr-namespace:LongManagerClient.Core.EFConverter;assembly=LongManagerClient.Core"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="InList" Loaded="BasePage_Loaded">
+    <Page.Resources>
+        <converter:PushValueConverter x:Key="pushConverter"></converter:PushValueConverter>
+    </Page.Resources>
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="50"></RowDefinition>
@@ -27,8 +31,19 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding MailNO}" Header="邮件条码"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding PostDate}" Header="邮寄时间"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding Address}" Header="邮件地址"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding OrgName}" Header="投递局"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Address}"  Header="邮件地址"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding OrgName}" Width="100" Header="投递局"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding IsPush,Converter={StaticResource pushConverter}}" Header="是否同步"></DataGridTextColumn>
+                <DataGridTemplateColumn Header="手动同步">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button x:Name="SyncBtn" Height="10" Tag="{Binding RowGuid}" Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                                    ToolTip="再次同步" Click="SyncBtn_Click">
+                                <materialDesign:PackIcon Kind="Edit" Height="5" Width="5"/>
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
         <WrapPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left">
