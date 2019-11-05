@@ -75,7 +75,7 @@ namespace LongManagerClient.Core.BSL
                         {
                             RowGuid = Guid.NewGuid().ToString(),
                             MailNO = mailNO,
-                            AddDate = DateTime.Now,
+                            AddDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
                             OrgName = orgName,
                             Consignee = consignee,
                             Address = address

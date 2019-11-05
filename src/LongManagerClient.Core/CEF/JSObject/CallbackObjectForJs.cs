@@ -38,7 +38,7 @@ namespace LongManagerClient.Core.CEF.JSObject
                         Address = receiverAddr,
                         OrgName = receiverArriveOrgName,
                         Consignee = receiverLinker,
-                        AddDate = DateTime.Now,
+                        AddDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
                         PostDate = bizOccurDate
                     };
                     _longDBContext.OutInfo.Add(mail);
@@ -47,7 +47,7 @@ namespace LongManagerClient.Core.CEF.JSObject
             }
         }
 
-        public void saveInAddress(string mailNO, string address, string orgName, string consignee,string date)
+        public void saveInAddress(string mailNO, string address, string orgName, string consignee, string date)
         {
             var count = _longDBContext.InInfo.Where(x => x.MailNO == mailNO).ToList().Count();
             if (count == 0)
@@ -59,7 +59,7 @@ namespace LongManagerClient.Core.CEF.JSObject
                     Address = address,
                     OrgName = orgName,
                     Consignee = "",
-                    AddDate = DateTime.Now,
+                    AddDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
                     PostDate = date
                 };
                 _longDBContext.InInfo.Add(mail);

@@ -7,7 +7,7 @@ namespace LongManagerClient.Core.ClientDataBase
     public class BaseOut : BaseEntity
     {
         public string MailNO { get; set; }
-        public DateTime AddDate { get; set; }
+        public string AddDate { get; set; }
         public string PostDate { get; set; }
         public string OrgName { get; set; }
         public string Consignee { get; set; }
