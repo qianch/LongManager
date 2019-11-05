@@ -1,4 +1,5 @@
-﻿using LongManagerClient.Core.ServerDataBase;
+﻿using LongManagerClient.Core.ClientDataBase;
+using LongManagerClient.Core.ServerDataBase;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -83,34 +84,42 @@ namespace LongManagerClient.Pages.In
                 return;
             }
 
-            var InInfos = LongDbContext.InInfo.Where(x => x.IsPush != 1).ToList();
+            var InInfos = LongDbContext.InInfo.Where(x => x.IsPush != 1);
             var serverEntryBills = AutoPickDbContext.EntryBill.ToList();
-            foreach (var info in InInfos)
+
+            int pageSize = 100;
+            int pages = (InInfos.Count() / pageSize) + 1;
+
+            for (int i = 0; i < pages; i++)
             {
-                var entryBill = new EntryBill
+                List<InInfo> subInInfos = InInfos.Skip(i * pageSize).Take(pageSize).ToList();
+                foreach (var info in subInInfos)
                 {
-                    BarCode = info.MailNO,
-                    DestAddress = info.Address,
-                    PresortPost = info.OrgName
-                };
+                    var entryBill = new EntryBill
+                    {
+                        BarCode = info.MailNO,
+                        DestAddress = info.Address,
+                        PresortPost = info.OrgName
+                    };
 
-                int count = serverEntryBills.Where(x => x.BarCode == entryBill.BarCode).Count();
-                if (count == 0)
-                {
-                    AutoPickDbContext.EntryBill.Add(entryBill);
+                    int count = serverEntryBills.Where(x => x.BarCode == entryBill.BarCode).Count();
+                    if (count == 0)
+                    {
+                        AutoPickDbContext.EntryBill.Add(entryBill);
+                    }
+                    else
+                    {
+                        AutoPickDbContext.EntryBill.Update(entryBill);
+                    }
+
+
+                    info.IsPush = 1;
+                    LongDbContext.InInfo.Update(info);
                 }
-                else
-                {
-                    AutoPickDbContext.EntryBill.Update(entryBill);
-                }
 
-
-                info.IsPush = 1;
-                LongDbContext.InInfo.Update(info);
+                AutoPickDbContext.SaveChanges();
+                LongDbContext.SaveChanges();
             }
-
-            AutoPickDbContext.SaveChanges();
-            LongDbContext.SaveChanges();
 
             MessageBox.Show("同步成功", "提示", MessageBoxButton.OK, MessageBoxImage.Asterisk);
         }

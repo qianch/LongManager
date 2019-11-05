@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using LongManagerClient.Core;
+using LongManagerClient.Core.ClientDataBase;
 using LongManagerClient.Core.ServerDataBase;
 using System;
 using System.Collections.Generic;
@@ -36,7 +37,7 @@ namespace LongManagerClient.Pages.JiangSuOut
             Pager.InitButton();
             MailDataGrid.ItemsSource = LongDbContext.OutInfo
                 .Where(x => x.CountryPosition == "38")
-                .OrderByDescending(x=>x.AddDate)
+                .OrderByDescending(x => x.AddDate)
                 .Take(Pager.LongPage.PageSize)
                 .ToList();
         }
@@ -71,7 +72,7 @@ namespace LongManagerClient.Pages.JiangSuOut
 
             MailDataGrid.ItemsSource = mails
                 .Where(x => x.CountryPosition == "38")
-                .OrderByDescending(x=>x.AddDate)
+                .OrderByDescending(x => x.AddDate)
                 .Skip(Pager.LongPage.PageSize * (Pager.LongPage.PageIndex - 1))
                 .Take(Pager.LongPage.PageSize)
                 .ToList();
@@ -103,35 +104,43 @@ namespace LongManagerClient.Pages.JiangSuOut
                 return;
             }
 
-            var outInfos = LongDbContext.OutInfo.Where(x => x.IsPush != 1 && x.JiangSuPosition != null).ToList();
+            var outInfos = LongDbContext.OutInfo.Where(x => x.IsPush != 1 && x.JiangSuPosition != null);
             var serverbillExports = AutoPickDbContext.BillExport.ToList();
 
-            foreach (var outInfo in outInfos)
+            int pageSize = 100;
+            int pages = (outInfos.Count() / pageSize) + 1;
+
+            for (int i = 0; i < pages; i++)
             {
-                var billExport = new BillExport
-                {
-                    BarCode = outInfo.MailNO,
-                    DestAddress = outInfo.Address,
-                    BinCode = "10" + outInfo.JiangSuPosition.PadLeft(2, '0'),
-                    CityName = outInfo.OrgName
-                };
+                List<OutInfo> subOutInfos = outInfos.Skip(i * pageSize).Take(pageSize).ToList();
 
-                outInfo.IsPush = 1;
-       
-                int count = serverbillExports.Where(x => x.BarCode == billExport.BarCode).Count();
-                if (count == 0)
+                foreach (var outInfo in subOutInfos)
                 {
-                    AutoPickDbContext.BillExport.Add(billExport);
+                    var billExport = new BillExport
+                    {
+                        BarCode = outInfo.MailNO,
+                        DestAddress = outInfo.Address,
+                        BinCode = "10" + outInfo.JiangSuPosition.PadLeft(2, '0'),
+                        CityName = outInfo.OrgName
+                    };
+
+                    int count = serverbillExports.Where(x => x.BarCode == billExport.BarCode).Count();
+                    if (count == 0)
+                    {
+                        AutoPickDbContext.BillExport.Add(billExport);
+                    }
+                    else
+                    {
+                        AutoPickDbContext.BillExport.Update(billExport);
+                    }
+
+                    outInfo.IsPush = 1;
+                    LongDbContext.OutInfo.Update(outInfo);
                 }
-                else
-                {
-                    AutoPickDbContext.BillExport.Update(billExport);
-                }
-                LongDbContext.OutInfo.Update(outInfo);
+
+                AutoPickDbContext.SaveChanges();
+                LongDbContext.SaveChanges();
             }
-
-            AutoPickDbContext.SaveChanges();
-            LongDbContext.SaveChanges();
 
             MessageBox.Show("同步成功", "提示", MessageBoxButton.OK, MessageBoxImage.Asterisk);
         }
