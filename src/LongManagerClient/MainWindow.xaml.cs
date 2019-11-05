@@ -121,14 +121,14 @@ namespace LongManagerClient
 
         private void TreeViewItem_Selected(object sender, RoutedEventArgs e)
         {
-            if (!(sender is TreeViewItem item) || e.Handled)
+            if (sender is TreeViewItem item)
             {
-                return;
+                if (item.IsSelected)
+                {
+                    item.IsExpanded = !item.IsExpanded;
+                    item.IsSelected = false;
+                }
             }
-
-            item.IsExpanded = !item.IsExpanded;
-            item.IsSelected = false;
-            e.Handled = true;
         }
     }
 }
