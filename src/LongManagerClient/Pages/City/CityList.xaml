@@ -32,9 +32,9 @@
                 <DataGridTemplateColumn Header="修改">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button x:Name="EditBtn" Tag="{Binding RowGuid}" Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                            <Button x:Name="EditBtn" Height="20" Tag="{Binding RowGuid}" Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                                     ToolTip="修改" Click="EditBtn_Click">
-                                <materialDesign:PackIcon Kind="Edit" Height="24" Width="24"/>
+                                <materialDesign:PackIcon Kind="Edit" Height="20" Width="20"/>
                             </Button>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>

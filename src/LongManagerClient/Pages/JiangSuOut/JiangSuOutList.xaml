@@ -42,9 +42,9 @@
                 <DataGridTemplateColumn Header="手动同步">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button x:Name="SyncBtn" Height="10" Tag="{Binding RowGuid}" Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                            <Button x:Name="SyncBtn" Height="20" Tag="{Binding RowGuid}" Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                                     ToolTip="再次同步" Click="SyncBtn_Click">
-                                <materialDesign:PackIcon Kind="Edit" Height="5" Width="5"/>
+                                <materialDesign:PackIcon Kind="Edit" Height="20" Width="20"/>
                             </Button>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
