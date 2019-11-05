@@ -91,9 +91,9 @@ namespace LongManagerClient.Pages.In
             int pageSize = 100;
             int pages = (InInfos.Count() / pageSize) + 1;
 
-            for (int i = 0; i < pages; i++)
+            for (int i = 0; i <= pages; i++)
             {
-                List<InInfo> subInInfos = InInfos.Skip(i * pageSize).Take(pageSize).ToList();
+                List<InInfo> subInInfos = InInfos.AsNoTracking().Skip(i * pageSize).Take(pageSize).ToList();
                 foreach (var info in subInInfos)
                 {
                     var entryBill = new EntryBill
@@ -169,6 +169,11 @@ namespace LongManagerClient.Pages.In
             Search();
 
             MessageBox.Show("同步单个成功", "提示", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+        }
+
+        private void NoSyncBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MailDataGrid.ItemsSource = LongDbContext.InInfo.AsNoTracking().Where(x => x.IsPush != 1).Take(50).ToList();
         }
     }
 }

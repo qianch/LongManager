@@ -111,9 +111,9 @@ namespace LongManagerClient.Pages.JiangSuOut
             int pageSize = 100;
             int pages = (outInfos.Count() / pageSize) + 1;
 
-            for (int i = 0; i < pages; i++)
+            for (int i = 0; i <= pages; i++)
             {
-                List<OutInfo> subOutInfos = outInfos.Skip(i * pageSize).Take(pageSize).ToList();
+                List<OutInfo> subOutInfos = outInfos.AsNoTracking().Skip(i * pageSize).Take(pageSize).ToList();
 
                 foreach (var outInfo in subOutInfos)
                 {
@@ -190,6 +190,11 @@ namespace LongManagerClient.Pages.JiangSuOut
             ListChange();
 
             MessageBox.Show("同步单个成功", "提示", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+        }
+
+        private void NoSyncBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MailDataGrid.ItemsSource = LongDbContext.OutInfo.AsNoTracking().Where(x => x.CountryPosition == "38" && x.IsPush != 1).Take(50).ToList();
         }
     }
 }
