@@ -114,9 +114,9 @@ namespace LongManagerClient.Pages.JiangSuOut
             int pageSize = 1000;
             int pages = (outInfos.Count() / pageSize) + 1;
 
-            for (int pageIndex = pages; pageIndex >= 0; pageIndex--)
+            for (int pageIndex = 0; pageIndex <= pages; pageIndex++)
             {
-                List<OutInfo> subOutInfos = outInfos.Skip(pageIndex * pageSize).Take(pageSize).ToList();
+                List<OutInfo> subOutInfos = outInfos.Take(pageSize).ToList();
 
                 foreach (var outInfo in subOutInfos)
                 {

@@ -91,9 +91,9 @@ namespace LongManagerClient.Pages.In
             int pageSize = 1000;
             int pages = (InInfos.Count() / pageSize) + 1;
 
-            for (int pageIndex = pages; pageIndex >= 0; pageIndex--)
+            for (int pageIndex = 0; pageIndex <= pages; pageIndex++)
             {
-                List<InInfo> subInInfos = InInfos.Skip(pageIndex * pageSize).Take(pageSize).ToList();
+                List<InInfo> subInInfos = InInfos.Take(pageSize).ToList();
                 foreach (var info in subInInfos)
                 {
                     var entryBill = new EntryBill
