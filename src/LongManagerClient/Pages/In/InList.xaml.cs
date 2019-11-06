@@ -88,12 +88,12 @@ namespace LongManagerClient.Pages.In
             var InInfos = LongDbContext.InInfo.Where(x => x.IsPush != 1);
             var serverEntryBills = AutoPickDbContext.EntryBill.ToList();
 
-            int pageSize = 100;
+            int pageSize = 1000;
             int pages = (InInfos.Count() / pageSize) + 1;
 
-            for (int i = 0; i <= pages; i++)
+            for (int pageIndex = pages; pageIndex >= 0; pageIndex--)
             {
-                List<InInfo> subInInfos = InInfos.AsNoTracking().Skip(i * pageSize).Take(pageSize).ToList();
+                List<InInfo> subInInfos = InInfos.Skip(pageIndex * pageSize).Take(pageSize).ToList();
                 foreach (var info in subInInfos)
                 {
                     var entryBill = new EntryBill
@@ -127,6 +127,7 @@ namespace LongManagerClient.Pages.In
 
         private void SyncBtn_Click(object sender, RoutedEventArgs e)
         {
+            SynBtn.IsEnabled = false;
             var syncButton = sender as Button;
             var rowGuid = syncButton.Tag as string;
             var info = LongDbContext.InInfo.Where(x => x.RowGuid == rowGuid).First();
@@ -169,6 +170,7 @@ namespace LongManagerClient.Pages.In
             Search();
 
             MessageBox.Show("同步单个成功", "提示", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+            SynBtn.IsEnabled = true;
         }
 
         private void NoSyncBtn_Click(object sender, RoutedEventArgs e)

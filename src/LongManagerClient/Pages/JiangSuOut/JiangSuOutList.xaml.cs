@@ -81,6 +81,7 @@ namespace LongManagerClient.Pages.JiangSuOut
 
         private void PositionBtn_Click(object sender, RoutedEventArgs e)
         {
+            PositionBtn.IsEnabled = false;
             var cityPosition = _container.Resolve<CityPosition>();
             //长三角地区邮件
             var mails = LongDbContext.OutInfo.Where(x => x.CountryPosition == "38" && string.IsNullOrEmpty(x.JiangSuPosition)).ToList();
@@ -91,10 +92,12 @@ namespace LongManagerClient.Pages.JiangSuOut
             }
             LongDbContext.SaveChanges();
             MessageBox.Show("长三角格口划分完成", "提示", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+            PositionBtn.IsEnabled = true;
         }
 
         private void SynBtn_Click(object sender, RoutedEventArgs e)
         {
+            SynBtn.IsEnabled = false;
             try
             {
                 AutoPickDbContext.Database.CanConnect();
@@ -108,12 +111,12 @@ namespace LongManagerClient.Pages.JiangSuOut
             var outInfos = LongDbContext.OutInfo.Where(x => x.IsPush != 1 && x.JiangSuPosition != null);
             var serverbillExports = AutoPickDbContext.BillExport.ToList();
 
-            int pageSize = 100;
+            int pageSize = 1000;
             int pages = (outInfos.Count() / pageSize) + 1;
 
-            for (int i = 0; i <= pages; i++)
+            for (int pageIndex = pages; pageIndex >= 0; pageIndex--)
             {
-                List<OutInfo> subOutInfos = outInfos.AsNoTracking().Skip(i * pageSize).Take(pageSize).ToList();
+                List<OutInfo> subOutInfos = outInfos.Skip(pageIndex * pageSize).Take(pageSize).ToList();
 
                 foreach (var outInfo in subOutInfos)
                 {
@@ -144,6 +147,7 @@ namespace LongManagerClient.Pages.JiangSuOut
             }
 
             MessageBox.Show("同步成功", "提示", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+            SynBtn.IsEnabled = true;
         }
 
         private void SyncBtn_Click(object sender, RoutedEventArgs e)
