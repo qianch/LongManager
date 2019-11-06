@@ -100,7 +100,8 @@ namespace LongManagerClient.Pages.In
                     {
                         BarCode = info.MailNO,
                         DestAddress = info.Address,
-                        PresortPost = info.OrgName
+                        PresortPost = info.OrgName,
+                        CreateDateTime = Convert.ToDateTime(info.PostDate)
                     };
 
                     int count = serverEntryBills.Where(x => x.BarCode == entryBill.BarCode).Count();
@@ -123,55 +124,6 @@ namespace LongManagerClient.Pages.In
             }
 
             MessageBox.Show("同步成功", "提示", MessageBoxButton.OK, MessageBoxImage.Asterisk);
-        }
-
-        private void SyncBtn_Click(object sender, RoutedEventArgs e)
-        {
-            SynBtn.IsEnabled = false;
-            var syncButton = sender as Button;
-            var rowGuid = syncButton.Tag as string;
-            var info = LongDbContext.InInfo.Where(x => x.RowGuid == rowGuid).First();
-
-            try
-            {
-                AutoPickDbContext.Database.CanConnect();
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("无法连接到分拣机数据库", "提示", MessageBoxButton.OK, MessageBoxImage.Warning);
-                SynBtn.IsEnabled = true;
-                return;
-            }
-
-            var entryBill = new EntryBill
-            {
-                BarCode = info.MailNO,
-                DestAddress = info.Address,
-                PresortPost = info.OrgName
-            };
-
-            var serverEntryBills = AutoPickDbContext.EntryBill.ToList();
-            int count = serverEntryBills.Where(x => x.BarCode == entryBill.BarCode).Count();
-
-            if (count == 0)
-            {
-                AutoPickDbContext.EntryBill.Add(entryBill);
-            }
-            else
-            {
-                AutoPickDbContext.EntryBill.Update(entryBill);
-            }
-
-
-            info.IsPush = 1;
-            LongDbContext.InInfo.Update(info);
-
-            AutoPickDbContext.SaveChanges();
-            LongDbContext.SaveChanges();
-            Search();
-
-            MessageBox.Show("同步单个成功", "提示", MessageBoxButton.OK, MessageBoxImage.Asterisk);
-            SynBtn.IsEnabled = true;
         }
 
         private void NoSyncBtn_Click(object sender, RoutedEventArgs e)

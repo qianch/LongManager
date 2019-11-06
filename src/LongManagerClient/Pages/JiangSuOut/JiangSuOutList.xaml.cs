@@ -126,7 +126,8 @@ namespace LongManagerClient.Pages.JiangSuOut
                         BarCode = outInfo.MailNO,
                         DestAddress = outInfo.Address,
                         BinCode = "10" + outInfo.JiangSuPosition.PadLeft(2, '0'),
-                        CityName = outInfo.OrgName
+                        CityName = outInfo.OrgName,
+                        CreateDateTime = Convert.ToDateTime(outInfo.PostDate)
                     };
 
                     int count = serverbillExports.Where(x => x.BarCode == billExport.BarCode).Count();
@@ -149,51 +150,6 @@ namespace LongManagerClient.Pages.JiangSuOut
 
             MessageBox.Show("同步成功", "提示", MessageBoxButton.OK, MessageBoxImage.Asterisk);
             SynBtn.IsEnabled = true;
-        }
-
-        private void SyncBtn_Click(object sender, RoutedEventArgs e)
-        {
-            var syncButton = sender as Button;
-            var rowGuid = syncButton.Tag as string;
-            var outInfo = LongDbContext.OutInfo.Where(x => x.RowGuid == rowGuid).First();
-
-            try
-            {
-                AutoPickDbContext.Database.CanConnect();
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("无法连接到分拣机数据库", "提示", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
-
-            var billExport = new BillExport
-            {
-                BarCode = outInfo.MailNO,
-                DestAddress = outInfo.Address,
-                BinCode = "10" + outInfo.JiangSuPosition.PadLeft(2, '0'),
-                CityName = outInfo.OrgName
-            };
-
-            var serverbillExports = AutoPickDbContext.BillExport.ToList();
-            int count = serverbillExports.Where(x => x.BarCode == billExport.BarCode).Count();
-            if (count == 0)
-            {
-                AutoPickDbContext.BillExport.Add(billExport);
-            }
-            else
-            {
-                AutoPickDbContext.BillExport.Update(billExport);
-            }
-
-            outInfo.IsPush = 1;
-            LongDbContext.OutInfo.Update(outInfo);
-
-            AutoPickDbContext.SaveChanges();
-            LongDbContext.SaveChanges();
-            ListChange();
-
-            MessageBox.Show("同步单个成功", "提示", MessageBoxButton.OK, MessageBoxImage.Asterisk);
         }
 
         private void NoSyncBtn_Click(object sender, RoutedEventArgs e)
