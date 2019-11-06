@@ -139,6 +139,7 @@ namespace LongManagerClient.Pages.In
             catch (Exception)
             {
                 MessageBox.Show("无法连接到分拣机数据库", "提示", MessageBoxButton.OK, MessageBoxImage.Warning);
+                SynBtn.IsEnabled = true;
                 return;
             }
 

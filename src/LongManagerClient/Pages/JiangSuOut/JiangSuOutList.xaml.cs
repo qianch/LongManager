@@ -105,6 +105,7 @@ namespace LongManagerClient.Pages.JiangSuOut
             catch (Exception)
             {
                 MessageBox.Show("无法连接到分拣机数据库", "提示", MessageBoxButton.OK, MessageBoxImage.Warning);
+                SynBtn.IsEnabled = true;
                 return;
             }
 
@@ -152,7 +153,6 @@ namespace LongManagerClient.Pages.JiangSuOut
 
         private void SyncBtn_Click(object sender, RoutedEventArgs e)
         {
-
             var syncButton = sender as Button;
             var rowGuid = syncButton.Tag as string;
             var outInfo = LongDbContext.OutInfo.Where(x => x.RowGuid == rowGuid).First();
