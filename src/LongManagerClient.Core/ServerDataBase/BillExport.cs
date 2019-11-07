@@ -14,6 +14,6 @@ namespace LongManagerClient.Core.ServerDataBase
         public string DestAddress { get; set; }
         public string BinCode { get; set; }
         public string CityName { get; set; }
-        public DateTime CreateDateTime { get; set; }
+        public DateTime? CreateDateTime { get; set; }
     }
 }
