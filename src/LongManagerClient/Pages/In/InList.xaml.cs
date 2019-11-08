@@ -85,7 +85,7 @@ namespace LongManagerClient.Pages.In
             }
 
             var InInfos = LongDbContext.InInfo.Where(x => x.IsPush != 1);
-            var serverEntryBills = AutoPickDbContext.EntryBill.ToList();
+            var serverEntryBills = AutoPickDbContext.EntryBill.AsNoTracking().ToList();
 
             int pageSize = 1000;
             int pages = (InInfos.Count() / pageSize) + 1;

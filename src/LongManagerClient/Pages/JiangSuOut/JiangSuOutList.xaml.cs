@@ -104,7 +104,7 @@ namespace LongManagerClient.Pages.JiangSuOut
             }
 
             var outInfos = LongDbContext.OutInfo.Where(x => x.IsPush != 1 && x.JiangSuPosition != null);
-            var serverbillExports = AutoPickDbContext.BillExport.ToList();
+            var serverbillExports = AutoPickDbContext.BillExport.AsNoTracking().ToList();
 
             int pageSize = 1000;
             int pages = (outInfos.Count() / pageSize) + 1;
