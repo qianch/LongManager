@@ -34,26 +34,20 @@ namespace LongManagerClient.Pages.JiangSuOut
 
         private void BasePage_Loaded(object sender, RoutedEventArgs e)
         {
-            Pager.LongPage.AllCount = LongDbContext.OutInfo.Where(x => x.CountryPosition == "38").Count();
-            Pager.InitButton();
-            MailDataGrid.ItemsSource = LongDbContext.OutInfo
-                .Where(x => x.CountryPosition == "38")
-                .OrderByDescending(x => x.AddDate)
-                .Take(Pager.LongPage.PageSize)
-                .ToList();
+            Search();
         }
 
         private void Pager_PageIndexChange(object sender, EventArgs e)
         {
-            ListChange();
+            Search();
         }
 
         private void SearchBtn_Click(object sender, RoutedEventArgs e)
         {
-            ListChange();
+            Search();
         }
 
-        private void ListChange()
+        private void Search()
         {
             var mails = LongDbContext.OutInfo.AsNoTracking().Where(x => x.CountryPosition == "38").AsEnumerable();
             if (!string.IsNullOrEmpty(TxtMailNO.Text))
@@ -73,7 +67,7 @@ namespace LongManagerClient.Pages.JiangSuOut
 
             MailDataGrid.ItemsSource = mails
                 .Where(x => x.CountryPosition == "38")
-                .OrderByDescending(x => x.AddDate)
+                .OrderByDescending(x => x.PostDate)
                 .Skip(Pager.LongPage.PageSize * (Pager.LongPage.PageIndex - 1))
                 .Take(Pager.LongPage.PageSize)
                 .ToList();

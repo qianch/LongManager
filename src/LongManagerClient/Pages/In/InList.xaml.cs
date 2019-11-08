@@ -32,12 +32,7 @@ namespace LongManagerClient.Pages.In
 
         private void BasePage_Loaded(object sender, RoutedEventArgs e)
         {
-            Pager.LongPage.AllCount = LongDbContext.InInfo.Count();
-            Pager.InitButton();
-            MailDataGrid.ItemsSource = LongDbContext.InInfo
-                .OrderByDescending(x => x.AddDate)
-                .Take(Pager.LongPage.PageSize)
-                .ToList();
+            Search();
         }
 
         private void Pager_PageIndexChange(object sender, EventArgs e)

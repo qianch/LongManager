@@ -31,25 +31,20 @@ namespace LongManagerClient.Pages.Out
 
         private void BasePage_Loaded(object sender, RoutedEventArgs e)
         {
-            Pager.LongPage.AllCount = LongDbContext.OutInfo.Count();
-            Pager.InitButton();
-            MailDataGrid.ItemsSource = LongDbContext.OutInfo
-                .OrderByDescending(x=>x.AddDate)
-                .Take(Pager.LongPage.PageSize)
-                .ToList();
+            Search();
         }
 
         private void Pager_PageIndexChange(object sender, EventArgs e)
         {
-            ListChange();
+            Search();
         }
 
         private void SearchBtn_Click(object sender, RoutedEventArgs e)
         {
-            ListChange();
+            Search();
         }
 
-        private void ListChange()
+        private void Search()
         {
             var mails = LongDbContext.OutInfo.AsEnumerable();
             if (!string.IsNullOrEmpty(TxtMailNO.Text))
