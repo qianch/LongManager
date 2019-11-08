@@ -23,6 +23,7 @@
         </Grid.RowDefinitions>
         <WrapPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left">
             <TextBox x:Name="TxtMailNO" materialDesign:HintAssist.Hint="邮件条码" Width="200" Margin="10"></TextBox>
+            <TextBox x:Name="TxtAddress" materialDesign:HintAssist.Hint="地址" Width="200" Margin="10"></TextBox>
             <Button x:Name="SearchBtn" Margin="10" Content="查询" IsDefault="True" Click="SearchBtn_Click"></Button>
             <Button x:Name="NoSyncBtn" Margin="10" Content="查找未同步" Click="NoSyncBtn_Click"></Button>
             <Button x:Name="SynBtn" Margin="10" Content="同步到分拣机" Click="SynBtn_Click"></Button>

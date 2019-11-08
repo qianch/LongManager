@@ -42,11 +42,7 @@ namespace LongManagerClient.Pages.In
 
         private void Pager_PageIndexChange(object sender, EventArgs e)
         {
-            MailDataGrid.ItemsSource = LongDbContext.InInfo
-                .OrderByDescending(x => x.AddDate)
-                .Skip(Pager.LongPage.PageSize * (Pager.LongPage.PageIndex - 1))
-                .Take(Pager.LongPage.PageSize)
-                .ToList();
+            Search();
         }
 
         private void SearchBtn_Click(object sender, RoutedEventArgs e)
@@ -62,6 +58,12 @@ namespace LongManagerClient.Pages.In
                 mails = mails.Where(x => x.MailNO.Contains(TxtMailNO.Text));
             }
 
+            if (!string.IsNullOrEmpty(TxtAddress.Text))
+            {
+                mails = mails.Where(x => x.Address.Contains(TxtAddress.Text) ||
+                                         x.OrgName.Contains(TxtAddress.Text));
+            }
+
             Pager.LongPage.AllCount = mails.Count();
             Pager.LongPage.Search = TxtMailNO.Text;
             Pager.InitButton();
@@ -75,6 +77,7 @@ namespace LongManagerClient.Pages.In
 
         private void SynBtn_Click(object sender, RoutedEventArgs e)
         {
+            SynBtn.IsEnabled = false;
             try
             {
                 AutoPickDbContext.Database.CanConnect();
@@ -82,6 +85,7 @@ namespace LongManagerClient.Pages.In
             catch (Exception)
             {
                 MessageBox.Show("无法连接到分拣机数据库", "提示", MessageBoxButton.OK, MessageBoxImage.Warning);
+                SynBtn.IsEnabled = true;
                 return;
             }
 
@@ -124,6 +128,7 @@ namespace LongManagerClient.Pages.In
             }
 
             MessageBox.Show("同步成功", "提示", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+            SynBtn.IsEnabled = true;
         }
 
         private void NoSyncBtn_Click(object sender, RoutedEventArgs e)
