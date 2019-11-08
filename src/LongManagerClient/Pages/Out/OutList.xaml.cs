@@ -63,7 +63,7 @@ namespace LongManagerClient.Pages.Out
             Pager.InitButton();
 
             MailDataGrid.ItemsSource = mails
-                .OrderByDescending(x=>x.AddDate)
+                .OrderByDescending(x=>x.ID)
                 .Skip(Pager.LongPage.PageSize * (Pager.LongPage.PageIndex - 1))
                 .Take(Pager.LongPage.PageSize)
                 .ToList();

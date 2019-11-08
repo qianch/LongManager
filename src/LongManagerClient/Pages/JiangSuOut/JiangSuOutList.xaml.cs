@@ -67,7 +67,7 @@ namespace LongManagerClient.Pages.JiangSuOut
 
             MailDataGrid.ItemsSource = mails
                 .Where(x => x.CountryPosition == "38")
-                .OrderByDescending(x => x.PostDate)
+                .OrderByDescending(x => x.ID)
                 .Skip(Pager.LongPage.PageSize * (Pager.LongPage.PageIndex - 1))
                 .Take(Pager.LongPage.PageSize)
                 .ToList();
