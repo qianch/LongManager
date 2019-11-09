@@ -138,6 +138,7 @@ namespace LongManagerClient.Pages.In
                     
                     if('{e.Url}' == '{_inMail}'+'cx'){{         
                        page({_currentPage},{_pageSize},'');
+                       console.log('进口抓取，当前页数：'+ '{_currentPage}');
                        var tables = document.getElementsByTagName('table');
                        if(tables != null && tables.length > 0 ){{
                            var addressTable = tables[2];

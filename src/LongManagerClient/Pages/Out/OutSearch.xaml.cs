@@ -104,6 +104,7 @@ namespace LongManagerClient.Pages.Out
                 if( '{e.Url}' == '{_outMail}'){{
                    for(var i=0;i<={_lastPage};i++){{
                       getOutInfo(i,{_pageSize});
+                      console.log('出口抓取，当前页数：'+ i);
                    }}
                 }}
                 
