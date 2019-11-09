@@ -30,7 +30,7 @@ namespace LongManagerClient.Pages.In
         private string _inMail = "";
         private const int _lastPage = 500;
         private const int _pageSize = 100;
-        private string _date = "";
+        private string _date = DateTime.Now.ToString("yyyy-MM-dd");
         private int _currentPage = 0;
         private bool _flag = false;
 
@@ -74,12 +74,6 @@ namespace LongManagerClient.Pages.In
 
         private void Browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e)
         {
-            //默认当天延后三个小时
-            if (string.IsNullOrEmpty(_date))
-            {
-                _date = DateTime.Now.AddHours(-3).ToString("yyyy-MM-dd");
-            }
-
             if (_flag)
             {
                 Browser.ShowDevTools();
@@ -94,95 +88,85 @@ namespace LongManagerClient.Pages.In
                     return;
                 }
 
+                if (_currentPage > _lastPage)
+                {
+                    _currentPage = 0;
+                }
+
                 if (e.Url.ToString() == _inMail + "cx" && _currentPage <= _lastPage)
                 {
-                    
-                    //循环抓取，跑到最后一页后，回到第0页
-                    if (_currentPage == _lastPage)
-                    {
-                        _currentPage = 0;
-                    }
-
-                    var script = $@"
-                    //登录
-                    if( '{e.Url}'.indexOf('{_login}') > -1){{
-                       var userName = document.getElementById('username');
-                       if(userName != null){{
-                          //userName.value='21560019admin';
-                          //var password = document.getElementById('password');
-                          //password.value='zjg123456';
-                          //document.getElementById('login').click();
-                       }}else{{
-                          window.location.href='{_inMail}';
-                       }};
-                    }}
-                    
-                    //设置寄达县
-                    if('{e.Url}' == '{_inMail}'){{
-                       //县市
-                       var result = {{id:'张家港市',text:'张家港市',code:'320582'}}
-                       $('#receiverCountyCode').val('320582');
-                       $('#receiverCountyName').select2('data',result);
-                    
-                       //信息来源
-                       var dataSource1 = {{id:'0',text:'邮政'}}
-                       var dataSource2 = {{id:'1',text:'速递'}}
-                       $('#dataSource').select2('data',dataSource2);
-                       $('#handleFlag').select2('data',dataSource2);
-                    
-                       //查询时间
-                       $('#postStartTime').val('{_date}');         
-                    
-                       seachSubmit();
-                    }}
-                    
-                    if('{e.Url}' == '{_inMail}'+'cx'){{         
-                       page({_currentPage},{_pageSize},'');
-                       console.log('进口抓取，当前页数：'+ '{_currentPage}');
-                       var tables = document.getElementsByTagName('table');
-                       if(tables != null && tables.length > 0 ){{
-                           var addressTable = tables[2];
-                           //console.log(addressTable.innerHTML);
-                    
-                           var rows = addressTable.rows;
-                    
-                           if(rows.length > 0){{
-                               var rlength = rows.length;
-                               var clength = rows[1].cells.length;
-                    
-                               /* for(var i = 0 ; i < rlength; i++){{
-                                   for(var j=0; j < clength; j++){{
-                                      console.log('位置信息___i:'+ i + 'j:' + j +'内容:'+rows[i].cells[j].innerHTML);
-                                   }}
-                               }} */
-                               
-                               for(var i = 0 ; i < rlength; i++){{                                
-                                   var mailNO = rows[i].cells[2].innerHTML;
-                                   mailNO = mailNO.length > 12 ? mailNO.substring(0,13) : mailNO;
-                                   var address = rows[i].cells[4].innerHTML;
-                                   var orgName = rows[i].cells[5].innerHTML;
-                                   var consignee = rows[i].cells[9].innerHTML;
-                                   jsObject.saveInAddress(mailNO,address,orgName,consignee,'{_date}');
-                               }}
-                           }}
-                       }}
-                    }}";
-                    Browser.ExecuteScriptAsync(script);
                     _currentPage++;
                 }
-                else
-                {
-                    GoLoginPage();
-                }
+
+                var script = $@"
+                //登录
+                if( '{e.Url}'.indexOf('{_login}') > -1){{
+                   var userName = document.getElementById('username');
+                   if(userName != null){{
+                      //userName.value='21560019admin';
+                      //var password = document.getElementById('password');
+                      //password.value='zjg123456';
+                      //document.getElementById('login').click();
+                   }}else{{
+                      window.location.href='{_inMail}';
+                   }};
+                }}
+                
+                //设置寄达县
+                if('{e.Url}' == '{_inMail}'){{
+                   //县市
+                   var result = {{id:'张家港市',text:'张家港市',code:'320582'}}
+                   $('#receiverCountyCode').val('320582');
+                   $('#receiverCountyName').select2('data',result);
+
+                   //信息来源
+                   var dataSource1 = {{id:'0',text:'邮政'}}
+                   var dataSource2 = {{id:'1',text:'速递'}}
+                   $('#dataSource').select2('data',dataSource2);
+                   $('#handleFlag').select2('data',dataSource2);
+
+                   //查询时间
+                   $('#postStartTime').val('{_date}');         
+
+                   seachSubmit();
+                }}
+                
+                if('{e.Url}' == '{_inMail}'+'cx'){{         
+                   page({_currentPage},{_pageSize},'');
+                   console.log('进口抓取，当前页数：'+ {_currentPage});
+                   var tables = document.getElementsByTagName('table');
+                   if(tables != null && tables.length > 0 ){{
+                       var addressTable = tables[2];
+                       //console.log(addressTable.innerHTML);
+
+                       var rows = addressTable.rows;
+
+                       if(rows.length > 0){{
+                           var rlength = rows.length;
+                           var clength = rows[1].cells.length;
+
+                           /* for(var i = 0 ; i < rlength; i++){{
+                               for(var j=0; j < clength; j++){{
+                                  console.log('位置信息___i:'+ i + 'j:' + j +'内容:'+rows[i].cells[j].innerHTML);
+                               }}
+                           }} */
+                           
+                           for(var i = 0 ; i < rlength; i++){{                                
+                               var mailNO = rows[i].cells[2].innerHTML;
+                               mailNO = mailNO.length > 12 ? mailNO.substring(0,13) : mailNO;
+                               var address = rows[i].cells[4].innerHTML;
+                               var orgName = rows[i].cells[5].innerHTML;
+                               var consignee = rows[i].cells[9].innerHTML;
+                               jsObject.saveInAddress(mailNO,address,orgName,consignee,'{_date}');
+                           }}
+                       }}
+                   }}
+                }}";
+                Browser.ExecuteScriptAsync(script);
             }
         }
 
         private void GoLogin_Click(object sender, RoutedEventArgs e)
-        {
-            GoLoginPage();
-        }
-
-        private void GoLoginPage()
         {
             Browser.ExecuteScriptAsync($"alert('返回登陆页面');window.location.href='{_logout}?serviceurl={_login}';");
         }

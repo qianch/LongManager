@@ -161,7 +161,7 @@ namespace LongManagerClient.Pages.JiangSuOut
 
         private void MoveToHistory()
         {
-            var outInfos = LongDbContext.OutInfo.Where(x => x.IsPush == 1);
+            var outInfos = LongDbContext.OutInfo.Where(x => x.IsPush == 1 || x.CountryPosition != "38");
             var historys = LongDbContext.OutInfo.ToList();
             int pageSize = 1000;
             int pages = (outInfos.Count() / pageSize);
