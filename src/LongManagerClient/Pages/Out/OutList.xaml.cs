@@ -49,8 +49,8 @@ namespace LongManagerClient.Pages.Out
         private void Search()
         {
             var outInfos = LongDbContext.OutInfo.AsNoTracking().AsEnumerable<BaseOut>();
-            var history = LongDbContext.OutInfoHistory.AsNoTracking().AsEnumerable<BaseOut>();
-            outInfos = outInfos.Concat(history);
+            //var history = LongDbContext.OutInfoHistory.AsNoTracking().AsEnumerable<BaseOut>();
+            //outInfos = outInfos.Concat(history);
 
             if (!string.IsNullOrEmpty(TxtMailNO.Text))
             {

@@ -48,8 +48,8 @@ namespace LongManagerClient.Pages.In
         protected void Search()
         {
             var infos = LongDbContext.InInfo.AsNoTracking().AsEnumerable<BaseIn>();
-            var history = LongDbContext.InInfoHistory.AsNoTracking().AsEnumerable<BaseIn>();
-            infos = infos.Concat(history);
+            //var history = LongDbContext.InInfoHistory.AsNoTracking().AsEnumerable<BaseIn>();
+            //infos = infos.Concat(history);
 
             if (!string.IsNullOrEmpty(TxtMailNO.Text))
             {

@@ -81,6 +81,12 @@ namespace LongManagerClient.Pages.Out
 
             if (e.Frame.IsMain)
             {
+                if (e.Url.ToString() == "chrome-error://chromewebdata/")
+                {
+                    Browser.ExecuteScriptAsync("alert('新一代无法登陆，请检查网络是否正常。')");
+                    return;
+                }
+
                 var script = $@"
                 //登录
                 if( '{e.Url}'.indexOf('{_login}') > -1 ){{
@@ -96,7 +102,7 @@ namespace LongManagerClient.Pages.Out
                 }}
 
                 if( '{e.Url}' == '{_outMail}'){{
-                   for(var i=0;i<{_lastPage};i++){{
+                   for(var i=0;i<={_lastPage};i++){{
                       getOutInfo(i,{_pageSize});
                    }}
                 }}
@@ -156,6 +162,11 @@ namespace LongManagerClient.Pages.Out
         }
 
         private void GoLogin_Click(object sender, RoutedEventArgs e)
+        {
+            GoLoginPage();
+        }
+
+        private void GoLoginPage()
         {
             Browser.ExecuteScriptAsync($"alert('返回登陆页面');window.location.href='{_logout}?serviceurl={_login}';");
         }

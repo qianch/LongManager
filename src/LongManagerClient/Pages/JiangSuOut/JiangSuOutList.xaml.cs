@@ -50,8 +50,8 @@ namespace LongManagerClient.Pages.JiangSuOut
         private void Search()
         {
             var jiangsu = LongDbContext.OutInfo.AsNoTracking().Where(x => x.CountryPosition == "38").AsEnumerable<BaseOut>();
-            var history = LongDbContext.OutInfoHistory.AsNoTracking().Where(x => x.CountryPosition == "38").AsEnumerable<BaseOut>();
-            jiangsu = jiangsu.Concat(history);
+            //var history = LongDbContext.OutInfoHistory.AsNoTracking().Where(x => x.CountryPosition == "38").AsEnumerable<BaseOut>();
+            //jiangsu = jiangsu.Concat(history);
 
             if (!string.IsNullOrEmpty(TxtMailNO.Text))
             {
