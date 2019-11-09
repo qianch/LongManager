@@ -33,19 +33,12 @@ namespace LongManagerClient.Pages.BLS
 
         private void BasePage_Loaded(object sender, RoutedEventArgs e)
         {
-            Pager.LongPage.AllCount = LongDbContext.BLSInfo.Count();
-            Pager.InitButton();
-            MailDataGrid.ItemsSource = LongDbContext.BLSInfo
-                .Take(Pager.LongPage.PageSize)
-                .ToList();
+            Search();
         }
 
         private void Pager_PageIndexChange(object sender, EventArgs e)
         {
-            MailDataGrid.ItemsSource = LongDbContext.BLSInfo
-                .Skip(Pager.LongPage.PageSize * (Pager.LongPage.PageIndex - 1))
-                .Take(Pager.LongPage.PageSize)
-                .ToList();
+            Search();
         }
 
         private void SearchBtn_Click(object sender, RoutedEventArgs e)

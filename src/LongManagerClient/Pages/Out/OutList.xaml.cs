@@ -1,5 +1,7 @@
 ﻿using Autofac;
 using LongManagerClient.Core;
+using LongManagerClient.Core.ClientDataBase;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,44 +33,42 @@ namespace LongManagerClient.Pages.Out
 
         private void BasePage_Loaded(object sender, RoutedEventArgs e)
         {
-            Pager.LongPage.AllCount = LongDbContext.OutInfo.Count();
-            Pager.InitButton();
-            MailDataGrid.ItemsSource = LongDbContext.OutInfo
-                .OrderByDescending(x=>x.AddDate)
-                .Take(Pager.LongPage.PageSize)
-                .ToList();
+            Search();
         }
 
         private void Pager_PageIndexChange(object sender, EventArgs e)
         {
-            ListChange();
+            Search();
         }
 
         private void SearchBtn_Click(object sender, RoutedEventArgs e)
         {
-            ListChange();
+            Search();
         }
 
-        private void ListChange()
+        private void Search()
         {
-            var mails = LongDbContext.OutInfo.AsEnumerable();
+            var outInfos = LongDbContext.OutInfo.AsNoTracking().AsEnumerable<BaseOut>();
+            var history = LongDbContext.OutInfoHistory.AsNoTracking().AsEnumerable<BaseOut>();
+            outInfos = outInfos.Concat(history);
+
             if (!string.IsNullOrEmpty(TxtMailNO.Text))
             {
-                mails = mails.Where(x => x.MailNO.Contains(TxtMailNO.Text));
+                outInfos = outInfos.Where(x => x.MailNO.Contains(TxtMailNO.Text));
             }
 
             if (!string.IsNullOrEmpty(TxtAddress.Text))
             {
-                mails = mails.Where(x => x.Address.Contains(TxtAddress.Text) ||
+                outInfos = outInfos.Where(x => x.Address.Contains(TxtAddress.Text) ||
                                          x.OrgName.Contains(TxtAddress.Text));
             }
 
-            Pager.LongPage.AllCount = mails.Count();
+            Pager.LongPage.AllCount = outInfos.Count();
             Pager.LongPage.Search = TxtMailNO.Text + TxtAddress;
             Pager.InitButton();
 
-            MailDataGrid.ItemsSource = mails
-                .OrderByDescending(x=>x.AddDate)
+            MailDataGrid.ItemsSource = outInfos
+                .OrderByDescending(x => x.ID)
                 .Skip(Pager.LongPage.PageSize * (Pager.LongPage.PageIndex - 1))
                 .Take(Pager.LongPage.PageSize)
                 .ToList();
@@ -76,6 +76,7 @@ namespace LongManagerClient.Pages.Out
 
         private void PositionBtn_Click(object sender, RoutedEventArgs e)
         {
+            PositionBtn.IsEnabled = false;
             var cityPosition = _container.Resolve<CityPosition>();
             var mails = LongDbContext.OutInfo.Where(x => string.IsNullOrEmpty(x.CountryPosition)).ToList();
             foreach (var mail in mails)
@@ -94,6 +95,7 @@ namespace LongManagerClient.Pages.Out
             LongDbContext.SaveChanges();
 
             MessageBox.Show("全国格口划分完成", "提示", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+            PositionBtn.IsEnabled = true;
         }
     }
 }

@@ -34,46 +34,43 @@ namespace LongManagerClient.Pages.JiangSuOut
 
         private void BasePage_Loaded(object sender, RoutedEventArgs e)
         {
-            Pager.LongPage.AllCount = LongDbContext.OutInfo.Where(x => x.CountryPosition == "38").Count();
-            Pager.InitButton();
-            MailDataGrid.ItemsSource = LongDbContext.OutInfo
-                .Where(x => x.CountryPosition == "38")
-                .OrderByDescending(x => x.AddDate)
-                .Take(Pager.LongPage.PageSize)
-                .ToList();
+            Search();
         }
 
         private void Pager_PageIndexChange(object sender, EventArgs e)
         {
-            ListChange();
+            Search();
         }
 
         private void SearchBtn_Click(object sender, RoutedEventArgs e)
         {
-            ListChange();
+            Search();
         }
 
-        private void ListChange()
+        private void Search()
         {
-            var mails = LongDbContext.OutInfo.AsNoTracking().Where(x => x.CountryPosition == "38").AsEnumerable();
+            var jiangsu = LongDbContext.OutInfo.AsNoTracking().Where(x => x.CountryPosition == "38").AsEnumerable<BaseOut>();
+            var history = LongDbContext.OutInfoHistory.AsNoTracking().Where(x => x.CountryPosition == "38").AsEnumerable<BaseOut>();
+            jiangsu = jiangsu.Concat(history);
+
             if (!string.IsNullOrEmpty(TxtMailNO.Text))
             {
-                mails = mails.Where(x => x.MailNO.Contains(TxtMailNO.Text));
+                jiangsu = jiangsu.Where(x => x.MailNO.Contains(TxtMailNO.Text));
             }
 
             if (!string.IsNullOrEmpty(TxtAddress.Text))
             {
-                mails = mails.Where(x => x.Address.Contains(TxtAddress.Text) ||
+                jiangsu = jiangsu.Where(x => x.Address.Contains(TxtAddress.Text) ||
                                          x.OrgName.Contains(TxtAddress.Text));
             }
 
-            Pager.LongPage.AllCount = mails.Count();
+            Pager.LongPage.AllCount = jiangsu.Count();
             Pager.LongPage.Search = TxtMailNO.Text + TxtAddress;
             Pager.InitButton();
 
-            MailDataGrid.ItemsSource = mails
+            MailDataGrid.ItemsSource = jiangsu
                 .Where(x => x.CountryPosition == "38")
-                .OrderByDescending(x => x.AddDate)
+                .OrderByDescending(x => x.ID)
                 .Skip(Pager.LongPage.PageSize * (Pager.LongPage.PageIndex - 1))
                 .Take(Pager.LongPage.PageSize)
                 .ToList();
@@ -81,6 +78,7 @@ namespace LongManagerClient.Pages.JiangSuOut
 
         private void PositionBtn_Click(object sender, RoutedEventArgs e)
         {
+            PositionBtn.IsEnabled = false;
             var cityPosition = _container.Resolve<CityPosition>();
             //长三角地区邮件
             var mails = LongDbContext.OutInfo.Where(x => x.CountryPosition == "38" && string.IsNullOrEmpty(x.JiangSuPosition)).ToList();
@@ -91,10 +89,12 @@ namespace LongManagerClient.Pages.JiangSuOut
             }
             LongDbContext.SaveChanges();
             MessageBox.Show("长三角格口划分完成", "提示", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+            PositionBtn.IsEnabled = true;
         }
 
         private void SynBtn_Click(object sender, RoutedEventArgs e)
         {
+            SynBtn.IsEnabled = false;
             try
             {
                 AutoPickDbContext.Database.CanConnect();
@@ -102,18 +102,19 @@ namespace LongManagerClient.Pages.JiangSuOut
             catch (Exception)
             {
                 MessageBox.Show("无法连接到分拣机数据库", "提示", MessageBoxButton.OK, MessageBoxImage.Warning);
+                SynBtn.IsEnabled = true;
                 return;
             }
 
             var outInfos = LongDbContext.OutInfo.Where(x => x.IsPush != 1 && x.JiangSuPosition != null);
-            var serverbillExports = AutoPickDbContext.BillExport.ToList();
+            var serverbillExports = AutoPickDbContext.BillExport.AsNoTracking().ToList();
 
-            int pageSize = 100;
-            int pages = (outInfos.Count() / pageSize) + 1;
+            int pageSize = 1000;
+            int pages = (outInfos.Count() / pageSize);
 
-            for (int i = 0; i <= pages; i++)
+            for (int pageIndex = 0; pageIndex <= pages; pageIndex++)
             {
-                List<OutInfo> subOutInfos = outInfos.AsNoTracking().Skip(i * pageSize).Take(pageSize).ToList();
+                List<OutInfo> subOutInfos = outInfos.Take(pageSize).ToList();
 
                 foreach (var outInfo in subOutInfos)
                 {
@@ -122,7 +123,8 @@ namespace LongManagerClient.Pages.JiangSuOut
                         BarCode = outInfo.MailNO,
                         DestAddress = outInfo.Address,
                         BinCode = "10" + outInfo.JiangSuPosition.PadLeft(2, '0'),
-                        CityName = outInfo.OrgName
+                        CityName = outInfo.OrgName,
+                        CreateDateTime = Convert.ToDateTime(outInfo.PostDate)
                     };
 
                     int count = serverbillExports.Where(x => x.BarCode == billExport.BarCode).Count();
@@ -144,57 +146,52 @@ namespace LongManagerClient.Pages.JiangSuOut
             }
 
             MessageBox.Show("同步成功", "提示", MessageBoxButton.OK, MessageBoxImage.Asterisk);
-        }
-
-        private void SyncBtn_Click(object sender, RoutedEventArgs e)
-        {
-
-            var syncButton = sender as Button;
-            var rowGuid = syncButton.Tag as string;
-            var outInfo = LongDbContext.OutInfo.Where(x => x.RowGuid == rowGuid).First();
-
-            try
-            {
-                AutoPickDbContext.Database.CanConnect();
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("无法连接到分拣机数据库", "提示", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
-
-            var billExport = new BillExport
-            {
-                BarCode = outInfo.MailNO,
-                DestAddress = outInfo.Address,
-                BinCode = "10" + outInfo.JiangSuPosition.PadLeft(2, '0'),
-                CityName = outInfo.OrgName
-            };
-
-            var serverbillExports = AutoPickDbContext.BillExport.ToList();
-            int count = serverbillExports.Where(x => x.BarCode == billExport.BarCode).Count();
-            if (count == 0)
-            {
-                AutoPickDbContext.BillExport.Add(billExport);
-            }
-            else
-            {
-                AutoPickDbContext.BillExport.Update(billExport);
-            }
-
-            outInfo.IsPush = 1;
-            LongDbContext.OutInfo.Update(outInfo);
-
-            AutoPickDbContext.SaveChanges();
-            LongDbContext.SaveChanges();
-            ListChange();
-
-            MessageBox.Show("同步单个成功", "提示", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+            SynBtn.IsEnabled = true;
         }
 
         private void NoSyncBtn_Click(object sender, RoutedEventArgs e)
         {
             MailDataGrid.ItemsSource = LongDbContext.OutInfo.AsNoTracking().Where(x => x.CountryPosition == "38" && x.IsPush != 1).Take(50).ToList();
+        }
+
+        private void MoveToHistoryBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MoveToHistory();
+        }
+
+        private void MoveToHistory()
+        {
+            var outInfos = LongDbContext.OutInfo.Where(x => x.IsPush == 1);
+            var historys = LongDbContext.OutInfo.ToList();
+            int pageSize = 1000;
+            int pages = (outInfos.Count() / pageSize);
+
+            for (int pageIndex = 0; pageIndex <= pages; pageIndex++)
+            {
+                List<OutInfo> subInInfos = outInfos.Take(pageSize).ToList();
+                foreach (var info in subInInfos)
+                {
+                    var history = new OutInfoHistory
+                    {
+                        RowGuid = info.RowGuid,
+                        AddDate = info.AddDate,
+                        PostDate = info.PostDate,
+                        MailNO = info.MailNO,
+                        OrgName = info.OrgName,
+                        Consignee = info.Consignee,
+                        Phone = info.Phone,
+                        IsPush = info.IsPush,
+                        Address = info.Address,
+                        BelongOfficeName = info.BelongOfficeName,
+                        CountryPosition = info.CountryPosition,
+                        JiangSuPosition = info.JiangSuPosition
+                    };
+                    LongDbContext.OutInfoHistory.Add(history);
+                }
+            }
+            LongDbContext.OutInfo.RemoveRange(outInfos);
+            LongDbContext.SaveChanges();
+            MessageBox.Show("已转移到历史库", "提示", MessageBoxButton.OK, MessageBoxImage.Asterisk);
         }
     }
 }

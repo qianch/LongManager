@@ -20,7 +20,7 @@
         </Grid.RowDefinitions>
         <WrapPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left">
             <TextBox x:Name="TxtMailNO" materialDesign:HintAssist.Hint="邮件条码" Width="200" Margin="10"></TextBox>
-            <Button x:Name="SearchBtn" Margin="10" Content="查询" Click="SearchBtn_Click"></Button>
+            <Button x:Name="SearchBtn" Margin="10" Content="查询" IsDefault="True" Click="SearchBtn_Click"></Button>
             <Button x:Name="PositionBtn" Margin="10" Content="全国格口划分" Click="PositionBtn_Click"></Button>
             <Button x:Name="BLSExcel" Margin="10" Content="导入倍乐生Excel" Click="BLSExcel_Click"></Button>
         </WrapPanel>

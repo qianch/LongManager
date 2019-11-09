@@ -13,5 +13,6 @@ namespace LongManagerClient.Core.ServerDataBase
         public string BarCode { get; set; }
         public string DestAddress { get; set; }
         public string PresortPost { get; set; }
+        public DateTime? CreateDateTime { get; set; }
     }
 }
