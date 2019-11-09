@@ -27,3 +27,4 @@ node_modules/
 *.a 
 *.pyc 
 *.pyo __pycache__ 
+*.db
