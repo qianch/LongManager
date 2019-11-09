@@ -47,26 +47,23 @@ namespace LongManagerClient.Pages.In
 
         protected void Search()
         {
-            var infos = LongDbContext.InInfo.AsNoTracking().AsEnumerable<BaseIn>();
-            var history = LongDbContext.InInfoHistory.AsNoTracking().AsEnumerable<BaseIn>();
-            infos = infos.Concat(history);
-
+            var mails = LongDbContext.InInfo.AsNoTracking().AsEnumerable();
             if (!string.IsNullOrEmpty(TxtMailNO.Text))
             {
-                infos = infos.Where(x => x.MailNO.Contains(TxtMailNO.Text));
+                mails = mails.Where(x => x.MailNO.Contains(TxtMailNO.Text));
             }
 
             if (!string.IsNullOrEmpty(TxtAddress.Text))
             {
-                infos = infos.Where(x => x.Address.Contains(TxtAddress.Text) ||
+                mails = mails.Where(x => x.Address.Contains(TxtAddress.Text) ||
                                          x.OrgName.Contains(TxtAddress.Text));
             }
 
-            Pager.LongPage.AllCount = infos.Count();
+            Pager.LongPage.AllCount = mails.Count();
             Pager.LongPage.Search = TxtMailNO.Text;
             Pager.InitButton();
 
-            MailDataGrid.ItemsSource = infos
+            MailDataGrid.ItemsSource = mails
                 .OrderByDescending(x => x.ID)
                 .Skip(Pager.LongPage.PageSize * (Pager.LongPage.PageIndex - 1))
                 .Take(Pager.LongPage.PageSize)
@@ -87,15 +84,15 @@ namespace LongManagerClient.Pages.In
                 return;
             }
 
-            var inInfos = LongDbContext.InInfo.Where(x => x.IsPush != 1);
+            var InInfos = LongDbContext.InInfo.Where(x => x.IsPush != 1);
             var serverEntryBills = AutoPickDbContext.EntryBill.AsNoTracking().ToList();
 
             int pageSize = 1000;
-            int pages = (inInfos.Count() / pageSize);
+            int pages = (InInfos.Count() / pageSize) + 1;
 
             for (int pageIndex = 0; pageIndex <= pages; pageIndex++)
             {
-                List<InInfo> subInInfos = inInfos.Take(pageSize).ToList();
+                List<InInfo> subInInfos = InInfos.Take(pageSize).ToList();
                 foreach (var info in subInInfos)
                 {
                     var entryBill = new EntryBill
@@ -132,43 +129,6 @@ namespace LongManagerClient.Pages.In
         private void NoSyncBtn_Click(object sender, RoutedEventArgs e)
         {
             MailDataGrid.ItemsSource = LongDbContext.InInfo.AsNoTracking().Where(x => x.IsPush != 1).Take(50).ToList();
-        }
-
-        private void MoveToHistoryBtn_Click(object sender, RoutedEventArgs e)
-        {
-            MoveToHistory();
-        }
-
-        private void MoveToHistory()
-        {
-            var inInfos = LongDbContext.InInfo.Where(x => x.IsPush == 1);
-            var historys = LongDbContext.InInfoHistory.ToList();
-            int pageSize = 1000;
-            int pages = (inInfos.Count() / pageSize);
-
-            for (int pageIndex = 0; pageIndex <= pages; pageIndex++)
-            {
-                List<InInfo> subInInfos = inInfos.Take(pageSize).ToList();
-                foreach (var info in subInInfos)
-                {
-                    var history = new InInfoHistory
-                    {
-                        RowGuid = info.RowGuid,
-                        AddDate = info.AddDate,
-                        PostDate = info.PostDate,
-                        MailNO = info.MailNO,
-                        OrgName = info.OrgName,
-                        Consignee = info.Consignee,
-                        Phone = info.Phone,
-                        IsPush = info.IsPush,
-                        Address = info.Address
-                    };
-                    LongDbContext.InInfoHistory.Add(history);
-                }
-            }
-            LongDbContext.InInfo.RemoveRange(inInfos);
-            LongDbContext.SaveChanges();
-            MessageBox.Show("已转移到历史库", "提示", MessageBoxButton.OK, MessageBoxImage.Asterisk);
         }
     }
 }
