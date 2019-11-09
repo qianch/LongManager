@@ -49,23 +49,26 @@ namespace LongManagerClient.Pages.JiangSuOut
 
         private void Search()
         {
-            var mails = LongDbContext.OutInfo.AsNoTracking().Where(x => x.CountryPosition == "38").AsEnumerable();
+            var jiangsu = LongDbContext.OutInfo.AsNoTracking().Where(x => x.CountryPosition == "38").AsEnumerable<BaseOut>();
+            var history = LongDbContext.OutInfoHistory.AsNoTracking().Where(x => x.CountryPosition == "38").AsEnumerable<BaseOut>();
+            jiangsu = jiangsu.Concat(history);
+
             if (!string.IsNullOrEmpty(TxtMailNO.Text))
             {
-                mails = mails.Where(x => x.MailNO.Contains(TxtMailNO.Text));
+                jiangsu = jiangsu.Where(x => x.MailNO.Contains(TxtMailNO.Text));
             }
 
             if (!string.IsNullOrEmpty(TxtAddress.Text))
             {
-                mails = mails.Where(x => x.Address.Contains(TxtAddress.Text) ||
+                jiangsu = jiangsu.Where(x => x.Address.Contains(TxtAddress.Text) ||
                                          x.OrgName.Contains(TxtAddress.Text));
             }
 
-            Pager.LongPage.AllCount = mails.Count();
+            Pager.LongPage.AllCount = jiangsu.Count();
             Pager.LongPage.Search = TxtMailNO.Text + TxtAddress;
             Pager.InitButton();
 
-            MailDataGrid.ItemsSource = mails
+            MailDataGrid.ItemsSource = jiangsu
                 .Where(x => x.CountryPosition == "38")
                 .OrderByDescending(x => x.ID)
                 .Skip(Pager.LongPage.PageSize * (Pager.LongPage.PageIndex - 1))
@@ -107,7 +110,7 @@ namespace LongManagerClient.Pages.JiangSuOut
             var serverbillExports = AutoPickDbContext.BillExport.AsNoTracking().ToList();
 
             int pageSize = 1000;
-            int pages = (outInfos.Count() / pageSize) + 1;
+            int pages = (outInfos.Count() / pageSize);
 
             for (int pageIndex = 0; pageIndex <= pages; pageIndex++)
             {
@@ -149,6 +152,46 @@ namespace LongManagerClient.Pages.JiangSuOut
         private void NoSyncBtn_Click(object sender, RoutedEventArgs e)
         {
             MailDataGrid.ItemsSource = LongDbContext.OutInfo.AsNoTracking().Where(x => x.CountryPosition == "38" && x.IsPush != 1).Take(50).ToList();
+        }
+
+        private void MoveToHistoryBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MoveToHistory();
+        }
+
+        private void MoveToHistory()
+        {
+            var outInfos = LongDbContext.OutInfo.Where(x => x.IsPush == 1);
+            var historys = LongDbContext.OutInfo.ToList();
+            int pageSize = 1000;
+            int pages = (outInfos.Count() / pageSize);
+
+            for (int pageIndex = 0; pageIndex <= pages; pageIndex++)
+            {
+                List<OutInfo> subInInfos = outInfos.Take(pageSize).ToList();
+                foreach (var info in subInInfos)
+                {
+                    var history = new OutInfoHistory
+                    {
+                        RowGuid = info.RowGuid,
+                        AddDate = info.AddDate,
+                        PostDate = info.PostDate,
+                        MailNO = info.MailNO,
+                        OrgName = info.OrgName,
+                        Consignee = info.Consignee,
+                        Phone = info.Phone,
+                        IsPush = info.IsPush,
+                        Address = info.Address,
+                        BelongOfficeName = info.BelongOfficeName,
+                        CountryPosition = info.CountryPosition,
+                        JiangSuPosition = info.JiangSuPosition
+                    };
+                    LongDbContext.OutInfoHistory.Add(history);
+                }
+            }
+            LongDbContext.OutInfo.RemoveRange(outInfos);
+            LongDbContext.SaveChanges();
+            MessageBox.Show("已转移到历史库", "提示", MessageBoxButton.OK, MessageBoxImage.Asterisk);
         }
     }
 }

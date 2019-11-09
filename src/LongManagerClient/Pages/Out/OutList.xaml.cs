@@ -1,5 +1,7 @@
 ﻿using Autofac;
 using LongManagerClient.Core;
+using LongManagerClient.Core.ClientDataBase;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,24 +48,27 @@ namespace LongManagerClient.Pages.Out
 
         private void Search()
         {
-            var mails = LongDbContext.OutInfo.AsEnumerable();
+            var outInfos = LongDbContext.OutInfo.AsNoTracking().AsEnumerable<BaseOut>();
+            var history = LongDbContext.OutInfoHistory.AsNoTracking().AsEnumerable<BaseOut>();
+            outInfos = outInfos.Concat(history);
+
             if (!string.IsNullOrEmpty(TxtMailNO.Text))
             {
-                mails = mails.Where(x => x.MailNO.Contains(TxtMailNO.Text));
+                outInfos = outInfos.Where(x => x.MailNO.Contains(TxtMailNO.Text));
             }
 
             if (!string.IsNullOrEmpty(TxtAddress.Text))
             {
-                mails = mails.Where(x => x.Address.Contains(TxtAddress.Text) ||
+                outInfos = outInfos.Where(x => x.Address.Contains(TxtAddress.Text) ||
                                          x.OrgName.Contains(TxtAddress.Text));
             }
 
-            Pager.LongPage.AllCount = mails.Count();
+            Pager.LongPage.AllCount = outInfos.Count();
             Pager.LongPage.Search = TxtMailNO.Text + TxtAddress;
             Pager.InitButton();
 
-            MailDataGrid.ItemsSource = mails
-                .OrderByDescending(x=>x.ID)
+            MailDataGrid.ItemsSource = outInfos
+                .OrderByDescending(x => x.ID)
                 .Skip(Pager.LongPage.PageSize * (Pager.LongPage.PageIndex - 1))
                 .Take(Pager.LongPage.PageSize)
                 .ToList();
