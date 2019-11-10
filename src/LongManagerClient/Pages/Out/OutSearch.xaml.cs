@@ -105,6 +105,10 @@ namespace LongManagerClient.Pages.Out
                    for(var i=0;i<={_lastPage};i++){{
                       getOutInfo(i,{_pageSize});
                       console.log('出口抓取，当前页数：'+ i);
+                      //抓完后返回登陆页
+                      if(i == {_lastPage}){{
+                         alert('抓取完成，返回登陆页面');window.location.href='{_logout}?serviceurl={_login}';
+                      }}
                    }}
                 }}
                 
