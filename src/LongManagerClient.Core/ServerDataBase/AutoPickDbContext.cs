@@ -9,7 +9,7 @@ namespace LongManagerClient.Core.ServerDataBase
 {
     public class AutoPickDbContext : DbContext
     {
-        private static readonly string _connection = "Server=127.0.0.1;Database=AutoPick;Uid=root;Pwd=123456;Character Set=utf8;";
+        private static readonly string _connection = "Server=10.136.72.84;Database=AutoPick;Uid=root;Pwd=123456;Character Set=utf8;";
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseMySQL(_connection);

@@ -99,8 +99,9 @@ namespace LongManagerClient.Pages.JiangSuOut
             {
                 AutoPickDbContext.Database.CanConnect();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _log.Error(ex.ToString());
                 MessageBox.Show("无法连接到分拣机数据库", "提示", MessageBoxButton.OK, MessageBoxImage.Warning);
                 SynBtn.IsEnabled = true;
                 return;

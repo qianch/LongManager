@@ -29,8 +29,8 @@ namespace LongManagerClient.Pages.In
         private string _logout = "";
         private string _inMail = "";
         private const int _lastPage = 500;
-        private const int _pageSize = 200;
-        private string _date = DateTime.Now.ToString("yyyy-MM-dd");
+        private const int _pageSize = 500;
+        private string _date = "";
         private int _currentPage = 0;
         private bool _flag = false;
 
@@ -57,6 +57,7 @@ namespace LongManagerClient.Pages.In
 
             var showDevToolsConfig = LongDbContext.FrameConfig.Where(x => x.ConfigName == "ShowDevTools").FirstOrDefault() ?? new FrameConfig();
             var enable = "1";
+            _currentPage = _lastPage;
             if (showDevToolsConfig.ConfigValue == enable)
             {
                 _flag = true;
@@ -80,6 +81,11 @@ namespace LongManagerClient.Pages.In
                 _flag = false;
             }
 
+            if (string.IsNullOrEmpty(_date))
+            {
+                _date = DateTime.Now.AddHours(-6).ToString("yyyy-MM-dd");
+            }
+
             if (e.Frame.IsMain)
             {
                 if (e.Url.ToString() == "chrome-error://chromewebdata/")
@@ -88,14 +94,14 @@ namespace LongManagerClient.Pages.In
                     return;
                 }
 
-                if (_currentPage > _lastPage)
+                if (_currentPage == 0)
                 {
-                    _currentPage = 0;
+                    _currentPage = _lastPage;
                 }
 
-                if (e.Url.ToString() == _inMail + "cx" && _currentPage <= _lastPage)
+                if (e.Url.ToString() == _inMail + "cx")
                 {
-                    _currentPage++;
+                    _currentPage--;
                 }
 
                 var script = $@"
@@ -126,7 +132,8 @@ namespace LongManagerClient.Pages.In
                    $('#handleFlag').select2('data',dataSource2);
 
                    //查询时间
-                   $('#postStartTime').val('{_date}');         
+                   $('#postStartTime').val('{_date}');
+                   console.log('日期：'+ '{_date}');
 
                    seachSubmit();
                 }}
