@@ -30,7 +30,7 @@ namespace LongManagerClient.Pages.Out
         private string _outMail = "";
         private string _ajax = "";
         private const int _lastPage = 500;
-        private const int _pageSize = 50;
+        private const int _pageSize = 200;
         private readonly string _today = DateTime.Now.ToString("yyyy-MM-dd");
         private bool _flag = false;
 
