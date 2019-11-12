@@ -42,29 +42,34 @@ namespace LongManagerClient.Core.CEF.JSObject
                         PostDate = bizOccurDate
                     };
                     _longDBContext.OutInfo.Add(mail);
-                    _longDBContext.SaveChanges();
                 }
             }
+            _longDBContext.SaveChanges();
         }
 
-        public void saveInAddress(string mailNO, string address, string orgName, string consignee, string date)
+        public void saveInAddress(string mailJSON, string date)
         {
-            var count = _longDBContext.InInfo.Where(x => x.MailNO == mailNO).ToList().Count();
-            if (count == 0)
+            List<Dictionary<string, string>> mails = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(mailJSON);
+            foreach (var mail in mails)
             {
-                var mail = new InInfo
+                var mailNO = mail.ContainsKey("mailNO") ? mail["mailNO"] : "";
+                var count = _longDBContext.InInfo.Where(x => x.MailNO == mailNO).ToList().Count();
+                if (count == 0)
                 {
-                    RowGuid = Guid.NewGuid().ToString(),
-                    MailNO = mailNO,
-                    Address = address,
-                    OrgName = orgName,
-                    Consignee = "",
-                    AddDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
-                    PostDate = date
-                };
-                _longDBContext.InInfo.Add(mail);
-                _longDBContext.SaveChanges();
+                    var inInfo = new InInfo
+                    {
+                        RowGuid = Guid.NewGuid().ToString(),
+                        MailNO = mailNO,
+                        Address = mail.ContainsKey("address") ? mail["address"] : "",
+                        OrgName = mail.ContainsKey("orgName") ? mail["orgName"] : "",
+                        Consignee = "",
+                        AddDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
+                        PostDate = date
+                    };
+                    _longDBContext.InInfo.Add(inInfo);
+                }
             }
+            _longDBContext.SaveChanges();
         }
     }
 }

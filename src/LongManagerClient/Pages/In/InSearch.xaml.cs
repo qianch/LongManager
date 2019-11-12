@@ -158,14 +158,24 @@ namespace LongManagerClient.Pages.In
                                }}
                            }} */
                            
+                           var mails = [];
                            for(var i = 0 ; i < rlength; i++){{                                
                                var mailNO = rows[i].cells[2].innerHTML;
                                mailNO = mailNO.length > 12 ? mailNO.substring(0,13) : mailNO;
+
                                var address = rows[i].cells[4].innerHTML;
                                var orgName = rows[i].cells[5].innerHTML;
                                var consignee = rows[i].cells[9].innerHTML;
-                               jsObject.saveInAddress(mailNO,address,orgName,consignee,'{_date}');
+
+                               var mail = {{}};
+                               mail.mailNO = mailNO;
+                               mail.address = address;
+                               mail.orgName = orgName;
+                               mail.consignee = consignee;
+
+                               mails.push(mail);
                            }}
+                           jsObject.saveInAddress(JSON.stringify(mails),'{_date}');
                        }}
                    }}
                 }}";
