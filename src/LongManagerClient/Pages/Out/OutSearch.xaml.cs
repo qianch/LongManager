@@ -29,7 +29,7 @@ namespace LongManagerClient.Pages.Out
         private string _logout = "";
         private string _outMail = "";
         private string _ajax = "";
-        private const int _lastPage = 500;
+        private const int _lastPage = 400;
         private const int _pageSize = 200;
         private readonly string _today = DateTime.Now.ToString("yyyy-MM-dd");
         private bool _flag = false;
@@ -101,14 +101,17 @@ namespace LongManagerClient.Pages.Out
                    }};
                 }}
 
-                if( '{e.Url}' == '{_outMail}'){{
-                   setInterval(function(){{
-                      for(var i={_lastPage};i >= 0;i--){{
-                      getOutInfo(i,{_pageSize});
-                      console.log('出口抓取，当前页数：'+ i);
-                     }}
-                   }},1*3600*1000);
+                function getOut(){{
+                     for(var i={_lastPage};i >= 0;i--){{
+                       getOutInfo(i,{_pageSize});
+                       console.log('出口抓取，当前页数：'+ i);
+                   }}
                 }}
+
+                if( '{e.Url}' == '{_outMail}'){{
+                   getOut();
+                   setInterval(function(){{getOut();}}, 20*60*1000); 
+                 }}
                 
                 function getOutInfo(pageNo,pageSize){{
                   $.ajax({{

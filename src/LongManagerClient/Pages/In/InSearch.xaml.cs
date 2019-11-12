@@ -171,7 +171,7 @@ namespace LongManagerClient.Pages.In
                                mail.mailNO = mailNO;
                                mail.address = address;
                                mail.orgName = orgName;
-                               mail.consignee = consignee;
+                               mail.consignee = '';
 
                                mails.push(mail);
                            }}

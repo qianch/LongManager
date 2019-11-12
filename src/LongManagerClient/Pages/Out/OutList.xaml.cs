@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using LongManagerClient.Core;
+using LongManagerClient.Core.BSL;
 using LongManagerClient.Core.ClientDataBase;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -11,6 +12,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -94,8 +96,24 @@ namespace LongManagerClient.Pages.Out
             }
             LongDbContext.SaveChanges();
 
-            MessageBox.Show("全国格口划分完成", "提示", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+            System.Windows.MessageBox.Show("全国格口划分完成", "提示", MessageBoxButton.OK, MessageBoxImage.Asterisk);
             PositionBtn.IsEnabled = true;
+        }
+
+        private void OutExcel_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog
+            {
+                Multiselect = false,
+                Filter = "Excel|*.xlsx",
+                CheckFileExists = true
+            };
+
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                new OutExcelHandle(dialog.FileName).Save();
+            }
+            Search();
         }
     }
 }
