@@ -107,7 +107,7 @@ namespace LongManagerClient.Pages.Out
                       getOutInfo(i,{_pageSize});
                       console.log('出口抓取，当前页数：'+ i);
                      }}
-                   }},3600*4*1000);
+                   }},1*3600*1000);
                 }}
                 
                 function getOutInfo(pageNo,pageSize){{
