@@ -96,6 +96,7 @@ namespace LongManagerClient.Pages.In
             for (int pageIndex = 0; pageIndex <= pages; pageIndex++)
             {
                 List<InInfo> subInInfos = inInfos.Take(pageSize).ToList();
+                subInInfos = subInInfos.GroupBy(x => x.MailNO).Select(x => x.FirstOrDefault()).ToList();
                 foreach (var info in subInInfos)
                 {
                     var entryBill = new EntryBill
