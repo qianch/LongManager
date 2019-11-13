@@ -115,7 +115,11 @@ namespace LongManagerClient.Pages.JiangSuOut
 
             for (int pageIndex = 0; pageIndex <= pages; pageIndex++)
             {
-                List<OutInfo> subOutInfos = outInfos.Take(pageSize).ToList();
+                List<OutInfo> subOutInfos = outInfos
+                    .Take(pageSize)
+                    .GroupBy(x => x.MailNO)
+                    .Select(x => x.FirstOrDefault())
+                    .ToList();
 
                 foreach (var outInfo in subOutInfos)
                 {
