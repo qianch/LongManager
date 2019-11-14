@@ -107,7 +107,7 @@ namespace LongManagerClient.Pages.JiangSuOut
                 return;
             }
 
-            var outInfos = LongDbContext.OutInfo.Where(x => x.IsPush != 1);
+            var outInfos = LongDbContext.OutInfo.Where(x => x.IsPush != 1 && x.CountryPosition == "38");
             var serverbillExports = AutoPickDbContext.BillExport.AsNoTracking().ToList();
 
             int pageSize = 1000;
@@ -123,12 +123,14 @@ namespace LongManagerClient.Pages.JiangSuOut
 
                 foreach (var outInfo in subOutInfos)
                 {
+                    var countryBinCode = outInfo.CountryPosition == null ? "" : "10" + outInfo.CountryPosition.PadLeft(2, '0');
+                    var binCode = outInfo.JiangSuPosition == null ? "" : "10" + outInfo.JiangSuPosition.PadLeft(2, '0');
                     var billExport = new BillExport
                     {
                         BarCode = outInfo.MailNO,
                         DestAddress = outInfo.Address,
-                        CountryBinCode = "10" + outInfo.CountryPosition.PadLeft(2, '0'),
-                        BinCode = "10" + outInfo.JiangSuPosition.PadLeft(2, '0'),
+                        //CountryBinCode = countryBinCode,
+                        BinCode = binCode,
                         CityName = outInfo.OrgName,
                         CreateDateTime = Convert.ToDateTime(outInfo.PostDate)
                     };

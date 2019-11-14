@@ -15,8 +15,8 @@ namespace LongManagerClient.Core.ServerDataBase
         [Display(Description = "目的地地址")]
         public string DestAddress { get; set; }
 
-        [Display(Description = "全国格口")]
-        public string CountryBinCode { get; set; }
+        //[Display(Description = "全国格口")]
+        //public string CountryBinCode { get; set; }
 
         [Display(Description = "长三角格口")]
         public string BinCode { get; set; }

@@ -29,20 +29,14 @@
                 <TextBlock Text="{Binding BelongOfficeName}" Width="100"></TextBlock>
             </WrapPanel>
             <WrapPanel Margin="10">
-                <TextBlock Text="全国格口号：" Width="100"></TextBlock>
-                <TextBox x:Name="CountryPositionTextBox" materialDesign:HintAssist.Hint="全国格口号">
-                    <TextBox.Text>
-                        <Binding Path="CountryPosition"></Binding>
-                    </TextBox.Text>
-                </TextBox>
+                <TextBlock Text="全国格口：" Width="100"></TextBlock>
+                <ComboBox x:Name="CountryPositionComboBox" Width="300" Text="{Binding CountryPosition}"  materialDesign:HintAssist.Hint="全国格口" IsEditable="True" materialDesign:HintAssist.HintOpacity=".26">
+                </ComboBox>
             </WrapPanel>
             <WrapPanel Margin="10">
-                <TextBlock Text="长三角格口号：" Width="100"></TextBlock>
-                <TextBox x:Name="JiangSuPositionTextBox" materialDesign:HintAssist.Hint="长三角格口号">
-                    <TextBox.Text>
-                        <Binding Path="JiangSuPosition"></Binding>
-                    </TextBox.Text>
-                </TextBox>
+                <TextBlock Text="长三角格口：" Width="100"></TextBlock>
+                <ComboBox x:Name="JiangSuPositionComboBox" Width="300" Text="{Binding JiangSuPosition}"  materialDesign:HintAssist.Hint="长三角格口" IsEditable="True" materialDesign:HintAssist.HintOpacity=".26">
+                </ComboBox>
             </WrapPanel>
         </StackPanel>
         <StackPanel Grid.Row="1">

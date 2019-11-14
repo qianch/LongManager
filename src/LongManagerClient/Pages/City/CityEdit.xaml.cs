@@ -31,6 +31,21 @@ namespace LongManagerClient.Pages.City
             var key = ExtraData as string;
             var cityInfo = _longDBContext.CityInfo.Where(x => x.RowGuid == key).FirstOrDefault();
             DataContext = cityInfo;
+
+            var positions = new Dictionary<int, string>();
+
+            for (int i = 1; i <= 38; i++)
+            {
+                positions.Add(i, i.ToString());
+            }
+
+            CountryPositionComboBox.ItemsSource = positions;
+            CountryPositionComboBox.SelectedValuePath = "Key";
+            CountryPositionComboBox.DisplayMemberPath = "Value";
+
+            JiangSuPositionComboBox.ItemsSource = positions;
+            JiangSuPositionComboBox.SelectedValuePath = "Key";
+            JiangSuPositionComboBox.DisplayMemberPath = "Value";
         }
 
         private void SaveBtn_Click(object sender, RoutedEventArgs e)
