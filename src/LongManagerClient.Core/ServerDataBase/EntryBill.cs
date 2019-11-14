@@ -9,10 +9,16 @@ namespace LongManagerClient.Core.ServerDataBase
     [Table("T_EntryBill")]
     public class EntryBill
     {
-        [Key]
+        [Key, Display(Description = "邮件条码")]
         public string BarCode { get; set; }
+
+        [Display(Description = "目的地")]
         public string DestAddress { get; set; }
+
+        [Display(Description = "预分局")]
         public string PresortPost { get; set; }
+
+        [Display(Description = "邮寄时间")]
         public DateTime? CreateDateTime { get; set; }
     }
 }
