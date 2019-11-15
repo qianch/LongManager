@@ -7,9 +7,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LongManagerClient.Controls"
         mc:Ignorable="d"
-        Title="" Height="80" Width="800" Loaded="BaseWindow_Loaded" WindowStyle="None">
-    <StackPanel>
-        <TextBlock x:Name="tip" Height="20" Text="请稍等……"></TextBlock>
-        <ProgressBar x:Name="progressBar" Height="60" Width="800"></ProgressBar>
+        Title="" Height="60" Width="800" Loaded="BaseWindow_Loaded" WindowStyle="None" Background="Gray">
+    <StackPanel Margin="5">
+        <TextBlock x:Name="tip" Height="20" Text="请稍等……" Foreground="White"></TextBlock>
+        <ProgressBar x:Name="progressBar" Height="40" Width="800"></ProgressBar>
     </StackPanel>
 </pages:BaseWindow>
