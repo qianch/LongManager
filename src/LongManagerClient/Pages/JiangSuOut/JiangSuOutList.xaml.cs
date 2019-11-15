@@ -17,6 +17,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.EntityFrameworkCore;
+using LongManagerClient.Controls;
 
 namespace LongManagerClient.Pages.JiangSuOut
 {
@@ -78,7 +79,17 @@ namespace LongManagerClient.Pages.JiangSuOut
 
         private void PositionBtn_Click(object sender, RoutedEventArgs e)
         {
-            PositionBtn.IsEnabled = false;
+            var pWin = new ProgressBarWin
+            {
+                CallBack = JiangSuFind
+            };
+            pWin.ShowDialog();
+            MessageBox.Show("划分成功", "提示", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+            Search();
+        }
+
+        private void JiangSuFind()
+        {
             var cityPosition = _container.Resolve<CityPosition>();
             //长三角地区邮件
             var mails = LongDbContext.OutInfo.Where(x => x.CountryPosition == "38" && string.IsNullOrEmpty(x.JiangSuPosition)).ToList();
@@ -88,13 +99,21 @@ namespace LongManagerClient.Pages.JiangSuOut
                 LongDbContext.OutInfo.Update(mail);
             }
             LongDbContext.SaveChanges();
-            MessageBox.Show("长三角格口划分完成", "提示", MessageBoxButton.OK, MessageBoxImage.Asterisk);
-            PositionBtn.IsEnabled = true;
         }
 
         private void SynBtn_Click(object sender, RoutedEventArgs e)
         {
-            SynBtn.IsEnabled = false;
+            var pWin = new ProgressBarWin
+            {
+                CallBack = Sync
+            };
+            pWin.ShowDialog();
+            MessageBox.Show("同步结束", "提示", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+            Search();
+        }
+
+        private void Sync()
+        {
             try
             {
                 AutoPickDbContext.Database.CanConnect();
@@ -103,7 +122,6 @@ namespace LongManagerClient.Pages.JiangSuOut
             {
                 _log.Error(ex.ToString());
                 MessageBox.Show("无法连接到分拣机数据库", "提示", MessageBoxButton.OK, MessageBoxImage.Warning);
-                SynBtn.IsEnabled = true;
                 return;
             }
 
@@ -152,9 +170,6 @@ namespace LongManagerClient.Pages.JiangSuOut
                 AutoPickDbContext.SaveChanges();
                 LongDbContext.SaveChanges();
             }
-
-            MessageBox.Show("同步成功", "提示", MessageBoxButton.OK, MessageBoxImage.Asterisk);
-            SynBtn.IsEnabled = true;
         }
 
         private void NoSyncBtn_Click(object sender, RoutedEventArgs e)
@@ -164,20 +179,25 @@ namespace LongManagerClient.Pages.JiangSuOut
 
         private void MoveToHistoryBtn_Click(object sender, RoutedEventArgs e)
         {
-            MoveToHistory();
+            var pWin = new ProgressBarWin
+            {
+                CallBack = MoveToHistory
+            };
+            pWin.ShowDialog();
+            MessageBox.Show("转移成功", "提示", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+            Search();
         }
 
         private void MoveToHistory()
         {
             var outInfos = LongDbContext.OutInfo.Where(x => x.IsPush == 1 || x.CountryPosition != "38");
-            var historys = LongDbContext.OutInfo.ToList();
-            int pageSize = 1000;
+            int pageSize = 10000;
             int pages = (outInfos.Count() / pageSize);
 
             for (int pageIndex = 0; pageIndex <= pages; pageIndex++)
             {
-                List<OutInfo> subInInfos = outInfos.Take(pageSize).ToList();
-                foreach (var info in subInInfos)
+                List<OutInfo> subOutInfos = outInfos.Take(pageSize).ToList();
+                foreach (var info in subOutInfos)
                 {
                     var history = new OutInfoHistory
                     {
@@ -196,10 +216,9 @@ namespace LongManagerClient.Pages.JiangSuOut
                     };
                     LongDbContext.OutInfoHistory.Add(history);
                 }
+                LongDbContext.OutInfo.RemoveRange(subOutInfos);
+                LongDbContext.SaveChanges();
             }
-            LongDbContext.OutInfo.RemoveRange(outInfos);
-            LongDbContext.SaveChanges();
-            MessageBox.Show("已转移到历史库", "提示", MessageBoxButton.OK, MessageBoxImage.Asterisk);
         }
     }
 }

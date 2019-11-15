@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.EntityFrameworkCore;
+using LongManagerClient.Controls;
 
 namespace LongManagerClient.Pages.In
 {
@@ -75,7 +76,17 @@ namespace LongManagerClient.Pages.In
 
         private void SynBtn_Click(object sender, RoutedEventArgs e)
         {
-            SynBtn.IsEnabled = false;
+            var pWin = new ProgressBarWin
+            {
+                CallBack = Sync
+            };
+            pWin.ShowDialog();
+            MessageBox.Show("同步结束", "提示", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+            Search();
+        }
+
+        private void Sync()
+        {
             try
             {
                 AutoPickDbContext.Database.CanConnect();
@@ -83,7 +94,6 @@ namespace LongManagerClient.Pages.In
             catch (Exception)
             {
                 MessageBox.Show("无法连接到分拣机数据库", "提示", MessageBoxButton.OK, MessageBoxImage.Warning);
-                SynBtn.IsEnabled = true;
                 return;
             }
 
@@ -121,7 +131,6 @@ namespace LongManagerClient.Pages.In
                         AutoPickDbContext.EntryBill.Update(entryBill);
                     }
 
-
                     info.IsPush = 1;
                     LongDbContext.InInfo.Update(info);
                 }
@@ -129,9 +138,6 @@ namespace LongManagerClient.Pages.In
                 AutoPickDbContext.SaveChanges();
                 LongDbContext.SaveChanges();
             }
-
-            MessageBox.Show("同步成功", "提示", MessageBoxButton.OK, MessageBoxImage.Asterisk);
-            SynBtn.IsEnabled = true;
         }
 
         private void NoSyncBtn_Click(object sender, RoutedEventArgs e)
@@ -141,14 +147,19 @@ namespace LongManagerClient.Pages.In
 
         private void MoveToHistoryBtn_Click(object sender, RoutedEventArgs e)
         {
-            MoveToHistory();
+            var pWin = new ProgressBarWin
+            {
+                CallBack = MoveToHistory
+            };
+            pWin.ShowDialog();
+            MessageBox.Show("转移成功", "提示", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+            Search();
         }
 
         private void MoveToHistory()
         {
             var inInfos = LongDbContext.InInfo.Where(x => x.IsPush == 1);
-            var historys = LongDbContext.InInfoHistory.ToList();
-            int pageSize = 1000;
+            int pageSize = 10000;
             int pages = (inInfos.Count() / pageSize);
 
             for (int pageIndex = 0; pageIndex <= pages; pageIndex++)
@@ -170,10 +181,9 @@ namespace LongManagerClient.Pages.In
                     };
                     LongDbContext.InInfoHistory.Add(history);
                 }
+                LongDbContext.InInfo.RemoveRange(subInInfos);
+                LongDbContext.SaveChanges();
             }
-            LongDbContext.InInfo.RemoveRange(inInfos);
-            LongDbContext.SaveChanges();
-            MessageBox.Show("已转移到历史库", "提示", MessageBoxButton.OK, MessageBoxImage.Asterisk);
         }
     }
 }

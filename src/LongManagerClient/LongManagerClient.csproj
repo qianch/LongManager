@@ -99,6 +99,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\ProgressBarWin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -112,6 +116,9 @@
     <Compile Include="Command\LongManagerCommands.cs" />
     <Compile Include="Controls\LongPager.xaml.cs">
       <DependentUpon>LongPager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ProgressBarWin.xaml.cs">
+      <DependentUpon>ProgressBarWin.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

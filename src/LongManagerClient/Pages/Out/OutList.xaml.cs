@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using LongManagerClient.Controls;
 using LongManagerClient.Core;
 using LongManagerClient.Core.BSL;
 using LongManagerClient.Core.ClientDataBase;
@@ -78,7 +79,17 @@ namespace LongManagerClient.Pages.Out
 
         private void PositionBtn_Click(object sender, RoutedEventArgs e)
         {
-            PositionBtn.IsEnabled = false;
+            var pWin = new ProgressBarWin
+            {
+                CallBack = CountryFind
+            };
+            pWin.ShowDialog();
+            System.Windows.MessageBox.Show("划分成功", "提示", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+            Search();
+        }
+
+        private void CountryFind()
+        {
             var cityPosition = _container.Resolve<CityPosition>();
             var mails = LongDbContext.OutInfo.Where(x => string.IsNullOrEmpty(x.CountryPosition)).ToList();
             foreach (var mail in mails)
@@ -95,9 +106,6 @@ namespace LongManagerClient.Pages.Out
                 LongDbContext.OutInfo.Update(mail);
             }
             LongDbContext.SaveChanges();
-
-            System.Windows.MessageBox.Show("全国格口划分完成", "提示", MessageBoxButton.OK, MessageBoxImage.Asterisk);
-            PositionBtn.IsEnabled = true;
         }
 
         private void OutExcel_Click(object sender, RoutedEventArgs e)
