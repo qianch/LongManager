@@ -18,7 +18,7 @@
         <StackPanel Grid.Row="0">
             <WrapPanel Margin="10">
                 <TextBlock Text="地区名称：" Width="100"></TextBlock>
-                <TextBlock Text="{Binding CityName}" Width="100"></TextBlock>
+                <TextBlock Text="{Binding CityName}" Width="200"></TextBlock>
             </WrapPanel>
             <WrapPanel Margin="10">
                 <TextBlock Text="邮局名称：" Width="100"></TextBlock>
