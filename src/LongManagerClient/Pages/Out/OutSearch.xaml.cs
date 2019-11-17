@@ -29,8 +29,8 @@ namespace LongManagerClient.Pages.Out
         private string _logout = "";
         private string _outMail = "";
         private string _ajax = "";
-        private const int _lastPage = 400;
-        private const int _pageSize = 200;
+        private const int _lastPage = 200;
+        private const int _pageSize = 400;
         private readonly string _today = DateTime.Now.ToString("yyyy-MM-dd");
         private bool _flag = false;
 

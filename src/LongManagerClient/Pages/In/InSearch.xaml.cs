@@ -28,8 +28,8 @@ namespace LongManagerClient.Pages.In
         private string _login = "";
         private string _logout = "";
         private string _inMail = "";
-        private const int _lastPage = 400;
-        private const int _pageSize = 200;
+        private const int _lastPage = 200;
+        private const int _pageSize = 400;
         private string _date = "";
         private int _currentPage = 0;
         private bool _flag = false;
