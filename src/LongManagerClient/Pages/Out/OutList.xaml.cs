@@ -110,7 +110,7 @@ namespace LongManagerClient.Pages.Out
 
         private void OutExcel_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog dialog = new OpenFileDialog
+            var dialog = new OpenFileDialog
             {
                 Multiselect = false,
                 Filter = "Excel|*.xlsx",
@@ -119,9 +119,15 @@ namespace LongManagerClient.Pages.Out
 
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                new OutExcelHandle(dialog.FileName).Save();
+                var pWin = new ProgressBarWin
+                {
+                    CallBack = new OutExcelHandle(dialog.FileName).Save
+                };
+                pWin.ShowDialog();
+                Search();
             }
-            Search();
+
+            dialog.Dispose();
         }
     }
 }
