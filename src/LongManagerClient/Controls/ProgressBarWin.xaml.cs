@@ -21,11 +21,9 @@ namespace LongManagerClient.Controls
     /// </summary>
     public partial class ProgressBarWin : BaseWindow
     {
-        private readonly Action _closeAtcion;
         public ProgressBarWin()
         {
             InitializeComponent();
-            _closeAtcion = new Action(Close);
         }
 
 
@@ -35,7 +33,7 @@ namespace LongManagerClient.Controls
             Task.Run(() =>
             {
                 CallBack?.Invoke();
-                Dispatcher.BeginInvoke(_closeAtcion);
+                Dispatcher.Invoke(Close);
             });
         }
 
