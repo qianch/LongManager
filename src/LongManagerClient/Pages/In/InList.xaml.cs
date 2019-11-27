@@ -127,10 +127,6 @@ namespace LongManagerClient.Pages.In
                     {
                         AutoPickDbContext.EntryBill.Add(entryBill);
                     }
-                    else
-                    {
-                        AutoPickDbContext.EntryBill.Update(entryBill);
-                    }
 
                     info.IsPush = 1;
                     LongDbContext.InInfo.Update(info);

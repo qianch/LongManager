@@ -158,10 +158,6 @@ namespace LongManagerClient.Pages.JiangSuOut
                     {
                         AutoPickDbContext.BillExport.Add(billExport);
                     }
-                    else
-                    {
-                        AutoPickDbContext.BillExport.Update(billExport);
-                    }
 
                     outInfo.IsPush = 1;
                     LongDbContext.OutInfo.Update(outInfo);
