@@ -51,8 +51,6 @@ namespace LongManagerClient.Pages.JiangSuOut
         private void Search()
         {
             var jiangsu = LongDbContext.OutInfo.AsNoTracking().Where(x => x.CountryPosition == "38").AsEnumerable<BaseOut>();
-            //var history = LongDbContext.OutInfoHistory.AsNoTracking().Where(x => x.CountryPosition == "38").AsEnumerable<BaseOut>();
-            //jiangsu = jiangsu.Concat(history);
 
             if (!string.IsNullOrEmpty(TxtMailNO.Text))
             {
@@ -126,7 +124,7 @@ namespace LongManagerClient.Pages.JiangSuOut
             }
 
             var outInfos = LongDbContext.OutInfo.Where(x => x.IsPush != 1 && x.CountryPosition == "38");
-            var serverbillExports = AutoPickDbContext.BillExport.AsNoTracking().ToList();
+            var barCodes = AutoPickDbContext.BillExport.AsNoTracking().Select(x=>x.BarCode).ToList();
 
             int pageSize = 1000;
             int pages = (outInfos.Count() / pageSize);
@@ -153,7 +151,7 @@ namespace LongManagerClient.Pages.JiangSuOut
                         CreateDateTime = Convert.ToDateTime(outInfo.PostDate)
                     };
 
-                    int count = serverbillExports.Where(x => x.BarCode == billExport.BarCode).Count();
+                    int count = barCodes.Where(x => x == billExport.BarCode).Count();
                     if (count == 0)
                     {
                         AutoPickDbContext.BillExport.Add(billExport);

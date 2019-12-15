@@ -49,8 +49,6 @@ namespace LongManagerClient.Pages.In
         protected void Search()
         {
             var infos = LongDbContext.InInfo.AsNoTracking().AsEnumerable<BaseIn>();
-            //var history = LongDbContext.InInfoHistory.AsNoTracking().AsEnumerable<BaseIn>();
-            //infos = infos.Concat(history);
 
             if (!string.IsNullOrEmpty(TxtMailNO.Text))
             {
@@ -99,13 +97,14 @@ namespace LongManagerClient.Pages.In
             }
 
             var inInfos = LongDbContext.InInfo.Where(x => x.IsPush != 1);
-            var serverEntryBills = AutoPickDbContext.EntryBill.AsNoTracking().ToList();
+            var barCodes = AutoPickDbContext.EntryBill.AsNoTracking().Select(x=>x.BarCode).ToList();
 
             int pageSize = 1000;
             int pages = (inInfos.Count() / pageSize);
 
             for (int pageIndex = 0; pageIndex <= pages; pageIndex++)
             {
+
                 List<InInfo> subInInfos = inInfos
                     .Take(pageSize)
                     .GroupBy(x => x.MailNO)
@@ -122,7 +121,7 @@ namespace LongManagerClient.Pages.In
                         CreateDateTime = Convert.ToDateTime(info.PostDate)
                     };
 
-                    int count = serverEntryBills.Where(x => x.BarCode == entryBill.BarCode).Count();
+                    int count = barCodes.Where(x => x == entryBill.BarCode).Count();
                     if (count == 0)
                     {
                         AutoPickDbContext.EntryBill.Add(entryBill);

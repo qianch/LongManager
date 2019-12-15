@@ -33,7 +33,7 @@ namespace LongManagerClient.Controls
             Task.Run(() =>
             {
                 CallBack?.Invoke();
-                Dispatcher.Invoke(Close);
+                Dispatcher.InvokeAsync(Close);
             });
         }
 
