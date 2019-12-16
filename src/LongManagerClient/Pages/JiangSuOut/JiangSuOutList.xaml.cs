@@ -123,7 +123,7 @@ namespace LongManagerClient.Pages.JiangSuOut
                 return;
             }
 
-            var outInfos = LongDbContext.OutInfo.Where(x => x.IsPush != 1 && x.CountryPosition == "38");
+            var outInfos = LongDbContext.OutInfo.Where(x => x.IsPush != 1 && x.CountryPosition == "38" && !string.IsNullOrEmpty(x.JiangSuPosition));
             var barCodes = AutoPickDbContext.BillExport.AsNoTracking().Select(x => x.BarCode).ToList();
 
             int pageSize = 1000;
@@ -154,7 +154,7 @@ namespace LongManagerClient.Pages.JiangSuOut
 
                         int serverCount = barCodes.Where(x => x == billExport.BarCode).Count();
                         int localCount = mailNOs.Where(x => x == billExport.BarCode).Count();
-                        if (serverCount == 0 && localCount == 0) ;
+                        if (serverCount == 0 && localCount == 0)
                         {
                             mailNOs.Add(billExport.BarCode);
                             AutoPickDbContext.BillExport.Add(billExport);
