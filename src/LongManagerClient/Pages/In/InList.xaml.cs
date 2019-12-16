@@ -91,48 +91,58 @@ namespace LongManagerClient.Pages.In
             }
             catch (Exception ex)
             {
-                _log.Error(ex.ToString());
+                _log.Error("连接出错", ex);
                 MessageBox.Show("无法连接到分拣机数据库", "提示", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
             var inInfos = LongDbContext.InInfo.Where(x => x.IsPush != 1);
-            var barCodes = AutoPickDbContext.EntryBill.AsNoTracking().Select(x=>x.BarCode).ToList();
+            var barCodes = AutoPickDbContext.EntryBill.AsNoTracking().Select(x => x.BarCode).ToList();
 
             int pageSize = 1000;
             int pages = (inInfos.Count() / pageSize);
 
-            for (int pageIndex = 0; pageIndex <= pages; pageIndex++)
+            try
             {
-
-                List<InInfo> subInInfos = inInfos
-                    .Take(pageSize)
-                    .GroupBy(x => x.MailNO)
-                    .Select(x => x.FirstOrDefault())
-                    .ToList();
-
-                foreach (var info in subInInfos)
+                for (int pageIndex = 0; pageIndex <= pages; pageIndex++)
                 {
-                    var entryBill = new EntryBill
-                    {
-                        BarCode = info.MailNO,
-                        DestAddress = info.Address,
-                        PresortPost = info.OrgName,
-                        CreateDateTime = Convert.ToDateTime(info.PostDate)
-                    };
 
-                    int count = barCodes.Where(x => x == entryBill.BarCode).Count();
-                    if (count == 0)
+                    List<InInfo> subInInfos = inInfos
+                        .Take(pageSize)
+                        .ToList();
+
+                    List<string> mailNOs = new List<string>();
+                    foreach (var info in subInInfos)
                     {
-                        AutoPickDbContext.EntryBill.Add(entryBill);
+                        var entryBill = new EntryBill
+                        {
+                            BarCode = info.MailNO,
+                            DestAddress = info.Address,
+                            PresortPost = info.OrgName,
+                            CreateDateTime = Convert.ToDateTime(info.PostDate)
+                        };
+
+                        int serverCount = barCodes.Where(x => x == entryBill.BarCode).Count();
+                        int localCount = mailNOs.Where(x => x == entryBill.BarCode).Count();
+
+                        if (serverCount == 0 && localCount == 0)
+                        {
+                            mailNOs.Add(info.MailNO);
+                            AutoPickDbContext.EntryBill.Add(entryBill);
+                        }
+
+                        info.IsPush = 1;
+                        LongDbContext.InInfo.Update(info);
                     }
 
-                    info.IsPush = 1;
-                    LongDbContext.InInfo.Update(info);
+                    AutoPickDbContext.SaveChanges();
+                    LongDbContext.SaveChanges();
                 }
-
-                AutoPickDbContext.SaveChanges();
-                LongDbContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                _log.Error("同步出错", ex);
+                return;
             }
         }
 

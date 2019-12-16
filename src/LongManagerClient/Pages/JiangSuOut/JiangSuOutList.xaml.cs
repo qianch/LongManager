@@ -118,51 +118,60 @@ namespace LongManagerClient.Pages.JiangSuOut
             }
             catch (Exception ex)
             {
-                _log.Error(ex.ToString());
+                _log.Error("连接出错", ex);
                 MessageBox.Show("无法连接到分拣机数据库", "提示", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
             var outInfos = LongDbContext.OutInfo.Where(x => x.IsPush != 1 && x.CountryPosition == "38");
-            var barCodes = AutoPickDbContext.BillExport.AsNoTracking().Select(x=>x.BarCode).ToList();
+            var barCodes = AutoPickDbContext.BillExport.AsNoTracking().Select(x => x.BarCode).ToList();
 
             int pageSize = 1000;
             int pages = (outInfos.Count() / pageSize);
 
-            for (int pageIndex = 0; pageIndex <= pages; pageIndex++)
+            try
             {
-                List<OutInfo> subOutInfos = outInfos
-                    .Take(pageSize)
-                    .GroupBy(x => x.MailNO)
-                    .Select(x => x.FirstOrDefault())
-                    .ToList();
-
-                foreach (var outInfo in subOutInfos)
+                for (int pageIndex = 0; pageIndex <= pages; pageIndex++)
                 {
-                    var countryBinCode = outInfo.CountryPosition == null ? "" : "10" + outInfo.CountryPosition.PadLeft(2, '0');
-                    var binCode = outInfo.JiangSuPosition == null ? "" : "10" + outInfo.JiangSuPosition.PadLeft(2, '0');
-                    var billExport = new BillExport
-                    {
-                        BarCode = outInfo.MailNO,
-                        DestAddress = outInfo.Address,
-                        //CountryBinCode = countryBinCode,
-                        BinCode = binCode,
-                        CityName = outInfo.OrgName,
-                        CreateDateTime = Convert.ToDateTime(outInfo.PostDate)
-                    };
+                    List<OutInfo> subOutInfos = outInfos
+                        .Take(pageSize)
+                        .ToList();
 
-                    int count = barCodes.Where(x => x == billExport.BarCode).Count();
-                    if (count == 0)
+                    List<string> mailNOs = new List<string>();
+                    foreach (var outInfo in subOutInfos)
                     {
-                        AutoPickDbContext.BillExport.Add(billExport);
+                        var countryBinCode = outInfo.CountryPosition == null ? "" : "10" + outInfo.CountryPosition.PadLeft(2, '0');
+                        var binCode = outInfo.JiangSuPosition == null ? "" : "10" + outInfo.JiangSuPosition.PadLeft(2, '0');
+                        var billExport = new BillExport
+                        {
+                            BarCode = outInfo.MailNO,
+                            DestAddress = outInfo.Address,
+                            //CountryBinCode = countryBinCode,
+                            BinCode = binCode,
+                            CityName = outInfo.OrgName,
+                            CreateDateTime = Convert.ToDateTime(outInfo.PostDate)
+                        };
+
+                        int serverCount = barCodes.Where(x => x == billExport.BarCode).Count();
+                        int localCount = mailNOs.Where(x => x == billExport.BarCode).Count();
+                        if (serverCount == 0 && localCount == 0) ;
+                        {
+                            mailNOs.Add(billExport.BarCode);
+                            AutoPickDbContext.BillExport.Add(billExport);
+                        }
+
+                        outInfo.IsPush = 1;
+                        LongDbContext.OutInfo.Update(outInfo);
                     }
 
-                    outInfo.IsPush = 1;
-                    LongDbContext.OutInfo.Update(outInfo);
+                    AutoPickDbContext.SaveChanges();
+                    LongDbContext.SaveChanges();
                 }
-
-                AutoPickDbContext.SaveChanges();
-                LongDbContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                _log.Error("同步出错", ex);
+                return;
             }
         }
 
