@@ -104,14 +104,14 @@ namespace LongManagerClient.Pages.In
 
             try
             {
+                List<string> mailNOs = new List<string>();
                 for (int pageIndex = 0; pageIndex <= pages; pageIndex++)
                 {
 
                     List<InInfo> subInInfos = inInfos
                         .Take(pageSize)
                         .ToList();
-
-                    List<string> mailNOs = new List<string>();
+             
                     foreach (var info in subInInfos)
                     {
                         var entryBill = new EntryBill

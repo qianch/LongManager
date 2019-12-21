@@ -131,13 +131,14 @@ namespace LongManagerClient.Pages.JiangSuOut
 
             try
             {
+                List<string> mailNOs = new List<string>();
+
                 for (int pageIndex = 0; pageIndex <= pages; pageIndex++)
                 {
                     List<OutInfo> subOutInfos = outInfos
                         .Take(pageSize)
                         .ToList();
 
-                    List<string> mailNOs = new List<string>();
                     foreach (var outInfo in subOutInfos)
                     {
                         var countryBinCode = outInfo.CountryPosition == null ? "" : "10" + outInfo.CountryPosition.PadLeft(2, '0');
