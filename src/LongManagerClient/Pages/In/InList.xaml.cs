@@ -164,6 +164,9 @@ namespace LongManagerClient.Pages.In
 
         private void MoveToHistory()
         {
+            LongDbContext.InInfoHistory.RemoveRange(LongDbContext.InInfoHistory.ToList());
+            LongDbContext.SaveChanges();
+
             var inInfos = LongDbContext.InInfo.Where(x => x.IsPush == 1);
             int pageSize = 10000;
             int pages = (inInfos.Count() / pageSize);
