@@ -9,6 +9,7 @@ IndexData/
 BigFileUpLoadStorage/
 ButtonLog/
 Log4Net/
+publish/
 *.log 
 obj/
 bin/
