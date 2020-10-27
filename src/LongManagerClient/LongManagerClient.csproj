@@ -336,7 +336,7 @@
       <Version>4.9.2</Version>
     </PackageReference>
     <PackageReference Include="CefSharp.Wpf">
-      <Version>73.1.130</Version>
+      <Version>85.3.130</Version>
     </PackageReference>
     <PackageReference Include="log4net">
       <Version>2.0.8</Version>
