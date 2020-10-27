@@ -17,8 +17,12 @@
         </Grid.RowDefinitions>
         <WrapPanel Grid.Row="0" Margin="24 0 0 0" VerticalAlignment="Center">
             <Button x:Name="GoLogin" Margin="10" Content="返回登陆页"  Click="GoLogin_Click"></Button>
-            <TextBlock Margin="15" Text="请选择抓取日期：" Width="100"></TextBlock>
+            <TextBlock Margin="15" Text="日期：" Width="50"></TextBlock>
             <DatePicker x:Name="SelectDate" Margin="10" Width="200" SelectedDateChanged="SelectDate_SelectedDateChanged"></DatePicker>
+            <TextBlock Margin="15" Text="页数：" Width="50"></TextBlock>
+            <TextBox x:Name="LastPage" Margin="10" Width="50" TextChanged="LastPage_TextChanged" ></TextBox>
+            <TextBlock Margin="15" Text="每页：" Width="50"></TextBlock>
+            <TextBox x:Name="PageSize" Margin="10" Width="50" TextChanged="PageSize_TextChanged"></TextBox>
         </WrapPanel>
         <DockPanel Grid.Row="1">
             <wpf:ChromiumWebBrowser x:Name="Browser"></wpf:ChromiumWebBrowser>

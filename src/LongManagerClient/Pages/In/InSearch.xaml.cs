@@ -28,8 +28,8 @@ namespace LongManagerClient.Pages.In
         private string _login = "";
         private string _logout = "";
         private string _inMail = "";
-        private const int _lastPage = 800;
-        private const int _pageSize = 100;
+        private int _lastPage = 800;
+        private int _pageSize = 100;
         private string _date = "";
         private int _currentPage = 0;
         private bool _flag = false;
@@ -37,6 +37,9 @@ namespace LongManagerClient.Pages.In
         public InSearch()
         {
             InitializeComponent();
+
+            LastPage.Text = _lastPage.ToString();
+            PageSize.Text = _pageSize.ToString();
 
             var bindingOptions = new BindingOptions
             {
@@ -191,6 +194,16 @@ namespace LongManagerClient.Pages.In
         private void SelectDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
             _date = SelectDate.SelectedDate.Value.ToString("yyyy-MM-dd");
+        }
+
+        private void PageSize_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            _pageSize = Convert.ToInt32(PageSize.Text);
+        }
+
+        private void LastPage_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            _lastPage = Convert.ToInt32(LastPage.Text);
         }
     }
 }
